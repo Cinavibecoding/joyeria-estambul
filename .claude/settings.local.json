@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la \"/Users/victor/Nuevo proyecto pagina \" 2>/dev/null; echo \"---PAGINA DE INTERNET---\"; ls -la \"/Users/victor/Pagina de internet Casa de Ley\" 2>/dev/null; echo \"---HOME DIRS---\"; ls -1 /Users/victor 2>/dev/null)"
+    ]
+  }
+}
