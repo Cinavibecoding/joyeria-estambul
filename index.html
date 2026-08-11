@@ -1981,7 +1981,7 @@ function bloquearFondo(on){
   /* El nav se deja accesible cuando el índice está abierto: su botón vive ahí
      y tiene que poder recibir el foco para cerrarlo. */
   const indiceAbierto = $("#indice").classList.contains("is-open");
-  $$("header.nav, main, footer.footer, .wabar").forEach(el=>{
+  $$("header.nav, main, footer.footer, .wafab").forEach(el=>{
     const saltar = indiceAbierto && el.matches("header.nav");
     if(on && !saltar) el.setAttribute("inert",""); else el.removeAttribute("inert");
   });
@@ -2438,13 +2438,6 @@ const MENSAJES = {
   visita:   "Hola, quiero pasar por la tienda. ¿En qué horario los consigo?"
 };
 $$("[data-wa]").forEach(a => a.href = waLink(MENSAJES[a.dataset.wa]));
-
-const wabar = $("#wabar");
-let lastY = scrollY;
-addEventListener("scroll", ()=>{
-  wabar.classList.toggle("is-hidden", scrollY > lastY && scrollY > 240);
-  lastY = scrollY;
-}, {passive:true});
 </script>
 
 <!-- ============================================================
