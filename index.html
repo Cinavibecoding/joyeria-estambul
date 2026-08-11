@@ -6,148 +6,82 @@
 <title>Laksmy — Joyería en Caracas · Oro 10k, 14k, 18k y plata Ley 950</title>
 <meta name="description" content="Laksmy. Joyería en Caracas. Anillos de grado, aros de boda, cadenas y piezas a la medida en oro 10k, 14k, 18k y plata Ley 950. También taller de orfebrería para joyerías.">
 <meta name="theme-color" content="#F9F7F2">
-<!-- Monograma: la L de Cormorant Garamond (peso 400) inscrita en un círculo
-     de filete de 1px. El contorno se extrajo del propio woff2 con fontTools,
-     no está dibujado a mano: es exactamente la letra de la tipografía. -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2231.5%22%20fill%3D%22none%22%20stroke%3D%22%23B08A46%22%20stroke-width%3D%221%22%2F%3E%3Cpath%20d%3D%22M27.58%2020.94V42.92Q27.58%2044.23%2027.87%2044.89Q28.16%2045.54%2028.99%2045.77Q29.82%2046%2031.43%2046H36.68Q39.46%2046%2041.08%2044.25Q42.7%2042.51%2043.19%2039.65Q43.2%2039.5%2043.46%2039.53Q43.72%2039.56%2043.72%2039.7Q43.58%2041.02%2043.43%2042.87Q43.29%2044.71%2043.29%2046.28Q43.29%2047%2042.57%2047H20.37Q20.28%2047%2020.28%2046.71Q20.28%2046.42%2020.37%2046.42Q22.13%2046.42%2023.01%2046.18Q23.88%2045.94%2024.18%2045.22Q24.48%2044.5%2024.48%2043.11V20.89Q24.48%2019.5%2024.18%2018.8Q23.88%2018.1%2023.01%2017.84Q22.13%2017.58%2020.37%2017.58Q20.28%2017.58%2020.28%2017.29Q20.28%2017%2020.37%2017Q21.53%2017%2022.98%2017.07Q24.43%2017.14%2026.01%2017.14Q27.68%2017.14%2029.12%2017.07Q30.56%2017%2031.68%2017Q31.79%2017%2031.79%2017.29Q31.79%2017.58%2031.68%2017.58Q29.93%2017.58%2029.06%2017.84Q28.18%2018.1%2027.88%2018.82Q27.58%2019.54%2027.58%2020.94Z%22%20fill%3D%22%2316211C%22%2F%3E%3C%2Fsvg%3E">
+<!-- Favicon tipográfico en línea: la "L" sobre piedra de toque. Provisional
+     hasta que exista el sello nuevo — los assets viejos son el monograma "CL"
+     de Casa de Ley y ya no corresponden a Laksmy. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23161D1C'/%3E%3Ctext x='32' y='47' font-family='Georgia,serif' font-size='42' fill='%23F7F9F7' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="assets/fuentes/cormorant-garamond-300-500.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fuentes/jost-300-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fuentes.css">
 <style>
 /* ============================================================
-   LAKSMY — Sistema "Casa Laksmy"
-   La tienda hecha sitio: simetría axial, mucho aire, una idea por
-   pantalla, silencio tipográfico. El oro sólo como filete.
-
+   LAKSMY — Sistema "El Espectro"
    Todo el color vive en :root. Nada de hex literal fuera de aquí.
    ============================================================ */
 :root{
-  /* --- Paleta --- */
-  --marfil:#F9F7F2;          /* fondo base de todo el sitio */
-  --superficie:#EDE7DA;      /* tarjetas, bloques secundarios, inputs */
-  --verde-vitrina:#16211C;   /* texto principal y bloques oscuros */
-  --verde-profundo:#070B09;  /* footer y bloques a sangre */
-  --lacre:#6B1D2A;           /* ÚNICO color de acción */
-  --oro:#B08A46;             /* SÓLO filetes de 1px y subrayados */
-  --plata:#A9AEA8;           /* el equivalente del oro en fichas de plata */
+  /* Paleta Casa Laksmy. Los nombres de token se conservan del sistema
+     anterior: lo que cambia es el valor, no la estructura. */
+  --field:#F9F7F2;      /* Marfil — fondo base de todo el sitio */
+  --panel:#EDE7DA;      /* Superficie — tarjetas, bloques secundarios, inputs */
+  --toque:#16211C;      /* Verde Vitrina — texto principal y bloques oscuros */
+  --profundo:#070B09;   /* Verde Profundo — footer y bloques a sangre */
+  --ink:#16211C;        /* Tinta */
+  --ink-2:#636A65;      /* Grafito. Es el verde vitrina al 66% sobre marfil:
+                           da 5,0:1 y cumple AA. Al 55% se quedaba en 3,7:1. */
+  --lacre:#6B1D2A;      /* Lacre — único color de acción */
+  --lacre-dark:#54161F;
+  --oro:#B08A46;        /* Oro — sólo filetes de 1px y subrayados, nunca relleno */
+  --plata:#A9AEA8;      /* El equivalente del oro en piezas de plata Ley 950 */
+  --line:#CBCEC7;
+  --line-soft:#E1DFD6;
 
-  /* Grises derivados. Van aquí y no sueltos por el archivo.
-     --tinta-suave es el verde vitrina al 66%, no al 55%: al 55% da
-     3,7:1 sobre marfil y no llega al AA de 4,5:1 que exige el encargo.
-     Al 66% da 5,0:1 y a simple vista es el mismo gris. */
-  --tinta:var(--verde-vitrina);
-  --tinta-suave:#636A65;
-  --filete:color-mix(in srgb,var(--verde-vitrina) 18%,transparent);
-  --filete-claro:color-mix(in srgb,var(--verde-vitrina) 10%,transparent);
-  --sobre-oscuro:color-mix(in srgb,var(--marfil) 72%,transparent);
-
-  /* Espectro — exclusivo de Anillos de Grado.
-     Ya no rellena áreas: entinta el filete de la fila y el hilo de la ficha. */
+  /* Espectro — exclusivo de Anillos de Grado */
   --e-azul:#20458C; --e-verde:#0F6B4A; --e-rojo:#9E2233;
   --e-amarillo:#8A6410; --e-morado:#5B3A87; --e-rosa:#A83A62;
-  --e-blanco:#9EA79E;
+  --e-blanco:#C9CFC9;
 
-  /* --- Tipografía: tres registros y punto --- */
+  --t-oro:#EDE7DA; --t-plata:#E7E9E4;
+
   --display:"Cormorant Garamond",Georgia,serif;
   --sans:"Jost",system-ui,-apple-system,sans-serif;
+  /* DM Mono sale del sitio. El token se conserva apuntando a Jost para no
+     tocar las 17 reglas que lo usaban; lo que la monoespaciada aportaba de
+     verdad — que las columnas de cifras cuadren — lo da tabular-nums. */
+  --mono:"Jost",system-ui,-apple-system,sans-serif;
 
-  /* --- Espaciado: múltiplos de 4, generoso --- */
-  --s1:.25rem; --s2:.5rem;  --s3:.75rem; --s4:1rem;  --s5:1.5rem;
-  --s6:2rem;   --s7:3rem;   --s8:4rem;   --s9:6rem;  --s10:8rem;
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem;
+  --s5:1.5rem; --s6:2rem; --s7:3rem; --s8:4rem; --s9:6rem;
 
-  --wrap:1440px; --radius:2px;
+  --wrap:1140px; --radius:3px;
   --ease:cubic-bezier(.22,.61,.36,1);
-  --t:420ms;
-  /* La única sombra permitida en todo el sistema. */
-  --sombra:0 1px 0 rgba(22,33,28,.12);
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{
-  margin:0;background:var(--marfil);color:var(--tinta);
-  font-family:var(--sans);font-weight:300;font-size:1rem;line-height:1.75;
+  margin:0;background:var(--field);color:var(--ink);
+  font-family:var(--sans);font-size:1rem;line-height:1.6;
   -webkit-font-smoothing:antialiased;
 }
 img{max-width:100%;display:block}
 a{color:inherit}
 button{font:inherit;color:inherit}
+.wrap{width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--s5)}
 
-/* ---------- Grilla: simetría axial ----------
-   Márgenes laterales del 18% en escritorio, 8% en tablet, 24px en móvil.
-   El contenido va centrado; el texto largo nunca pasa de 74 caracteres. */
-.wrap{
-  width:100%;max-width:var(--wrap);margin-inline:auto;
-  padding-inline:24px;
+.punzon{
+  font-family:var(--mono);font-weight:400;font-size:.6875rem;
+  text-transform:uppercase;letter-spacing:.16em;line-height:1;
 }
-@media(min-width:768px){.wrap{padding-inline:8%}}
-@media(min-width:1280px){.wrap{padding-inline:18%}}
-/* Medida de lectura. Se aplica al texto corrido, no a las rejillas. */
-.medida{max-width:74ch;margin-inline:auto}
-
-/* ---------- Registros tipográficos ---------- */
-/* display — Cormorant 300, el registro monumental */
-.display{
-  font-family:var(--display);font-weight:300;
-  font-size:clamp(56px,8vw,128px);line-height:.95;letter-spacing:.01em;
-  margin:0;
-}
-/* subtítulo — cursiva, RESERVADA al nombre de marca, citas y bajadas.
-   Jamás en botones ni navegación. */
-.subtitulo{
-  font-family:var(--display);font-style:italic;font-weight:300;
-  font-size:clamp(24px,3vw,28px);line-height:1.45;margin:0;
-}
-/* etiqueta — el antiguo .punzon. Conserva el nombre de clase porque el
-   JavaScript lo escribe en las plantillas; lo que cambia es el estilo. */
-.punzon,.etiqueta{
-  font-family:var(--sans);font-weight:400;font-size:11px;
-  letter-spacing:.18em;text-transform:uppercase;line-height:1.4;
-  color:var(--tinta-suave);
-}
-/* precio — Cormorant en versalitas */
-.dato,.precio__valor,.card__price{
-  font-family:var(--display);font-weight:400;
-  font-variant:small-caps;font-variant-numeric:tabular-nums;
-  font-size:20px;letter-spacing:.16em;
-}
-h1,h2,h3,h4{font-family:var(--display);font-weight:300;letter-spacing:.01em}
-strong,b{font-weight:400}
-
-/* ---------- Estados ----------
-   Foco visible obligatorio. Nunca se elimina. */
-:focus-visible{outline:1px solid var(--lacre);outline-offset:3px}
-.skip{position:absolute;left:-9999px;top:0;background:var(--verde-vitrina);color:var(--marfil);padding:var(--s3) var(--s4);z-index:100}
+.dato{font-family:var(--mono);font-weight:500;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--lacre);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--toque);color:var(--panel);padding:var(--s3) var(--s4);z-index:100}
 .skip:focus{left:var(--s4);top:var(--s4)}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-/* Filete que se dibuja de izquierda a derecha bajo el elemento.
-   Es el ÚNICO gesto de hover del sistema: no hay desplazamiento ni escala.
-   El scaleX va sobre el pseudo-elemento, nunca sobre el elemento. */
-.filete-hover{position:relative}
-.filete-hover::after{
-  content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;
-  background:var(--oro);transform:scaleX(0);transform-origin:left;
-  transition:transform var(--t) var(--ease);
-}
-.filete-hover:hover::after,.filete-hover:focus-visible::after{transform:scaleX(1)}
-
-/* ---------- LA MOLDURA ----------
-   Marco de doble filete: exterior 1px verde al 18%, interior 1px oro,
-   separados 3px. El exterior va en ::before y no en outline para dejar
-   el outline libre — es donde vive el anillo de foco. */
-.moldura{position:relative;border:1px solid var(--oro)}
-.moldura::before{
-  content:"";position:absolute;inset:-4px;pointer-events:none;
-  border:1px solid var(--filete);
-}
-/* En fichas de plata el filete interior cambia de metal. */
-.moldura--plata{border-color:var(--plata)}
-
 /* ---------- 1 · Utility ---------- */
-.utility{background:var(--verde-vitrina);color:var(--marfil)}
+.utility{background:var(--toque);color:var(--panel)}
 .utility__row{display:flex;gap:var(--s5);align-items:center;justify-content:center;padding-block:var(--s3);flex-wrap:wrap}
-.utility__item{color:var(--sobre-oscuro);white-space:nowrap}
-.utility__sep{color:var(--sobre-oscuro);opacity:.4}
+.utility__item{opacity:.82;white-space:nowrap}
+.utility__sep{opacity:.35}
 @media(max-width:560px){
   .utility__row{gap:var(--s3)}
   .utility__item--sec,.utility__sep{display:none}
@@ -156,50 +90,29 @@ strong,b{font-weight:400}
 /* ---------- 2 · Nav ---------- */
 .nav{
   position:sticky;top:0;z-index:50;
-  background:color-mix(in srgb,var(--marfil) 92%,transparent);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--filete);
+  background:color-mix(in srgb,var(--field) 88%,transparent);
+  backdrop-filter:saturate(1.4) blur(10px);
+  border-bottom:1px solid var(--line);
 }
-.nav__row{display:flex;align-items:center;gap:var(--s5);padding-block:var(--s4);min-width:0}
-/* La simetría axial del 18% es para el contenido, no para el cabezal: con ese
-   margen la navegación se estrangula y los enlaces se parten en dos líneas. */
-@media(min-width:1280px){.nav .nav__row{padding-inline:8%}}
+.nav__row{display:flex;align-items:center;gap:var(--s5);padding-block:var(--s3);min-width:0}
 /* En 375px la fila medía 447px y empujaba TODO el documento: aparecía una
    franja muerta a la derecha en cada sección. Se compacta hasta que cabe. */
 @media(max-width:700px){
-  .nav__row{gap:var(--s2);padding-block:var(--s3)}
+  .nav__row{gap:var(--s2);padding-inline:var(--s4)}
   .brand__mark{display:none}
   .nav__end{gap:var(--s2);min-width:0}
   .pedido-btn{padding:.6rem .7rem}
   .pedido-btn__txt{display:none}
   .pedido-btn__n{margin-left:0}
 }
-/* ---------- Wordmark ----------
-   LAKSMY en Cormorant 400 versalitas con un filete de oro debajo que ocupa
-   exactamente el ancho de la palabra: por eso el filete es un borde del
-   propio texto y no un pseudo-elemento de la caja. */
-.brand{text-decoration:none;flex:0 0 auto;min-width:0;display:flex;align-items:baseline;gap:var(--s3);min-height:44px;white-space:nowrap}
-.brand__name{
-  font-family:var(--display);font-weight:400;font-variant:small-caps;
-  font-size:1.5rem;line-height:1.2;letter-spacing:.28em;
-  position:relative;padding-bottom:.14em;
-}
-/* El filete va en un pseudo-elemento y no en border-bottom: el espaciado de
-   la última versalita alargaría la línea .28em más allá de la palabra. */
-.brand__name::after{
-  content:"";position:absolute;left:0;right:.28em;bottom:0;height:1px;background:var(--oro);
-}
-.brand__mark{color:var(--tinta-suave)}
-.nav__links{display:none;gap:var(--s6);margin-left:auto;align-items:center}
-.nav__link{
-  position:relative;text-decoration:none;font-weight:300;font-size:11px;
-  letter-spacing:.18em;text-transform:uppercase;padding-block:var(--s2);
-  white-space:nowrap;
-  transition:color var(--t) var(--ease);
-}
+.brand{text-decoration:none;flex:0 1 auto;min-width:0;display:flex;align-items:baseline;gap:var(--s2);min-height:44px;align-content:center;flex-wrap:wrap}
+.brand__name{font-family:var(--display);font-size:1.45rem;line-height:1;letter-spacing:.01em}
+.brand__mark{color:var(--ink-2)}
+.nav__links{display:none;gap:var(--s5);margin-left:auto;align-items:center}
+.nav__link{text-decoration:none;font-weight:500;font-size:.9375rem;padding-block:var(--s2);position:relative}
 .nav__link::after{
-  content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--oro);
-  transform:scaleX(0);transform-origin:left;transition:transform var(--t) var(--ease);
+  content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--lacre);
+  transform:scaleX(0);transform-origin:left;transition:transform .28s var(--ease);
 }
 .nav__link:hover::after,.nav__link:focus-visible::after{transform:scaleX(1)}
 .nav__end{margin-left:auto;display:flex;align-items:center;gap:var(--s3);flex:0 0 auto}
@@ -217,554 +130,454 @@ strong,b{font-weight:400}
    no lo busca. */
 .menu-btn{
   display:flex;align-items:center;gap:var(--s3);
-  background:transparent;border:1px solid var(--filete);border-radius:var(--radius);
+  background:transparent;border:1px solid var(--line);border-radius:var(--radius);
   padding:.7rem .9rem;min-height:44px;cursor:pointer;flex:0 0 auto;
-  transition:border-color var(--t) var(--ease),color var(--t) var(--ease);
+  transition:border-color .2s var(--ease),background .2s var(--ease);
 }
-.menu-btn:hover{border-color:var(--oro)}
+.menu-btn:hover{border-color:var(--ink);background:var(--panel)}
 .menu-btn__lineas{display:flex;flex-direction:column;gap:4px;width:18px}
-.menu-btn__lineas i{display:block;height:1px;background:var(--tinta)}
-.menu-btn[aria-expanded="true"] .menu-btn__lineas i:nth-child(2){opacity:0}
-.menu-btn__txt{
-  font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--tinta-suave);
+.menu-btn__lineas i{
+  display:block;height:1.5px;background:var(--ink);border-radius:1px;
+  transition:transform .3s var(--ease),opacity .2s var(--ease);
 }
+.menu-btn[aria-expanded="true"] .menu-btn__lineas i:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] .menu-btn__lineas i:nth-child(2){opacity:0}
+.menu-btn[aria-expanded="true"] .menu-btn__lineas i:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+.menu-btn__txt{color:var(--ink-2)}
 @media(max-width:560px){.menu-btn__txt{display:none}.menu-btn{padding:.7rem}}
 
 /* ---------- Índice (panel lateral) ---------- */
-.indice{position:fixed;inset:0;z-index:85;display:flex;visibility:hidden;pointer-events:none}
+.indice{
+  position:fixed;inset:0;z-index:85;display:flex;
+  visibility:hidden;pointer-events:none;
+}
 .indice.is-open{visibility:visible;pointer-events:auto}
 .indice__velo{
-  position:absolute;inset:0;background:rgba(7,11,9,.55);
-  opacity:0;transition:opacity var(--t) var(--ease);
+  position:absolute;inset:0;background:rgba(22,29,28,.5);
+  opacity:0;transition:opacity .32s var(--ease);
 }
 .indice.is-open .indice__velo{opacity:1}
 .indice__panel{
-  position:relative;background:var(--marfil);
-  width:min(420px,88vw);height:100%;overflow-y:auto;
-  padding:var(--s6);display:flex;flex-direction:column;gap:var(--s7);
-  border-right:1px solid var(--oro);
-  opacity:0;transition:opacity var(--t) var(--ease);
+  position:relative;background:var(--field);
+  width:min(400px,88vw);height:100%;overflow-y:auto;
+  padding:var(--s5);display:flex;flex-direction:column;gap:var(--s6);
+  transform:translateX(-100%);
+  transition:transform .38s var(--ease);
+  box-shadow:0 0 40px rgba(22,29,28,.28);
 }
-.indice.is-open .indice__panel{opacity:1}
+.indice.is-open .indice__panel{transform:none}
 .indice__cab{display:flex;align-items:center;justify-content:space-between;gap:var(--s4)}
-.indice__marca{
-  font-family:var(--display);font-weight:400;font-variant:small-caps;
-  font-size:1.5rem;line-height:1.2;letter-spacing:.28em;
-  position:relative;padding-bottom:.14em;
-}
-.indice__marca::after{
-  content:"";position:absolute;left:0;right:.28em;bottom:0;height:1px;background:var(--oro);
-}
+.indice__marca{font-family:var(--display);font-size:1.5rem;line-height:1}
 .indice__grupo{display:flex;flex-direction:column;gap:var(--s2)}
-.indice__titulo{margin-bottom:var(--s3)}
+.indice__titulo{color:var(--ink-2);margin-bottom:var(--s2)}
 .indice__link{
-  position:relative;display:flex;align-items:center;justify-content:space-between;gap:var(--s3);
-  text-decoration:none;padding:.8rem 0;min-height:44px;
-  border-bottom:1px solid var(--filete-claro);
-  transition:color var(--t) var(--ease),border-color var(--t) var(--ease);
+  display:flex;align-items:center;justify-content:space-between;gap:var(--s3);
+  text-decoration:none;padding:.7rem 0;min-height:44px;
+  border-bottom:1px solid var(--line-soft);
+  transition:color .2s var(--ease),padding-left .2s var(--ease);
 }
-.indice__link:hover,.indice__link:focus-visible{color:var(--lacre);border-color:var(--oro)}
-.indice__link span:last-child{color:var(--tinta-suave);font-size:11px;letter-spacing:.18em}
+.indice__link:hover{color:var(--lacre);padding-left:var(--s2)}
+.indice__link span:last-child{color:var(--ink-2);font-size:.75rem}
 
 /* Los tres mensajes que no deben perderse: fabricación a pedido, oro como
    resguardo, y taller para joyerías. */
 .indice__destacado{
-  display:block;text-decoration:none;padding:var(--s5);
-  background:var(--superficie);border:1px solid transparent;
-  border-left:1px solid var(--lacre);
-  transition:border-color var(--t) var(--ease),color var(--t) var(--ease);
+  display:block;text-decoration:none;padding:var(--s4);
+  background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--lacre);
+  border-radius:var(--radius);
+  transition:border-color .2s var(--ease),transform .2s var(--ease);
 }
-.indice__destacado:hover{border-color:var(--oro);border-left-color:var(--lacre)}
+.indice__destacado:hover{transform:translateX(2px);border-color:var(--ink)}
 .indice__destacado + .indice__destacado{margin-top:var(--s3)}
-.indice__dt{display:block;font-family:var(--display);font-size:1.25rem;line-height:1.3;margin-bottom:var(--s1)}
-.indice__dd{display:block;color:var(--tinta-suave);font-size:.875rem;line-height:1.6}
+.indice__dt{display:block;font-weight:600;margin-bottom:var(--s1)}
+.indice__dd{display:block;color:var(--ink-2);font-size:.875rem;line-height:1.5}
 
 /* Bloque B2B: mismo peso visual, tratamiento distinto. Es una derivada real
    del negocio, no puede quedar escondida — pero tampoco puede opacar la
    tienda, que es el grueso de clientes. */
-.indice__taller{background:var(--verde-vitrina);color:var(--marfil);padding:var(--s6)}
-.indice__taller .indice__titulo{color:var(--sobre-oscuro)}
-.indice__taller .indice__dt{color:var(--marfil)}
-.indice__taller .indice__dd{color:var(--sobre-oscuro)}
-.indice__taller .indice__destacado{
-  background:transparent;border:0;border-left:1px solid var(--oro);
-  padding:0 0 0 var(--s5);margin-bottom:var(--s5);
+.indice__taller{
+  background:var(--toque);color:var(--panel);
+  border-radius:var(--radius);padding:var(--s5);
 }
-.indice__taller .indice__destacado:hover{border-left-color:var(--marfil)}
+.indice__taller .indice__titulo{color:var(--panel);opacity:.6}
+.indice__taller .indice__dt{color:var(--panel)}
+.indice__taller .indice__dd{color:var(--panel);opacity:.75}
+.indice__taller .indice__destacado{
+  background:transparent;border:0;border-left:2px solid var(--panel);
+  border-radius:0;padding:0 0 0 var(--s4);margin-bottom:var(--s4);
+}
+.indice__taller .indice__destacado:hover{border-color:var(--lacre)}
 
 /* Contador de pedido */
 .pedido-btn{
-  position:relative;background:transparent;border:1px solid var(--filete);
+  position:relative;background:transparent;border:1px solid var(--line);
   border-radius:var(--radius);padding:.6rem .9rem;min-height:44px;cursor:pointer;
   display:flex;align-items:center;gap:var(--s2);flex:0 0 auto;
-  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  transition:border-color var(--t) var(--ease);
+  transition:border-color .2s var(--ease);
 }
-.pedido-btn:hover{border-color:var(--oro)}
+.pedido-btn:hover{border-color:var(--ink)}
 .pedido-btn[hidden]{display:none}
 .pedido-btn__n{
-  font-variant-numeric:tabular-nums;font-size:11px;letter-spacing:.06em;
-  background:var(--lacre);color:var(--marfil);
-  padding:.15rem .45rem;margin-left:.35rem;
+  font-family:var(--mono);font-weight:500;font-size:.75rem;
+  background:var(--lacre);color:var(--panel);border-radius:99px;
+  padding:.1rem .4rem;margin-left:.35rem;
 }
 
-/* ---------- Botones ----------
-   Un solo color de acción. Sin desplazamiento, sin escala, sin sombra. */
+/* ---------- Botones ---------- */
 .btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:var(--s3);
-  font-family:var(--sans);font-weight:400;font-size:11px;
-  letter-spacing:.18em;text-transform:uppercase;line-height:1;
-  padding:1.1rem 2rem;min-height:44px;border-radius:var(--radius);
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);
+  font-weight:500;font-size:.9375rem;line-height:1;
+  padding:.85rem 1.35rem;border-radius:var(--radius);
   text-decoration:none;border:1px solid transparent;cursor:pointer;
-  transition:background var(--t) var(--ease),color var(--t) var(--ease),
-             border-color var(--t) var(--ease);
+  transition:background .2s var(--ease),color .2s var(--ease),
+             border-color .2s var(--ease),transform .2s var(--ease);
 }
-.btn--primary{background:var(--lacre);color:var(--marfil)}
-.btn--primary:hover{background:var(--verde-vitrina)}
-.btn--ghost{background:transparent;color:var(--tinta);border-color:var(--filete)}
-.btn--ghost:hover{border-color:var(--oro);color:var(--lacre)}
-.btn--dark{background:var(--verde-vitrina);color:var(--marfil)}
-.btn--dark:hover{background:var(--lacre)}
-.btn--claro{background:var(--marfil);color:var(--verde-vitrina)}
-.btn--claro:hover{background:var(--superficie)}
-.btn--sm{padding:.85rem 1.4rem}
+.btn--primary{background:var(--lacre);color:var(--panel)}
+.btn--primary:hover{background:var(--lacre-dark);transform:translateY(-1px)}
+.btn--primary:active{transform:translateY(0)}
+.btn--ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn--ghost:hover{border-color:var(--ink);background:var(--panel)}
+.btn--dark{background:var(--toque);color:var(--panel)}
+.btn--dark:hover{background:var(--ink)}
+.btn--sm{padding:.75rem 1rem;min-height:44px;font-size:.875rem}
 .btn--block{width:100%}
-/* Enlace de texto: lacre + el filete de oro que se dibuja. */
-.enlace{
-  position:relative;color:var(--lacre);text-decoration:none;
-  transition:color var(--t) var(--ease);
-}
-.enlace::after{
-  content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;
-  background:var(--oro);transform:scaleX(0);transform-origin:left;
-  transition:transform var(--t) var(--ease);
-}
-.enlace:hover::after,.enlace:focus-visible::after{transform:scaleX(1)}
 
-/* ---------- ACTO I · Apertura ----------
-   Foto a página completa, el nombre en cursiva, una línea de copy,
-   un único CTA. Una idea por pantalla. */
+/* ---------- 3 · Hero ----------
+   Medido antes de rehacerlo: en un teléfono de 390x844 el hero anterior
+   ocupaba el 126% de la pantalla, la foto sola el 64%, y NINGÚN botón
+   entraba sin hacer scroll. La recomendación es 50-70% y que el CTA se vea.
+   Ahora: foto a sangre, mensaje encima, y todo dentro de la primera pantalla. */
 .hero{
   position:relative;isolation:isolate;
-  min-height:100svh;
-  display:flex;align-items:center;justify-content:center;text-align:center;
-  padding-block:var(--s9);
+  min-height:min(68vh,560px);
+  display:flex;align-items:flex-end;
+  padding-block:var(--s7) var(--s6);
   overflow:hidden;
 }
 .hero__foto{position:absolute;inset:0;z-index:-2}
 .hero__foto img{width:100%;height:100%;object-fit:cover;object-position:center 42%}
-/* Velo: sin él el texto claro no llega al contraste mínimo sobre la foto. */
+/* Velo: sin él el texto blanco no llega al contraste mínimo sobre la foto. */
 .hero__velo{
   position:absolute;inset:0;z-index:-1;
   background:linear-gradient(to top,
-    rgba(7,11,9,.88) 0%, rgba(7,11,9,.72) 42%,
-    rgba(7,11,9,.48) 74%, rgba(7,11,9,.34) 100%);
+    rgba(15,20,19,.92) 0%, rgba(15,20,19,.78) 38%,
+    rgba(15,20,19,.42) 68%, rgba(15,20,19,.22) 100%);
 }
-.hero__contenido{color:var(--marfil);display:flex;flex-direction:column;align-items:center;gap:var(--s5)}
-/* El lema de la marca. Cursiva: es la voz de la casa, no una descripción.
-   Uno de los tres únicos usos de la cursiva en toda la página. */
+.hero__contenido{color:var(--panel)}
+/* El lema de la marca. Va sobre el titular y en cursiva: es la voz de la casa,
+   no una descripción. Único uso de la cursiva en toda la página. */
 .hero__lema{
-  font-family:var(--display);font-style:italic;font-weight:300;
-  font-size:clamp(24px,3.4vw,28px);line-height:1.45;
-  color:var(--marfil);margin:0;max-width:24ch;
+  font-family:var(--display);font-style:italic;
+  font-size:clamp(1.35rem,4.6vw,2rem);line-height:1.2;
+  color:var(--panel);opacity:.9;margin:0 0 var(--s3);
+  text-shadow:0 1px 12px rgba(0,0,0,.4);
 }
-/* El nombre a escala monumental, con su filete de oro al ancho de la palabra. */
-.hero__marca{margin:0;line-height:1}
-.hero__wordmark{
-  display:inline-block;
-  font-family:var(--display);font-weight:400;font-variant:small-caps;
-  font-size:clamp(56px,11vw,128px);line-height:1.1;letter-spacing:.28em;
-  position:relative;padding-bottom:.1em;
-}
-.hero__wordmark::after{
-  content:"";position:absolute;left:0;right:.28em;bottom:0;height:1px;background:var(--oro);
-}
-.hero__cta{margin-top:var(--s4)}
-/* Banda de cierre del Acto I: metal y las tres pruebas. Se baja aquí para
-   que la apertura sostenga una sola idea. */
-.apertura__pie{
-  background:var(--verde-vitrina);color:var(--marfil);
-  border-block:1px solid var(--oro);
-}
-.apertura__pie .wrap{
-  display:flex;flex-wrap:wrap;gap:var(--s5) var(--s7);
-  align-items:baseline;justify-content:center;text-align:center;
-  padding-block:var(--s5);
-}
-.apertura__pie li{list-style:none}
-.apertura__pruebas{
-  display:flex;flex-wrap:wrap;gap:var(--s5) var(--s7);
-  justify-content:center;margin:0;padding:0;
-}
-.apertura__pie .punzon{color:var(--sobre-oscuro)}
-.apertura__pie strong{color:var(--marfil);font-weight:400}
 
-/* ---------- ACTO II · EL ESPECTRO ----------
-   El color ya no se muestra como chip saturado. Cada piedra es una fila de
-   versalitas cuyo filete adopta el color al pasar por encima. */
-.espectro{padding-block:var(--s9)}
-.espectro__head{margin-bottom:var(--s7);text-align:center}
-.espectro__title{
-  font-family:var(--display);font-weight:300;
-  font-size:clamp(40px,6vw,80px);line-height:1;margin:0 0 var(--s4);
+/* Es el h1 de la página: el titular que resume qué se vende. */
+.hero__que{
+  font-family:var(--display);
+  font-size:clamp(1.9rem,7.2vw,3.1rem);
+  line-height:1.08;letter-spacing:-.015em;
+  margin:0 0 var(--s3);text-wrap:balance;
 }
-.espectro__note{color:var(--tinta-suave);margin:0 auto;max-width:74ch}
+.hero__metal{color:var(--panel);opacity:.72;margin:0 0 var(--s5)}
+.hero__cta{display:flex;gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s5)}
+.hero__cta .btn{flex:1 1 auto;min-width:0}
+.btn--claro{background:var(--panel);color:var(--toque)}
+.btn--claro:hover{background:#fff;transform:translateY(-1px)}
+.hero__pruebas{
+  list-style:none;margin:0;padding:0;
+  display:flex;gap:var(--s4);flex-wrap:wrap;
+  font-size:.8125rem;color:var(--panel);opacity:.82;line-height:1.35;
+}
+.hero__pruebas li{display:flex;gap:.35rem;align-items:baseline}
+.hero__pruebas strong{font-weight:600;opacity:1}
+@media(min-width:700px){
+  .hero{min-height:min(72vh,620px);padding-block:var(--s8) var(--s7)}
+  .hero__contenido{max-width:34rem}
+  .hero__cta .btn{flex:0 0 auto}
+  .hero__pruebas{gap:var(--s5);font-size:.875rem}
+}
+
+/* ---------- 4 · EL ESPECTRO (firma) ---------- */
+.espectro{padding-block:var(--s7);border-block:1px solid var(--line)}
+.espectro__head{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s4);flex-wrap:wrap;margin-bottom:var(--s5)}
+.espectro__title{font-family:var(--display);font-size:clamp(1.75rem,4vw,2.5rem);line-height:1.05;margin:0}
+.espectro__note{color:var(--ink-2);max-width:38ch;margin:0}
 /* Un color no equivale a una sola carrera: hay que decirlo antes de tocar,
    o quien no vea la suya asume que no la hacemos. */
 .espectro__carreras{
-  color:var(--tinta-suave);max-width:74ch;margin:var(--s4) auto 0;
-  font-size:.9375rem;line-height:1.75;
+  color:var(--ink-2);max-width:46ch;margin:var(--s3) 0 0;
+  font-size:.9375rem;line-height:1.55;
 }
-.espectro__carreras strong{color:var(--tinta)}
-
-/* Las siete piedras, en columnas de filas. */
-.espectro__bar{
-  display:grid;grid-template-columns:1fr;
-  margin:0 auto var(--s7);max-width:74ch;
-  border-top:1px solid var(--filete);
-}
-@media(min-width:760px){.espectro__bar{grid-template-columns:1fr 1fr;column-gap:var(--s7)}}
+.espectro__carreras strong{color:var(--ink);font-weight:600}
+.espectro__carreras a{color:var(--lacre);font-weight:600;text-underline-offset:3px}
+/* minmax(0,1fr): sin esto una palabra larga fija el ancho mínimo de la pista
+   y las siete columnas dejan de ser iguales. */
+.espectro__bar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:var(--s2);margin-bottom:var(--s5)}
 .seg{
-  position:relative;border:0;border-bottom:1px solid var(--filete);
-  padding:var(--s4) 0;cursor:pointer;background:transparent;text-align:left;
-  display:flex;align-items:baseline;justify-content:space-between;gap:var(--s4);
-  min-height:44px;
-  transition:color var(--t) var(--ease),border-color var(--t) var(--ease);
+  position:relative;border:0;padding:0;cursor:pointer;background:transparent;text-align:left;
+  display:flex;flex-direction:column;gap:var(--s2);
+  opacity:0;transform:translateY(6px) scaleY(.92);transform-origin:bottom;
+  transition:opacity .34s var(--ease),transform .34s var(--ease);
 }
-/* El filete de la fila adopta el color de la piedra. Se dibuja de izquierda
-   a derecha, como todo hover del sistema. */
-.seg::after{
-  content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
-  background:var(--c);transform:scaleX(0);transform-origin:left;
-  transition:transform var(--t) var(--ease);
+.espectro.is-struck .seg{opacity:1;transform:none}
+/* El chip crece hacia arriba dentro de una caja de alto fijo: si creciera hacia
+   abajo, la etiqueta del color activo se desalinearía de las otras seis. */
+.seg__caja{height:70px;display:flex;align-items:flex-end}
+.seg__chip{
+  width:100%;height:56px;border-radius:2px;background:var(--c);
+  box-shadow:inset 0 0 0 1px rgba(22,29,28,.12);
+  transition:height .26s var(--ease),box-shadow .2s var(--ease);
 }
-.seg:hover::after,.seg:focus-visible::after,.seg[aria-pressed="true"]::after{transform:scaleX(1)}
-.seg__caja{display:none}   /* el chip saturado ya no existe */
-.seg__chip{display:none}
 .seg__label{
-  font-family:var(--sans);font-weight:300;font-size:11px;
-  letter-spacing:.18em;text-transform:uppercase;line-height:1.4;
-  color:var(--tinta);overflow-wrap:anywhere;
+  font-family:var(--mono);font-size:.625rem;font-weight:400;
+  text-transform:uppercase;letter-spacing:.06em;line-height:1.3;color:var(--ink-2);
+  overflow-wrap:anywhere;transition:color .2s var(--ease);
 }
-/* El nombre de la piedra aparece a la derecha al pasar por encima. */
-.seg__piedra{
-  font-family:var(--display);font-style:italic;font-weight:300;font-size:1.125rem;
-  color:var(--tinta-suave);opacity:0;flex:0 0 auto;
-  transition:opacity var(--t) var(--ease),color var(--t) var(--ease);
+.seg:hover .seg__chip,.seg:focus-visible .seg__chip{height:70px}
+.seg:hover .seg__label,.seg:focus-visible .seg__label{color:var(--ink)}
+.seg[aria-pressed="true"] .seg__chip{height:70px;box-shadow:inset 0 0 0 2px var(--ink)}
+.seg[aria-pressed="true"] .seg__label{color:var(--ink);font-weight:500}
+@media(max-width:640px){
+  .espectro__bar{grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s4) var(--s2)}
+  .seg__caja{height:56px}
+  .seg__chip{height:44px}
+  .seg__label{font-size:.5625rem;letter-spacing:.04em}
 }
-.seg:hover .seg__piedra,.seg:focus-visible .seg__piedra,
-.seg[aria-pressed="true"] .seg__piedra{opacity:1;color:var(--c-txt,var(--tinta))}
-.seg[aria-pressed="true"] .seg__label{color:var(--lacre)}
-
-/* Índice alfabético de carreras. Va debajo de las piedras y activa la misma
-   piedra que la fila de arriba: es otra puerta al mismo control. */
-.carreras{max-width:74ch;margin:0 auto var(--s7)}
-.carreras__abrir{
-  width:100%;background:transparent;border:0;border-bottom:1px solid var(--filete);
-  padding:var(--s4) 0;min-height:44px;cursor:pointer;text-align:left;
-  display:flex;align-items:center;justify-content:space-between;gap:var(--s4);
-  transition:color var(--t) var(--ease),border-color var(--t) var(--ease);
-}
-.carreras__abrir:hover{color:var(--lacre);border-color:var(--oro)}
-.carreras__lista{
-  display:none;columns:2;column-gap:var(--s7);
-  margin:var(--s5) 0 0;padding:0;list-style:none;
-}
-.carreras.is-open .carreras__lista{display:block}
-@media(max-width:560px){.carreras__lista{columns:1}}
-.carreras__item{break-inside:avoid;margin-bottom:var(--s2)}
-.carreras__btn{
-  position:relative;background:none;border:0;padding:.35rem 0;cursor:pointer;
-  text-align:left;width:100%;
-  font-family:var(--sans);font-weight:300;font-size:11px;
-  letter-spacing:.18em;text-transform:uppercase;color:var(--tinta);
-  transition:color var(--t) var(--ease);
-}
-.carreras__btn::after{
-  content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
-  background:var(--c,var(--oro));transform:scaleX(0);transform-origin:left;
-  transition:transform var(--t) var(--ease);
-}
-.carreras__btn:hover::after,.carreras__btn:focus-visible::after{transform:scaleX(1)}
-.carreras__btn:hover{color:var(--lacre)}
-
 /* Panel de la piedra escogida. Resuelve dos cosas medidas en uso: que el
    cliente quiere saber qué significa su color, y que al pulsar un color no era
    evidente que el catálogo de abajo ya se había filtrado. */
-.piedra{display:none;max-width:74ch;margin:0 auto}
-.piedra.is-on{display:block;margin-bottom:var(--s7)}
-.piedra__wrap{min-height:0}
+/* El panel se despliega en altura en vez de aparecer de golpe. `grid-template-rows`
+   de 0fr a 1fr anima una altura desconocida sin fijar un max-height a ojo. */
+.piedra{
+  display:grid;grid-template-rows:0fr;opacity:0;
+  transition:grid-template-rows .42s var(--ease), opacity .3s var(--ease),
+             margin-bottom .42s var(--ease);
+  margin-bottom:0;
+}
+.piedra.is-on{grid-template-rows:1fr;opacity:1;margin-bottom:var(--s5)}
+.piedra__wrap{overflow:hidden;min-height:0}
 .piedra__card{
-  display:grid;gap:var(--s5);align-items:start;grid-template-columns:auto 1fr;
-  background:var(--superficie);padding:var(--s6);
-  border-left:1px solid var(--c);
-  animation:aparece var(--t) var(--ease) both;
+  display:grid;gap:var(--s4);align-items:start;grid-template-columns:auto 1fr;
+  background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--c);
+  border-radius:var(--radius);padding:var(--s5);
 }
-@keyframes aparece{from{opacity:0}to{opacity:1}}
+/* Al cambiar de piedra el contenido se reemplaza: entra con un desplazamiento
+   corto para que el cambio se lea, en vez de saltar. */
+@keyframes piedraEntra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.piedra__card{animation:piedraEntra .38s var(--ease) both}
 /* Lista de carreras */
-.piedra__carreras{list-style:none;margin:0 0 var(--s5);padding:0;display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5)}
+.piedra__carreras{list-style:none;margin:0 0 var(--s4);padding:0;display:flex;flex-wrap:wrap;gap:var(--s2)}
 .piedra__carrera-item{
-  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  line-height:1.4;color:var(--tinta);
+  font-size:.8125rem;line-height:1.3;color:var(--ink);
+  background:var(--field);border:1px solid var(--line-soft);
+  border-radius:99px;padding:.4rem .7rem;
 }
-/* La muestra de color pasa de disco relleno a filete. El metal y la piedra
-   viven en la fotografía, no en la interfaz. */
 .piedra__muestra{
-  width:52px;height:52px;border-radius:50%;
-  border:1px solid var(--c);background:transparent;
+  width:52px;height:52px;border-radius:50%;background:var(--c);
+  box-shadow:inset 0 0 0 1px rgba(22,29,28,.15);
 }
-.piedra__nombre{
-  font-family:var(--display);font-weight:300;font-size:2rem;line-height:1.1;
-  margin:0 0 var(--s2);
-}
-.piedra__carrera{
-  display:block;margin-bottom:var(--s4);
-  font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--tinta-suave);
-}
-.piedra__sig{margin:0 0 var(--s5);color:var(--tinta-suave);max-width:74ch}
-.piedra__acciones{display:flex;gap:var(--s5);align-items:center;flex-wrap:wrap}
+.piedra__nombre{font-family:var(--display);font-size:1.5rem;line-height:1.1;margin:0 0 var(--s1)}
+.piedra__carrera{color:var(--c-txt);font-weight:600;display:block;margin-bottom:var(--s3)}
+.piedra__sig{margin:0 0 var(--s4);color:var(--ink-2);max-width:56ch}
+.piedra__acciones{display:flex;gap:var(--s4);align-items:center;flex-wrap:wrap}
 .piedra__ir{
   display:inline-flex;align-items:center;gap:var(--s2);
-  background:var(--lacre);color:var(--marfil);border:0;border-radius:var(--radius);
-  padding:1.1rem 2rem;min-height:44px;cursor:pointer;
-  font-family:var(--sans);font-weight:400;font-size:11px;
-  letter-spacing:.18em;text-transform:uppercase;
-  transition:background var(--t) var(--ease);
+  background:var(--lacre);color:var(--panel);border:0;border-radius:var(--radius);
+  padding:.7rem 1.1rem;cursor:pointer;font-weight:500;font-size:.9375rem;
+  transition:background .2s var(--ease);
 }
-.piedra__ir:hover{background:var(--verde-vitrina)}
-.espectro__reset{
-  background:none;border:0;padding:.7rem 0;min-height:44px;cursor:pointer;
-  color:var(--tinta-suave);
-  font-family:var(--sans);font-size:11px;text-transform:uppercase;letter-spacing:.18em;
-  border-bottom:1px solid var(--filete);
-  transition:color var(--t) var(--ease),border-color var(--t) var(--ease);
-}
-.espectro__reset:hover{color:var(--lacre);border-color:var(--oro)}
+.piedra__ir:hover{background:var(--lacre-dark)}
+.espectro__reset{background:none;border:0;padding:.7rem 0;min-height:44px;cursor:pointer;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.16em}
+.espectro__reset:hover{color:var(--lacre)}
 @media(max-width:560px){
-  .piedra__card{grid-template-columns:1fr;padding:var(--s5)}
+  .piedra.is-on{grid-template-columns:1fr;padding:var(--s4)}
   .piedra__muestra{width:40px;height:40px}
 }
-/* Aclaración de que el color filtra referencias, no limita el pedido. */
-.espectro__pie{display:flex;flex-direction:column;gap:var(--s4);align-items:center;text-align:center}
+/* Destello del grid al filtrar: confirma que algo cambió abajo */
+@keyframes destello{from{background:var(--t-oro)}to{background:transparent}}
+.grid.is-filtrado{animation:destello 1.1s var(--ease)}
+/* Aclaración de que el color filtra referencias, no limita el pedido.
+   Va pegada a la barra porque es donde nace la duda. */
+.espectro__pie{display:flex;flex-direction:column;gap:var(--s3);align-items:flex-start}
 .espectro__libre{
-  margin:0 auto;max-width:74ch;color:var(--tinta-suave);
-  font-family:var(--display);font-style:italic;font-weight:300;font-size:1.25rem;line-height:1.45;
+  margin:0;max-width:64ch;color:var(--ink-2);font-size:.9375rem;
+  border-left:2px solid var(--lacre);padding-left:var(--s4);
 }
-.espectro__libre strong{color:var(--tinta);font-weight:300;font-style:normal}
+.espectro__libre strong{color:var(--ink);font-weight:600}
 
-/* ---------- Secciones ---------- */
-.section{padding-block:var(--s9)}
-@media(min-width:1000px){.section{padding-block:var(--s10)}}
-/* Confirmación de que el catálogo de abajo se filtró. Era un destello de color
-   cálido; ahora es un cruce de opacidad, el único movimiento permitido. */
-@keyframes filtrado{from{opacity:.3}to{opacity:1}}
-.grid.is-filtrado{animation:filtrado var(--t) var(--ease)}
-
+/* ---------- 5 · Secciones ---------- */
+.section{padding-block:var(--s8)}
 /* Los enlaces del índice apuntan a estas secciones; sin este margen el nav
    fijo tapa el titular al llegar. */
-section[id],#talla,#comprar{scroll-margin-top:88px}
-.section__head{margin-bottom:var(--s8);text-align:center}
-.section__eyebrow{display:block;margin-bottom:var(--s4)}
-.section__title{
-  font-family:var(--display);font-weight:300;
-  font-size:clamp(40px,6vw,80px);line-height:1;letter-spacing:.01em;
-  margin:0 0 var(--s4);
-}
-.section__lede{color:var(--tinta-suave);max-width:74ch;margin:0 auto}
+section[id],#talla,#comprar{scroll-margin-top:80px}
+.section__head{margin-bottom:var(--s6)}
+.section__eyebrow{color:var(--ink-2);display:block;margin-bottom:var(--s3)}
+.section__title{font-family:var(--display);font-size:clamp(2rem,5.5vw,3.4rem);line-height:1;letter-spacing:-.015em;margin:0 0 var(--s3)}
+.section__lede{color:var(--ink-2);max-width:52ch;margin:0}
 /* Aviso de en qué metal está calculado el precio. Va antes del grid: un precio
    de cuatro cifras sin contexto espanta a quien no sabe que está viendo oro. */
 .aviso-precio{
-  margin:var(--s6) auto 0;padding:var(--s5) var(--s6);
-  background:var(--superficie);border-left:1px solid var(--lacre);
-  display:flex;flex-direction:column;gap:var(--s3);max-width:74ch;
+  margin-top:var(--s5);padding:var(--s4) var(--s5);
+  background:var(--panel);border:1px solid var(--line);
+  border-left:3px solid var(--lacre);border-radius:var(--radius);
+  display:flex;flex-direction:column;gap:var(--s3);max-width:64ch;
 }
-.aviso-precio__p{margin:0;color:var(--tinta-suave);font-size:.9375rem;line-height:1.75}
-.aviso-precio__p strong{color:var(--tinta)}
-.aviso-precio__p--regalo{padding-top:var(--s3);border-top:1px solid var(--filete-claro)}
+.aviso-precio__p{margin:0;color:var(--ink-2);font-size:.9375rem;line-height:1.6}
+.aviso-precio__p strong{color:var(--ink);font-weight:600}
+.aviso-precio__p--regalo{
+  padding-top:var(--s3);border-top:1px solid var(--line-soft);
+}
 
-/* Máximo 2 productos por fila en escritorio: foto grande, ficha mínima. */
-.grid{display:grid;gap:var(--s6);grid-template-columns:1fr}
-@media(min-width:640px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s7)}}
+.grid{display:grid;gap:var(--s4);grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:700px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s5)}}
+@media(min-width:1000px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 
-/* ---------- Tarjeta de producto ---------- */
+/* ---------- Tarjeta ---------- */
 .card{
-  position:relative;background:transparent;border:0;
-  display:flex;flex-direction:column;
+  background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--radius);
+  overflow:hidden;display:flex;flex-direction:column;
   cursor:pointer;text-align:left;padding:0;width:100%;
-  transition:color var(--t) var(--ease);
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease);
 }
-/* La moldura de la tarjeta enmarca la foto, no la ficha. */
-.card__media{
-  position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--superficie);
-  border:1px solid var(--oro);
-  transition:border-color var(--t) var(--ease);
-}
-.card__media::before{
-  content:"";position:absolute;inset:-4px;pointer-events:none;z-index:2;
-  border:1px solid var(--filete);
-  transition:border-color var(--t) var(--ease);
-}
-.card__media--oro{border-color:var(--oro)}
-.card:hover .card__media::before,.card:focus-visible .card__media::before{border-color:var(--oro)}
+.card:hover{transform:translateY(-4px);border-color:var(--line);box-shadow:0 12px 28px -14px rgba(22,29,28,.34)}
 /* Las fotos son capturas de Instagram con el código de modelo quemado en la
-   franja inferior. `cover` al 30% centra la pieza y deja esa franja fuera.
-   Nunca se aplica ningún filtro CSS a las fotografías. */
-.card__media img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+   franja inferior. `cover` al 30% centra la pieza y deja esa franja fuera. */
+.card__media{position:relative;aspect-ratio:1;overflow:hidden;background:var(--t-plata)}
+.card__media--oro{background:var(--t-oro)}
+.card__media img{width:100%;height:100%;object-fit:cover;object-position:center 30%;transition:transform .5s var(--ease)}
+.card:hover .card__media img{transform:scale(1.045)}
+/* Bruñido: barrido especular, como luz sobre metal pulido */
+.card__media::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.42) 50%,transparent 62%);
+  transform:translateX(-110%);transition:transform .62s var(--ease);
+}
+.card:hover .card__media::after{transform:translateX(110%)}
 /* Sin foto: no es un hueco, es una ficha de especificación */
-.card__ficha{
-  position:absolute;inset:0;padding:var(--s6);display:flex;flex-direction:column;
-  justify-content:space-between;background:var(--superficie);
-}
-.card__ficha--oro{background:var(--superficie)}
-.card__ficha-name{
-  display:block;font-family:var(--display);font-weight:300;
-  font-size:2rem;line-height:1.05;margin:0;
-}
-.card__ficha-specs{display:flex;flex-direction:column;gap:var(--s2);color:var(--tinta-suave)}
-.card__ficha-pend{color:var(--tinta-suave)}
-/* El color de la piedra entinta un filete, nunca un área. */
-.card__thread{position:absolute;top:0;left:0;right:0;height:1px;background:var(--c,transparent);z-index:3}
-.card__body{padding:var(--s5) 0 0;display:flex;flex-direction:column;gap:var(--s3);flex:1}
-.card__seal{color:var(--tinta-suave)}
+.card__ficha{position:absolute;inset:0;padding:var(--s4);display:flex;flex-direction:column;justify-content:space-between;background:var(--t-plata)}
+.card__ficha--oro{background:var(--t-oro)}
+.card__ficha-name{display:block;font-family:var(--display);font-size:1.4rem;line-height:1.05;margin:0}
+.card__ficha-specs{display:flex;flex-direction:column;gap:var(--s1);color:var(--ink-2)}
+.card__ficha-pend{color:var(--ink-2);opacity:.78}
+.card__thread{position:absolute;top:0;left:0;right:0;height:3px;background:var(--c,transparent);z-index:1}
+.card__body{padding:var(--s4);display:flex;flex-direction:column;gap:var(--s2);flex:1}
+.card__seal{color:var(--ink-2)}
 .card__nuevo{
-  display:inline-block;color:var(--lacre);
-  border-bottom:1px solid var(--lacre);padding-bottom:.15rem;
+  display:inline-block;background:var(--lacre);color:var(--panel);
+  padding:.25rem .5rem;border-radius:2px;letter-spacing:.12em;
 }
-.card__name{
-  font-family:var(--display);font-weight:300;font-size:1.75rem;
-  line-height:1.15;margin:0;
-}
-.card__career{color:var(--tinta-suave)}
+.card__name{font-size:1.0625rem;font-weight:600;line-height:1.25;margin:0}
+.card__career{color:var(--c,var(--ink-2));font-weight:500}
+/* En móvil la tarjeta mide ~156px y el pie necesitaba 231px para poner precio y
+   acción en la misma fila: "Personalizar" quedaba cortado. Se apilan hasta que
+   la grilla pasa a 3 columnas anchas. */
 .card__foot{
-  margin-top:auto;padding-top:var(--s4);
-  display:flex;flex-direction:column;align-items:flex-start;gap:var(--s2);
-  border-top:1px solid var(--filete-claro);
+  margin-top:auto;padding-top:var(--s3);
+  display:flex;flex-direction:column;align-items:flex-start;gap:var(--s1);
+  border-top:1px solid var(--line-soft);
 }
-@media(min-width:640px){
-  .card__foot{flex-direction:row;align-items:baseline;justify-content:space-between;gap:var(--s4)}
+@media(min-width:1000px){
+  .card__foot{flex-direction:row;align-items:baseline;justify-content:space-between;gap:var(--s3)}
 }
 .card__precio-caja{display:flex;flex-direction:column;gap:.15rem}
-.card__more{
-  position:relative;color:var(--tinta-suave);
-  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  transition:color var(--t) var(--ease);
-}
-.card__more::after{
-  content:"";position:absolute;left:0;right:0;bottom:-3px;height:1px;
-  background:var(--oro);transform:scaleX(0);transform-origin:left;
-  transition:transform var(--t) var(--ease);
-}
+.card__price{font-size:1rem}
+/* Sin esto, un precio de cuatro cifras asusta sin que se sepa que es oro. */
+.card__moneda{color:var(--ink-2);font-size:.5625rem;letter-spacing:.1em}
+.card__more{color:var(--ink-2);transition:color .2s var(--ease)}
 .card:hover .card__more{color:var(--lacre)}
-.card:hover .card__more::after,.card:focus-visible .card__more::after{transform:scaleX(1)}
 
 /* Separador entre los modelos filtrados y el resto del catálogo. */
-.resto__corte{margin:var(--s8) auto var(--s6);padding-top:var(--s6);border-top:1px solid var(--filete);max-width:74ch;text-align:center}
-.resto__sello{display:block;margin-bottom:var(--s4)}
-.resto__texto{margin:0 auto;color:var(--tinta-suave);max-width:74ch}
+.resto__corte{
+  margin:var(--s7) 0 var(--s5);padding-top:var(--s5);
+  border-top:1px solid var(--line);
+}
+.resto__sello{color:var(--ink-2);display:block;margin-bottom:var(--s3)}
+.resto__texto{margin:0;color:var(--ink-2);max-width:58ch;line-height:1.65}
+.resto__texto strong{font-weight:600}
 
 /* Botón "Ver más".
    Con 90 modelos, ni scroll infinito ni deslizar de lado sirven: el carrusel
    esconde el catálogo (sólo ~1% de la gente lo desliza) y el scroll infinito
    impide volver a lo ya visto. El botón deja controlar el ritmo y hace que se
    vean MÁS piezas, que es lo medido en pruebas de uso. */
-.vermas{display:flex;flex-direction:column;align-items:center;gap:var(--s4);margin-top:var(--s8)}
+.vermas{
+  display:flex;flex-direction:column;align-items:center;gap:var(--s3);
+  margin-top:var(--s6);
+}
 .vermas[hidden]{display:none}
 .vermas__btn{
-  background:transparent;border:1px solid var(--filete);border-radius:var(--radius);
-  padding:1.1rem 2.4rem;min-height:44px;cursor:pointer;
-  font-family:var(--sans);font-weight:400;font-size:11px;
-  letter-spacing:.18em;text-transform:uppercase;
-  transition:border-color var(--t) var(--ease),color var(--t) var(--ease);
+  background:transparent;border:1px solid var(--ink);border-radius:var(--radius);
+  padding:.85rem 1.6rem;min-height:44px;cursor:pointer;
+  font-weight:500;font-size:.9375rem;
+  transition:background .2s var(--ease),color .2s var(--ease);
 }
-.vermas__btn:hover{border-color:var(--oro);color:var(--lacre)}
-.vermas__cuenta{color:var(--tinta-suave);margin:0}
+.vermas__btn:hover{background:var(--toque);color:var(--panel)}
+.vermas__cuenta{color:var(--ink-2);margin:0}
 
-/* ---------- Registro (catálogo) ---------- */
-.registro{background:var(--marfil);border-top:1px solid var(--filete)}
+/* ---------- 6 · Registro ---------- */
+.registro{background:var(--panel);border-block:1px solid var(--line)}
 /* Selector de categoría. Antes era un carril horizontal: en móvil sólo se
    veían tres de siete y había que adivinar que se deslizaba. Ahora se ven
    todas de una, con la cantidad de piezas de cada una. */
 .cats{
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:0 var(--s6);margin:0 auto var(--s8);max-width:74ch;
-  border-top:1px solid var(--filete);
+  gap:var(--s2);margin-bottom:var(--s6);
 }
-@media(min-width:640px){.cats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:640px){.cats{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3)}}
+@media(min-width:1000px){.cats{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .cat{
-  position:relative;display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);
-  background:transparent;border:0;border-bottom:1px solid var(--filete);
-  padding:var(--s4) 0;min-height:44px;cursor:pointer;text-align:left;
-  transition:color var(--t) var(--ease);
+  display:flex;align-items:center;justify-content:space-between;gap:var(--s2);
+  background:var(--field);border:1px solid var(--line);border-radius:var(--radius);
+  padding:var(--s4);min-height:56px;cursor:pointer;text-align:left;
+  transition:background .2s var(--ease),color .2s var(--ease),border-color .2s var(--ease);
 }
-.cat::after{
-  content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
-  background:var(--oro);transform:scaleX(0);transform-origin:left;
-  transition:transform var(--t) var(--ease);
+.cat:hover{border-color:var(--ink)}
+.cat__n{font-weight:600;font-size:.9375rem;line-height:1.2}
+.cat__c{
+  font-family:var(--mono);font-size:.6875rem;color:var(--ink-2);font-variant-numeric:tabular-nums;
+  background:var(--panel);border-radius:99px;padding:.2rem .5rem;flex:0 0 auto;
 }
-.cat:hover::after,.cat:focus-visible::after,.cat[aria-selected="true"]::after{transform:scaleX(1)}
-.cat__n{
-  font-family:var(--sans);font-weight:300;font-size:11px;
-  letter-spacing:.18em;text-transform:uppercase;line-height:1.4;
-}
-.cat__c{font-variant-numeric:tabular-nums;font-size:11px;color:var(--tinta-suave);flex:0 0 auto}
-.cat[aria-selected="true"]{color:var(--lacre)}
+.cat[aria-selected="true"]{background:var(--toque);border-color:var(--toque);color:var(--panel)}
+.cat[aria-selected="true"] .cat__c{background:rgba(247,249,247,.2);color:var(--panel)}
 
-/* ---------- ACTO IV · El oro como reserva de valor ----------
-   Mismos datos, misma tabla accesible. Línea de 1px en oro sobre marfil,
-   sin relleno ni área sombreada. */
-.refugio{background:var(--marfil);border-top:1px solid var(--filete)}
-.refugio__grid{display:grid;gap:var(--s8)}
-@media(min-width:900px){.refugio__grid{grid-template-columns:1fr 1fr;gap:var(--s9);align-items:center}}
-.refugio__lede{color:var(--tinta-suave);max-width:74ch;margin:0 0 var(--s5)}
-.refugio__cifras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s6);margin-top:var(--s8)}
-.cifra{border-top:1px solid var(--oro);padding-top:var(--s4)}
-.cifra__valor{
-  display:block;font-family:var(--display);font-weight:300;
-  font-variant-numeric:tabular-nums;
-  font-size:clamp(2.5rem,5vw,3.5rem);line-height:1;letter-spacing:0;
-  margin-bottom:var(--s3);
-}
-.cifra__label{display:block;color:var(--tinta-suave)}
+/* ---------- Valor refugio ---------- */
+.refugio{background:var(--panel);border-block:1px solid var(--line)}
+.refugio__grid{display:grid;gap:var(--s7)}
+@media(min-width:900px){.refugio__grid{grid-template-columns:1fr 1fr;gap:var(--s8);align-items:center}}
+.refugio__lede{color:var(--ink-2);max-width:50ch;margin:0 0 var(--s4)}
+.refugio__cifras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4);margin-top:var(--s6)}
+.cifra{border-top:2px solid var(--ink);padding-top:var(--s3)}
+.cifra__valor{display:block;font-size:clamp(1.75rem,4.5vw,2.5rem);line-height:1;margin-bottom:var(--s2)}
+.cifra__label{display:block;color:var(--ink-2);line-height:1.5;letter-spacing:.08em}
 
 .refugio__fig{margin:0}
-.refugio__figtitle{margin-bottom:var(--s5)}
+.refugio__figtitle{color:var(--ink-2);margin-bottom:var(--s4)}
 .refugio__chart{width:100%;overflow-x:auto}
 .refugio__chart svg{display:block;width:100%;height:auto;min-width:280px}
-.g-linea{fill:none;stroke:var(--oro);stroke-width:1;stroke-linejoin:round;stroke-linecap:round}
-.g-area{display:none}          /* sin relleno ni área sombreada */
-.g-base{stroke:var(--filete);stroke-width:1}
-.g-eje{
-  fill:var(--tinta-suave);font-family:var(--sans);font-size:11px;
-  letter-spacing:.18em;text-transform:uppercase;
-}
-.g-punto{fill:var(--marfil);stroke:var(--oro);stroke-width:1}
-.g-hoy{fill:var(--lacre);stroke:var(--marfil);stroke-width:1}
-.g-etiqueta{
-  fill:var(--tinta);font-family:var(--display);font-weight:400;
-  font-variant-numeric:tabular-nums;font-size:15px;letter-spacing:.06em;
-}
+.g-linea{fill:none;stroke:var(--ink);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.g-area{fill:var(--ink);opacity:.06}
+.g-base{stroke:var(--line);stroke-width:1}
+.g-eje{fill:var(--ink-2);font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.g-punto{fill:var(--panel);stroke:var(--ink);stroke-width:2}
+.g-hoy{fill:var(--lacre);stroke:var(--panel);stroke-width:2}
+.g-etiqueta{fill:var(--ink);font-family:var(--mono);font-weight:500;font-size:12px;font-variant-numeric:tabular-nums}
 .g-etiqueta--hoy{fill:var(--lacre)}
 
-.refugio__tabla{display:none;width:100%;border-collapse:collapse;margin-top:var(--s5);font-size:.875rem}
+.refugio__tabla{display:none;width:100%;border-collapse:collapse;margin-top:var(--s4);font-size:.875rem}
 .refugio__tabla.is-on{display:table}
-.refugio__tabla th,.refugio__tabla td{text-align:left;padding:var(--s3);border-bottom:1px solid var(--filete-claro)}
-.refugio__tabla th{
-  font-family:var(--sans);font-weight:400;font-size:11px;
-  text-transform:uppercase;letter-spacing:.18em;color:var(--tinta-suave);
-}
-.refugio__tabla td{font-variant-numeric:tabular-nums}
-.refugio__vertabla{
-  background:none;border:0;border-bottom:1px solid var(--filete);
-  padding:var(--s3) 0;min-height:44px;cursor:pointer;color:var(--tinta-suave);
-  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  transition:color var(--t) var(--ease),border-color var(--t) var(--ease);
-}
-.refugio__vertabla:hover{color:var(--lacre);border-color:var(--oro)}
+.refugio__tabla th,.refugio__tabla td{text-align:left;padding:var(--s2) var(--s3);border-bottom:1px solid var(--line-soft)}
+.refugio__tabla th{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-2)}
+.refugio__tabla td{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.refugio__vertabla{background:none;border:0;padding:var(--s3) 0;min-height:44px;cursor:pointer;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px}
+.refugio__vertabla:hover{color:var(--lacre)}
+
 .refugio__aviso{
-  margin:var(--s8) auto 0;padding-top:var(--s5);border-top:1px solid var(--filete);
-  color:var(--tinta-suave);font-size:.8125rem;line-height:1.75;max-width:74ch;
+  margin:var(--s7) 0 0;padding-top:var(--s4);border-top:1px solid var(--line);
+  color:var(--ink-2);font-size:.8125rem;line-height:1.6;max-width:80ch;
 }
-.refugio__aviso strong{color:var(--tinta)}
+.refugio__aviso strong{color:var(--ink)}
 
 /* ---------- Tu talla ----------
    La talla es la objeción nº1 en anillos por internet. La herramienta convierte
@@ -774,411 +587,337 @@ section[id],#talla,#comprar{scroll-margin-top:88px}
 /* min-width:0 en los hijos: sin esto, el ancho mínimo de la tabla de tallas
    (273px) inflaba la pista de la rejilla y desbordaba la página entera en
    pantallas de 320px. overflow-x:auto por sí solo no lo evita. */
-.talla__grid{display:grid;gap:var(--s8)}
+.talla__grid{display:grid;gap:var(--s6)}
 .talla__grid > *{min-width:0}
-@media(min-width:900px){.talla__grid{grid-template-columns:1.15fr .85fr;gap:var(--s9)}}
+@media(min-width:900px){.talla__grid{grid-template-columns:1.15fr .85fr;gap:var(--s7)}}
 
-/* El simulador va dentro de una moldura. Sin ilustraciones. */
 .talla__tool{
-  position:relative;background:var(--superficie);
-  border:1px solid var(--oro);
-  padding:var(--s7);display:flex;flex-direction:column;gap:var(--s6);min-width:0;
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:var(--s5);display:flex;flex-direction:column;gap:var(--s5);min-width:0;
 }
-.talla__tool::before{
-  content:"";position:absolute;inset:-4px;pointer-events:none;
-  border:1px solid var(--filete);
-}
-.talla__modos{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5)}
+.talla__modos{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}
 .talla__modo{
-  position:relative;background:transparent;border:0;border-bottom:1px solid var(--filete);
-  padding:var(--s3) 0;cursor:pointer;text-align:left;min-height:44px;
-  font-family:var(--sans);font-weight:300;font-size:11px;
-  letter-spacing:.18em;text-transform:uppercase;line-height:1.4;color:var(--tinta-suave);
-  transition:color var(--t) var(--ease);
+  background:transparent;border:1px solid var(--line);border-radius:var(--radius);
+  padding:var(--s4) var(--s3);cursor:pointer;text-align:left;
+  font-size:.875rem;line-height:1.3;font-weight:500;color:var(--ink-2);
+  transition:background .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease);
 }
-.talla__modo::after{
-  content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
-  background:var(--oro);transform:scaleX(0);transform-origin:left;
-  transition:transform var(--t) var(--ease);
-}
-.talla__modo:hover::after,.talla__modo:focus-visible::after,
-.talla__modo[aria-selected="true"]::after{transform:scaleX(1)}
-.talla__modo[aria-selected="true"]{color:var(--lacre)}
+.talla__modo:hover{border-color:var(--ink);color:var(--ink)}
+.talla__modo[aria-selected="true"]{background:var(--toque);border-color:var(--toque);color:var(--panel)}
 @media(max-width:520px){.talla__modos{grid-template-columns:1fr}}
 
-.talla__instruccion{display:flex;gap:var(--s5);align-items:flex-start}
-.talla__instruccion svg{display:none}   /* sin ilustraciones */
-.talla__pasos{margin:0;padding-left:1.2rem;color:var(--tinta-suave);font-size:.9375rem;line-height:1.75}
+.talla__instruccion{
+  display:flex;gap:var(--s4);align-items:flex-start;
+  background:var(--field);border-radius:var(--radius);padding:var(--s4);
+}
+.talla__instruccion svg{flex:0 0 auto}
+.talla__pasos{margin:0;padding-left:1.1rem;color:var(--ink-2);font-size:.9375rem;line-height:1.65}
 .talla__pasos li+li{margin-top:var(--s2)}
 
-.talla__medida{display:flex;flex-direction:column;gap:var(--s4)}
-.talla__fila{display:flex;gap:var(--s5);align-items:center;min-width:0;flex-wrap:wrap}
+.talla__medida{display:flex;flex-direction:column;gap:var(--s3)}
+.talla__fila{display:flex;gap:var(--s4);align-items:center;min-width:0;flex-wrap:wrap}
 .talla__fila input[type="range"]{flex:1;accent-color:var(--lacre);min-width:0;height:44px}
 .talla__num{display:flex;align-items:baseline;gap:var(--s2);flex:0 0 auto}
 .talla__num input{
-  font-family:var(--display);font-weight:400;font-variant-numeric:tabular-nums;
-  font-size:1.5rem;width:5.2rem;
-  padding:.6rem .6rem;min-height:44px;text-align:right;
-  background:transparent;border:0;border-bottom:1px solid var(--filete);
-  border-radius:0;color:var(--tinta);
-  transition:border-color var(--t) var(--ease);
+  font-family:var(--mono);font-weight:500;font-size:1.125rem;width:5.2rem;font-variant-numeric:tabular-nums;
+  padding:.65rem .6rem;min-height:44px;text-align:right;
+  background:var(--field);border:1px solid var(--line);border-radius:var(--radius);color:var(--ink);
 }
-.talla__num input:focus{border-color:var(--lacre);outline:none}
-.talla__num span{color:var(--tinta-suave)}
+.talla__num input:focus{border-color:var(--ink);background:var(--panel);outline:none}
+.talla__num span{color:var(--ink-2)}
 
 .talla__resultado{
-  border-top:1px solid var(--oro);padding-top:var(--s6);
-  display:flex;align-items:baseline;gap:var(--s5);flex-wrap:wrap;
+  border-top:1px solid var(--line);padding-top:var(--s5);
+  display:flex;align-items:baseline;gap:var(--s4);flex-wrap:wrap;
 }
-.talla__cifra{
-  font-family:var(--display);font-weight:300;font-variant-numeric:tabular-nums;
-  font-size:clamp(56px,8vw,96px);line-height:.95;letter-spacing:.01em;
-}
+.talla__cifra{font-family:var(--display);font-size:clamp(3rem,9vw,4.5rem);line-height:.85;letter-spacing:-.03em}
 .talla__cifra--fuera{font-size:clamp(1.5rem,4vw,2rem);color:var(--lacre)}
-.talla__glosa{color:var(--tinta-suave);max-width:34ch;margin:0}
-.talla__glosa strong{color:var(--tinta)}
+.talla__glosa{color:var(--ink-2);max-width:34ch;margin:0}
+.talla__glosa strong{color:var(--ink)}
 
-.talla__lado{display:flex;flex-direction:column;gap:var(--s5)}
-.talla__promesa{background:var(--verde-vitrina);color:var(--marfil);padding:var(--s7)}
-.talla__promesa-t{
-  font-family:var(--display);font-weight:300;font-size:2rem;line-height:1.1;
-  margin:0 0 var(--s4);
+.talla__lado{display:flex;flex-direction:column;gap:var(--s4)}
+.talla__promesa{
+  background:var(--toque);color:var(--panel);border-radius:var(--radius);padding:var(--s5);
 }
-.talla__promesa-p{color:var(--sobre-oscuro);margin:0 0 var(--s5);font-size:.9375rem;line-height:1.75}
-.talla__promesa-p strong{color:var(--marfil);font-weight:400}
-.talla__promesa .btn--dark{background:var(--marfil);color:var(--verde-vitrina)}
-.talla__promesa .btn--dark:hover{background:var(--superficie)}
+.talla__promesa-t{font-family:var(--display);font-size:1.6rem;line-height:1.1;margin:0 0 var(--s3)}
+.talla__promesa-p{opacity:.82;margin:0 0 var(--s4);font-size:.9375rem;line-height:1.65}
+.talla__promesa-p strong{opacity:1;font-weight:600}
+.talla__promesa .btn--dark{background:var(--panel);color:var(--toque)}
+.talla__promesa .btn--dark:hover{background:#fff}
 
-.talla__tabla-caja{border:1px solid var(--filete);background:var(--marfil);min-width:0}
-.talla__tabla-caja summary{
-  padding:var(--s5);cursor:pointer;color:var(--tinta-suave);list-style:none;
-  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  transition:color var(--t) var(--ease);
-}
+.talla__tabla-caja{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);min-width:0}
+.talla__tabla-caja summary{padding:var(--s4);cursor:pointer;color:var(--ink-2);list-style:none}
 .talla__tabla-caja summary::-webkit-details-marker{display:none}
-.talla__tabla-caja summary::before{content:"+ "}
+.talla__tabla-caja summary::before{content:"+ ";font-family:var(--mono)}
 .talla__tabla-caja[open] summary::before{content:"− "}
-.talla__tabla-caja summary:hover{color:var(--lacre)}
-.talla__tabla-scroll{overflow-x:auto;padding:0 var(--s5) var(--s5);min-width:0}
+.talla__tabla-caja summary:hover{color:var(--ink)}
+.talla__tabla-scroll{overflow-x:auto;padding:0 var(--s4) var(--s4);min-width:0}
 .talla__tabla{border-collapse:collapse;width:100%;font-size:.875rem}
-.talla__tabla th,.talla__tabla td{
-  padding:.5rem .4rem;text-align:right;border-bottom:1px solid var(--filete-claro);
-  white-space:nowrap;font-variant-numeric:tabular-nums;
-}
+.talla__tabla th,.talla__tabla td{padding:.5rem .4rem;text-align:right;border-bottom:1px solid var(--line-soft);white-space:nowrap}
 .talla__tabla th:first-child,.talla__tabla td:first-child{text-align:left}
 .talla__tabla thead th{
-  font-family:var(--sans);font-weight:400;font-size:11px;
-  text-transform:uppercase;letter-spacing:.18em;color:var(--tinta-suave);
+  font-family:var(--mono);font-size:.625rem;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--ink-2);font-weight:400;
 }
-.talla__tabla td{color:var(--tinta-suave)}
-.talla__tabla td:first-child{color:var(--tinta)}
-.talla__tabla tr.is-cerca td{color:var(--lacre)}
+.talla__tabla td{font-family:var(--mono);color:var(--ink-2);font-variant-numeric:tabular-nums}
+.talla__tabla td:first-child{color:var(--ink);font-weight:500}
+.talla__tabla tr.is-cerca td{background:var(--t-oro);color:var(--ink)}
 
 /* ---------- Cómo comprar ----------
    Responde las seis preguntas que el cliente hace por WhatsApp antes de
    decidirse. Cada una contestada aquí es una conversación que no hay que tener. */
-.comprar{background:var(--marfil);border-top:1px solid var(--filete)}
-.comprar__grid{display:grid;gap:var(--s6);margin-bottom:var(--s8)}
-@media(min-width:640px){.comprar__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s7)}}
+.comprar{background:var(--panel);border-block:1px solid var(--line)}
+.comprar__grid{display:grid;gap:var(--s4);margin-bottom:var(--s7)}
+@media(min-width:640px){.comprar__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s5)}}
 @media(min-width:1040px){.comprar__grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
 .comprar__caja{
-  background:transparent;border:0;border-top:1px solid var(--filete);
-  padding:var(--s5) 0 0;display:flex;flex-direction:column;gap:var(--s4);
+  background:var(--field);border:1px solid var(--line-soft);border-radius:var(--radius);
+  padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3);
 }
-.comprar__caja--garantia{border-top-color:var(--lacre)}
-.comprar__t{font-family:var(--display);font-weight:300;font-size:1.75rem;line-height:1.15;margin:0}
-.comprar__lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s3)}
+.comprar__caja--garantia{border-left:3px solid var(--lacre)}
+.comprar__t{font-family:var(--display);font-size:1.45rem;line-height:1.1;margin:0}
+.comprar__lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s2)}
 .comprar__lista li{
-  display:flex;align-items:baseline;gap:var(--s3);
-  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  padding-bottom:var(--s3);border-bottom:1px solid var(--filete-claro);
+  display:flex;align-items:center;gap:var(--s3);
+  font-weight:500;font-size:.9375rem;
+  padding-bottom:var(--s2);border-bottom:1px solid var(--line-soft);
 }
 .comprar__lista li:last-child{border-bottom:0;padding-bottom:0}
-.comprar__lista li::before{content:"";width:8px;height:1px;background:var(--oro);flex:0 0 auto}
-.comprar__cifra{font-family:var(--display);font-weight:300;font-size:1.25rem;line-height:1.2;margin:0;color:var(--tinta-suave)}
+.comprar__lista li::before{
+  content:"";width:6px;height:6px;border-radius:50%;
+  background:var(--lacre);flex:0 0 auto;
+}
+.comprar__cifra{
+  font-family:var(--display);font-size:1.25rem;line-height:1.1;
+  margin:0;color:var(--ink-2);
+}
 .comprar__cifra span{
-  display:block;font-size:clamp(3rem,6vw,4.5rem);line-height:1;
-  color:var(--tinta);font-variant-numeric:tabular-nums;
+  display:block;font-size:clamp(2.4rem,6vw,3.2rem);
+  line-height:.9;color:var(--ink);letter-spacing:-.02em;
 }
-.comprar__nota{margin:0;color:var(--tinta-suave);font-size:.9375rem;line-height:1.75}
-.comprar__nota strong{color:var(--tinta)}
+.comprar__nota{margin:0;color:var(--ink-2);font-size:.9375rem;line-height:1.6}
+.comprar__nota strong{color:var(--ink)}
 .comprar__link{
-  position:relative;margin-top:auto;color:var(--lacre);text-decoration:none;
-  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  display:inline-flex;align-items:center;min-height:44px;align-self:flex-start;
+  margin-top:auto;color:var(--lacre);font-weight:500;font-size:.9375rem;text-decoration:none;
+  display:inline-flex;align-items:center;min-height:44px;
 }
-.comprar__link::after{
-  content:"";position:absolute;left:0;right:0;bottom:12px;height:1px;
-  background:var(--oro);transform:scaleX(0);transform-origin:left;
-  transition:transform var(--t) var(--ease);
-}
-.comprar__link:hover::after,.comprar__link:focus-visible::after{transform:scaleX(1)}
+.comprar__link:hover{text-decoration:underline;text-underline-offset:3px}
 
 /* Tienda física: sustituye a la confianza que daría una pasarela de pago.
    Hay un local real, con dirección, donde además se fabrica. */
 .tienda{
-  position:relative;display:grid;gap:var(--s6);align-items:center;
-  background:var(--superficie);border:1px solid var(--oro);padding:var(--s7);
+  display:grid;gap:var(--s5);align-items:center;
+  background:var(--field);border:1px solid var(--line);border-radius:var(--radius);
+  padding:var(--s5);
 }
-.tienda::before{content:"";position:absolute;inset:-4px;pointer-events:none;border:1px solid var(--filete)}
-@media(min-width:820px){.tienda{grid-template-columns:1.25fr .75fr;gap:var(--s8);padding:var(--s8)}}
-.tienda__eyebrow{display:block;margin-bottom:var(--s4)}
-.tienda__t{font-family:var(--display);font-weight:300;font-size:clamp(2rem,4.5vw,3rem);line-height:1.05;margin:0 0 var(--s4)}
-.tienda__dir{font-size:1.0625rem;line-height:1.75;margin:0 0 var(--s5)}
-.tienda__nota{color:var(--tinta-suave);margin:0 0 var(--s6);max-width:46ch}
-.tienda__mapa{border:1px solid var(--filete);overflow:hidden}
+@media(min-width:820px){.tienda{grid-template-columns:1.25fr .75fr;gap:var(--s7);padding:var(--s7)}}
+.tienda__eyebrow{color:var(--ink-2);display:block;margin-bottom:var(--s3)}
+.tienda__t{font-family:var(--display);font-size:clamp(1.9rem,4.5vw,2.6rem);line-height:1.05;margin:0 0 var(--s3)}
+.tienda__dir{font-size:1.0625rem;line-height:1.6;margin:0 0 var(--s4)}
+.tienda__nota{color:var(--ink-2);margin:0 0 var(--s5);max-width:46ch;line-height:1.65}
+.tienda__mapa{border:1px solid var(--line-soft);border-radius:var(--radius);overflow:hidden}
 .tienda__mapa svg{width:100%;height:auto;display:block}
 
-/* ---------- ACTO III · El taller ----------
-   Carta firmada, centrada. */
-.taller{background:var(--verde-vitrina);color:var(--marfil);padding-block:var(--s9)}
-@media(min-width:1000px){.taller{padding-block:var(--s10)}}
-.taller__carta{
-  max-width:74ch;margin-inline:auto;text-align:center;
-  display:flex;flex-direction:column;align-items:center;gap:var(--s5);
-}
-.taller__firma{
-  margin:0;font-family:var(--display);font-style:italic;font-weight:300;
-  font-size:clamp(24px,3vw,28px);line-height:1.45;color:var(--marfil);
-}
-/* Hueco declarado de la foto del taller. Una foto de banco aquí desmentiría
-   justo lo que dice el texto, así que el hueco se enseña como lo que es. */
-.taller__foto{margin:var(--s7) 0 0;width:100%}
-.taller__hueco{
-  aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;
-  border:1px solid rgba(249,247,242,.28);
-}
-.taller__hueco .punzon{color:var(--sobre-oscuro)}
-.taller__servicios{margin-top:var(--s9);max-width:74ch;margin-inline:auto}
-.taller__title{font-family:var(--display);font-weight:300;font-size:clamp(40px,5vw,64px);line-height:1.02;margin:0 0 var(--s5)}
-.taller__eyebrow{display:block;margin-bottom:var(--s5);color:var(--sobre-oscuro)}
-.taller__text{color:var(--sobre-oscuro);margin:0 0 var(--s6);max-width:74ch}
-.taller__b2b{
-  border-top:1px solid var(--oro);padding-top:var(--s5);
-  color:var(--sobre-oscuro);margin:var(--s6) 0 0;line-height:2.2;
-}
-.taller__b2b a{color:var(--marfil);display:inline-block;padding-block:var(--s2)}
+/* ---------- 7 · Taller ---------- */
+.taller{background:var(--toque);color:var(--panel);padding-block:var(--s8)}
+.taller__grid{display:grid;gap:var(--s6)}
+@media(min-width:800px){.taller__grid{grid-template-columns:1fr 1fr;gap:var(--s8)}}
+.taller__title{font-family:var(--display);font-size:clamp(1.9rem,4.5vw,2.9rem);line-height:1.02;margin:0 0 var(--s4)}
+.taller__eyebrow{opacity:.6;display:block;margin-bottom:var(--s4)}
+.taller__text{opacity:.8;margin:0 0 var(--s5);max-width:46ch}
+.taller__b2b{border-top:1px solid rgba(247,249,247,.18);padding-top:var(--s4);opacity:.66;margin:var(--s5) 0 0;line-height:2.2}
+.taller__b2b a{color:var(--panel);display:inline-block;padding-block:var(--s2)}
 .taller__list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
-.taller__item{
-  display:flex;justify-content:space-between;gap:var(--s5);align-items:baseline;
-  padding-block:var(--s5);border-bottom:1px solid rgba(249,247,242,.14);
-}
-.taller__item:first-child{border-top:1px solid rgba(249,247,242,.14)}
-.taller__item-name{font-size:11px;letter-spacing:.18em;text-transform:uppercase}
-.taller__item-price{color:var(--sobre-oscuro)}
+.taller__item{display:flex;justify-content:space-between;gap:var(--s4);align-items:baseline;padding-block:var(--s4);border-bottom:1px solid rgba(247,249,247,.14)}
+.taller__item:first-child{border-top:1px solid rgba(247,249,247,.14)}
+.taller__item-name{font-weight:500}
+.taller__item-price{opacity:.7}
 
-/* ---------- CIERRE · B2B ----------
-   Bloque a sangre. Una puerta de servicio, no un banner. */
-.b2b{background:var(--verde-vitrina);color:var(--marfil)}
-.b2b__cab{margin:0 auto var(--s8);max-width:74ch;text-align:center}
-.b2b .section__title{color:var(--marfil)}
-.b2b .section__lede{color:var(--sobre-oscuro)}
-.b2b .section__eyebrow,.b2b__label{color:var(--sobre-oscuro)}
-.b2b__grid{display:grid;gap:var(--s7)}
-@media(min-width:800px){.b2b__grid{grid-template-columns:1fr 1fr;gap:var(--s8)}}
+/* ---------- B2B ---------- */
+.b2b{background:var(--panel);border-block:1px solid var(--line)}
+.b2b__cab{margin-bottom:var(--s6);max-width:60ch}
+.b2b__grid{display:grid;gap:var(--s5)}
+@media(min-width:800px){.b2b__grid{grid-template-columns:1fr 1fr;gap:var(--s6)}}
 .b2b__aval,.b2b__bluecast{
-  border:0;border-top:1px solid var(--oro);padding:var(--s5) 0 0;background:transparent;
-  display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;
+  border:1px solid var(--line);border-radius:var(--radius);
+  padding:var(--s5);background:var(--field);
+  display:flex;flex-direction:column;gap:var(--s3);align-items:flex-start;
 }
-.b2b__marca{font-family:var(--display);font-weight:300;font-size:2.5rem;line-height:1;margin:0;color:var(--marfil)}
-.b2b__avaltxt{margin:0;color:var(--sobre-oscuro);line-height:1.75}
-.b2b__aval strong,.b2b__bluecast strong{color:var(--marfil);font-weight:400}
-.b2b .btn--ghost{color:var(--marfil);border-color:rgba(249,247,242,.34)}
-.b2b .btn--ghost:hover{border-color:var(--oro);color:var(--marfil)}
+.b2b__bluecast{background:var(--toque);border-color:var(--toque);color:var(--panel)}
+.b2b__label{color:var(--ink-2)}
+.b2b__bluecast .b2b__label{color:var(--panel);opacity:.6}
+.b2b__marca{font-family:var(--display);font-size:2rem;line-height:1;margin:0}
+.b2b__avaltxt{margin:0;color:var(--ink-2);line-height:1.65}
+.b2b__aval strong{color:var(--ink);font-weight:600}
+.b2b__bluecast .b2b__avaltxt{color:var(--panel);opacity:.82}
+.b2b__bluecast strong{color:var(--panel);opacity:1;font-weight:600}
+.b2b__bluecast .btn--ghost{color:var(--panel);border-color:rgba(247,249,247,.4)}
+.b2b__bluecast .btn--ghost:hover{background:rgba(247,249,247,.1);border-color:var(--panel)}
 .b2b__cierre{
-  margin-top:var(--s8);padding-top:var(--s6);border-top:1px solid rgba(249,247,242,.14);
-  display:flex;align-items:center;justify-content:space-between;gap:var(--s5);flex-wrap:wrap;
+  margin-top:var(--s6);padding-top:var(--s5);border-top:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;gap:var(--s4);flex-wrap:wrap;
 }
-.b2b__cierretxt{
-  margin:0;font-family:var(--display);font-style:italic;font-weight:300;
-  font-size:clamp(24px,3vw,28px);line-height:1.45;color:var(--marfil);
-}
+.b2b__cierretxt{margin:0;font-family:var(--display);font-size:clamp(1.25rem,2.6vw,1.6rem)}
 
-/* ---------- Footer ---------- */
-.footer{background:var(--verde-profundo);color:var(--marfil);padding-block:var(--s9) var(--s7)}
-.footer__grid{display:grid;gap:var(--s8)}
+/* ---------- 8 · Footer ---------- */
+.footer{padding-block:var(--s8) var(--s6)}
+.footer__grid{display:grid;gap:var(--s6)}
 @media(min-width:800px){.footer__grid{grid-template-columns:1.3fr 1fr 1fr}}
-.footer__title{
-  font-family:var(--display);font-weight:400;font-variant:small-caps;
-  font-size:1.75rem;line-height:1.2;letter-spacing:.28em;
-  margin:0 0 var(--s4);position:relative;display:inline-block;
-  padding-bottom:.14em;justify-self:start;
-}
-.footer__title::after{
-  content:"";position:absolute;left:0;right:.28em;bottom:0;height:1px;background:var(--oro);
-}
-.footer__label{display:block;margin-bottom:var(--s4);color:var(--sobre-oscuro)}
-.footer__text{color:var(--sobre-oscuro);margin:0 0 var(--s5);max-width:36ch}
-.footer a{color:var(--marfil)}
+.footer__title{font-family:var(--display);font-size:1.75rem;line-height:1.1;margin:0 0 var(--s3)}
+.footer__label{color:var(--ink-2);display:block;margin-bottom:var(--s3)}
+.footer__text{color:var(--ink-2);margin:0 0 var(--s4);max-width:36ch}
 .footer__aviso{
-  margin:var(--s8) 0 0;padding-top:var(--s5);border-top:1px solid rgba(249,247,242,.14);
-  color:var(--sobre-oscuro);font-size:.8125rem;line-height:1.75;max-width:74ch;
+  margin:var(--s7) 0 0;padding-top:var(--s4);border-top:1px solid var(--line);
+  color:var(--ink-2);font-size:.8125rem;line-height:1.6;max-width:78ch;
 }
-.footer__legal{margin-top:var(--s5);color:var(--sobre-oscuro);display:flex;justify-content:space-between;gap:var(--s5);flex-wrap:wrap}
+.footer__legal{margin-top:var(--s4);color:var(--ink-2);display:flex;justify-content:space-between;gap:var(--s4);flex-wrap:wrap}
 
-/* ---------- Botón flotante de WhatsApp ----------
-   Pastilla de lacre con la palabra, no un icono de burbuja.
-   Fija abajo a la derecha, margen de 24px. */
+/* Botón flotante de WhatsApp. Antes era una barra a lo ancho que reaparecía
+   en cada scroll hacia arriba: tapaba contenido y molestaba. Ahora es un botón
+   pequeño, siempre en el mismo sitio, que no compite con nada. */
 .wafab{
-  position:fixed;right:24px;bottom:24px;z-index:45;
-  display:inline-flex;align-items:center;justify-content:center;
-  min-height:44px;padding:1.1rem 1.6rem;border-radius:2px;
-  background:var(--lacre);color:var(--marfil);text-decoration:none;
-  font-family:var(--sans);font-weight:400;font-size:11px;
-  letter-spacing:.18em;text-transform:uppercase;
-  box-shadow:var(--sombra);
-  transition:background var(--t) var(--ease);
+  position:fixed;right:var(--s4);bottom:var(--s4);z-index:45;
+  width:54px;height:54px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--lacre);color:var(--panel);text-decoration:none;
+  box-shadow:0 6px 20px -6px rgba(22,29,28,.5);
+  transition:transform .22s var(--ease),background .22s var(--ease);
 }
-.wafab:hover{background:var(--verde-vitrina)}
+.wafab:hover{background:var(--lacre-dark);transform:scale(1.06)}
+.wafab:active{transform:scale(.97)}
+@media(min-width:900px){.wafab{right:var(--s5);bottom:var(--s5)}}
 
 /* ============================================================
    MODAL — personalización de la pieza
    ============================================================ */
 .modal{
   position:fixed;inset:0;z-index:80;display:none;
-  background:rgba(7,11,9,.6);
+  background:rgba(22,29,28,.55);backdrop-filter:blur(3px);
   padding:var(--s4);overflow-y:auto;
 }
 .modal.is-open{display:flex;align-items:flex-start;justify-content:center}
 /* Sin overflow:hidden — si no, el pie fijo del precio no puede quedarse
-   pegado al borde inferior. */
+   pegado al borde inferior. El redondeo se aplica a cada pieza por dentro. */
 .modal__box{
-  background:var(--marfil);border:1px solid var(--oro);
+  background:var(--panel);border-radius:var(--radius);
   width:min(920px,100%);margin-block:auto;
   display:grid;grid-template-columns:1fr;
 }
 @media(min-width:820px){.modal__box{grid-template-columns:.85fr 1fr}}
-.modal__media{position:relative;background:var(--superficie);aspect-ratio:4/5;overflow:hidden}
-.modal__media--oro{background:var(--superficie)}
+.modal__media{position:relative;background:var(--t-plata);aspect-ratio:1;overflow:hidden;border-radius:var(--radius) var(--radius) 0 0}
+.modal__media--oro{background:var(--t-oro)}
 .modal__media img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
-.modal__ficha{position:absolute;inset:0;padding:var(--s6);display:flex;flex-direction:column;justify-content:space-between}
-.modal__ficha-name{display:block;font-family:var(--display);font-weight:300;font-size:2.25rem;line-height:1.05;margin:0}
+.modal__ficha{position:absolute;inset:0;padding:var(--s5);display:flex;flex-direction:column;justify-content:space-between}
+.modal__ficha-name{display:block;font-family:var(--display);font-size:1.9rem;line-height:1.05;margin:0}
 
-.modal__panel{padding:var(--s6);display:flex;flex-direction:column;gap:var(--s5);min-width:0}
-.modal__head{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s5)}
-.modal__title{font-family:var(--display);font-weight:300;font-size:2.25rem;line-height:1.05;margin:0 0 var(--s2)}
-.modal__close{
-  background:none;border:1px solid var(--filete);border-radius:var(--radius);
-  width:44px;height:44px;flex:0 0 auto;cursor:pointer;font-size:1.1rem;line-height:1;
-  transition:border-color var(--t) var(--ease),color var(--t) var(--ease);
-}
-.modal__close:hover{border-color:var(--oro);color:var(--lacre)}
+.modal__panel{padding:var(--s5);display:flex;flex-direction:column;gap:var(--s4);min-width:0}
+.modal__head{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s4)}
+.modal__title{font-family:var(--display);font-size:1.9rem;line-height:1.05;margin:0 0 var(--s2)}
+.modal__eyebrow{color:var(--ink-2)}
+.modal__close{background:none;border:1px solid var(--line);border-radius:var(--radius);width:44px;height:44px;flex:0 0 auto;cursor:pointer;font-size:1.1rem;line-height:1}
+.modal__close:hover{border-color:var(--ink)}
 
-.campo{display:flex;flex-direction:column;gap:var(--s3)}
-.opciones{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5)}
+.campo{display:flex;flex-direction:column;gap:var(--s2)}
+.campo__label{color:var(--ink-2)}
+.opciones{display:flex;flex-wrap:wrap;gap:var(--s2)}
 .opcion{
-  position:relative;background:transparent;border:0;border-bottom:1px solid var(--filete);
-  padding:.7rem 0;min-height:44px;display:inline-flex;align-items:center;gap:var(--s2);
-  cursor:pointer;
-  font-family:var(--sans);font-weight:300;font-size:11px;
-  letter-spacing:.18em;text-transform:uppercase;line-height:1.4;
-  transition:color var(--t) var(--ease);
+  background:transparent;border:1px solid var(--line);border-radius:var(--radius);
+  padding:.7rem .9rem;min-height:44px;display:inline-flex;align-items:center;
+  cursor:pointer;font-size:.875rem;line-height:1.2;
+  transition:background .18s var(--ease),border-color .18s var(--ease),color .18s var(--ease);
 }
-.opcion::after{
-  content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
-  background:var(--oro);transform:scaleX(0);transform-origin:left;
-  transition:transform var(--t) var(--ease);
-}
-.opcion:hover::after,.opcion:focus-visible::after,.opcion[aria-pressed="true"]::after{transform:scaleX(1)}
-.opcion[aria-pressed="true"]{color:var(--lacre)}
+.opcion:hover{border-color:var(--ink)}
+.opcion[aria-pressed="true"]{background:var(--toque);border-color:var(--toque);color:var(--panel)}
 .opcion--piedra{display:flex;align-items:center;gap:var(--s2)}
-/* El color de la piedra es un filete circular, no un disco relleno. */
-.opcion__punto{width:10px;height:10px;border-radius:50%;border:1px solid var(--c);background:transparent;flex:0 0 auto}
+.opcion__punto{width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(22,29,28,.2);flex:0 0 auto}
 .campo select,.campo input[type="text"]{
-  font-family:var(--sans);font-weight:300;font-size:.9375rem;
-  padding:.7rem 0;min-height:44px;
-  background:transparent;border:0;border-bottom:1px solid var(--filete);
-  border-radius:0;color:var(--tinta);
-  transition:border-color var(--t) var(--ease);
+  font:inherit;font-size:.9375rem;padding:.7rem .75rem;min-height:44px;
+  background:var(--field);border:1px solid var(--line);border-radius:var(--radius);color:var(--ink);
+  transition:border-color .18s var(--ease),background .18s var(--ease);
 }
-.campo select:focus,.campo input:focus{border-color:var(--lacre);outline:none}
-.campo__ayuda{color:var(--tinta-suave);font-size:.8125rem;margin:0}
-.campo__enlace{
-  position:relative;color:var(--lacre);padding:.4rem 0;display:inline-block;
-  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-}
+.campo select:focus,.campo input:focus{border-color:var(--ink);background:var(--panel);outline:none}
+.campo__ayuda{color:var(--ink-2);font-size:.8125rem;margin:0}
+.campo__enlace{color:var(--lacre);font-weight:500;padding:.4rem 0;display:inline-block}
 
 /* El precio no puede quedar al final de una lista larga de opciones: al
-   cambiar de quilate hay que verlo cambiar sin bajar la pantalla. */
+   cambiar de quilate hay que verlo cambiar sin bajar la pantalla. Se queda
+   pegado al borde inferior mientras se recorren las opciones. */
 .modal__pie{
   position:sticky;bottom:0;z-index:3;margin-top:auto;
-  background:var(--marfil);border-top:1px solid var(--oro);
-  padding:var(--s4) var(--s6) var(--s5);
-  margin-inline:calc(var(--s6) * -1);margin-bottom:calc(var(--s6) * -1);
+  background:var(--panel);border-top:1px solid var(--line);
+  padding:var(--s4) var(--s5) var(--s5);
+  margin-inline:calc(var(--s5) * -1);margin-bottom:calc(var(--s5) * -1);
+  border-radius:0 0 var(--radius) var(--radius);
+  box-shadow:0 -10px 24px -16px rgba(22,29,28,.5);
   display:flex;flex-direction:column;gap:var(--s3);
 }
-/* El pie es una barra de servicio, no una sección: aquí el espaciado generoso
-   del sistema se aprieta. Medido: con el espaciado de página ocupaba 285px de
-   un viewport de 814 y tapaba las opciones que hay que tocar. */
-.modal__acciones .btn{padding:.9rem 1.2rem}
-.precio{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s4);flex-wrap:wrap}
+.precio{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);flex-wrap:wrap}
 .precio__izq{display:flex;flex-direction:column;gap:.15rem}
-.precio__mat{color:var(--tinta-suave);text-align:right}
-/* Cambio de metal: cruce de opacidad de los dígitos, 200 ms. Sin contadores
-   animados, sin destello de color, sin cambio de escala.
-   Va como animación y no como transición porque la clase la pone el JS y nadie
-   la quita: con una transición el precio se quedaría invisible. */
-@keyframes precioCruza{0%{opacity:1}45%{opacity:0}100%{opacity:1}}
-.precio__valor{display:inline-block}
-.precio__valor.is-cambiado{animation:precioCruza 200ms var(--ease)}
-.precio__label{color:var(--tinta-suave)}
-.precio__valor{font-size:2rem;letter-spacing:.16em}
-.precio__nota{color:var(--tinta-suave);font-size:.8125rem;margin:0;width:100%}
+.precio__mat{color:var(--ink-2);text-align:right}
+/* Destello al recalcular: confirma que el cambio de material surtió efecto.
+   Sin cambio de color de texto — el lacre es el color de "acción/alerta" y
+   usarlo en algo que ocurre a cada toque lo desgasta y suena a error.
+   Un fondo cálido y suave basta para que el ojo lo note. */
+@keyframes precioCambia{
+  0%   {transform:scale(1);   background:transparent}
+  30%  {transform:scale(1.045);background:var(--t-oro)}
+  100% {transform:scale(1);   background:transparent}
+}
+.precio__valor{
+  display:inline-block;transform-origin:left center;
+  border-radius:4px;padding-inline:.18rem;margin-inline:-.18rem;
+}
+.precio__valor.is-cambiado{animation:precioCambia .5s var(--ease)}
+.precio__label{color:var(--ink-2)}
+.precio__valor{font-family:var(--mono);font-weight:500;font-size:1.75rem;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.precio__nota{color:var(--ink-2);font-size:.8125rem;margin:0;width:100%}
 /* Va dentro del pie fijo: antes quedaba debajo de la barra, fuera de la
    pantalla, y el argumento de las copias gratis no lo veía nadie. */
 .modal__regalo{
-  margin:0;padding:var(--s3) var(--s4);
-  background:var(--superficie);border-left:1px solid var(--lacre);
-  font-size:.8125rem;line-height:1.6;color:var(--tinta-suave);
+  margin:0;padding:var(--s3) var(--s4);border-radius:var(--radius);
+  background:var(--t-oro);border-left:3px solid var(--lacre);
+  font-size:.8125rem;line-height:1.45;color:var(--ink-2);
 }
-.modal__regalo strong{color:var(--tinta)}
+.modal__regalo strong{color:var(--ink);font-weight:600}
 .modal__regalo[hidden]{display:none}
-.modal__acciones{display:flex;gap:var(--s4);flex-wrap:wrap}
+.modal__acciones{display:flex;gap:var(--s3);flex-wrap:wrap}
 .modal__acciones .btn{flex:1 1 140px}
 /* En pantallas cortas el pie llegaba a ocupar más de la mitad: se aprieta el
    espaciado y el aviso del regalo para que quepan las opciones. */
-@media(max-height:860px),(max-width:360px){
-  .modal__pie{padding:var(--s4) var(--s5) var(--s5);gap:var(--s3)}
-  .modal__regalo{padding:var(--s3) var(--s4);font-size:.75rem;line-height:1.35}
+@media(max-height:700px),(max-width:360px){
+  .modal__pie{padding:var(--s3) var(--s4) var(--s4);gap:var(--s2)}
+  .modal__regalo{padding:var(--s2) var(--s3);font-size:.75rem;line-height:1.35}
   .precio__valor{font-size:1.5rem}
-  .modal__acciones .btn{flex:1 1 120px;padding:.85rem 1rem}
+  .modal__acciones .btn{flex:1 1 120px;padding:.7rem 1rem;font-size:.875rem}
 }
 
-/* ---------- Pedido ---------- */
-.pedido{position:fixed;inset:0;z-index:90;display:none;background:rgba(7,11,9,.6)}
+/* ---------- Pedido (carrito) ---------- */
+.pedido{position:fixed;inset:0;z-index:90;display:none;background:rgba(22,29,28,.55);backdrop-filter:blur(3px)}
 .pedido.is-open{display:flex;justify-content:flex-end}
-.pedido__box{
-  background:var(--marfil);border-left:1px solid var(--oro);
-  width:min(460px,100%);height:100%;overflow-y:auto;
-  padding:var(--s6);display:flex;flex-direction:column;gap:var(--s5);
-}
+.pedido__box{background:var(--panel);width:min(460px,100%);height:100%;overflow-y:auto;padding:var(--s5);display:flex;flex-direction:column;gap:var(--s4)}
 .pedido__lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
-.pedido__item{display:flex;justify-content:space-between;gap:var(--s4);padding-block:var(--s5);border-bottom:1px solid var(--filete-claro)}
-.pedido__item-name{font-family:var(--display);font-size:1.375rem;line-height:1.2;margin:0 0 var(--s1)}
-.pedido__item-spec{color:var(--tinta-suave);font-size:.8125rem;margin:0}
-.pedido__quitar{
-  background:none;border:0;border-bottom:1px solid var(--filete);
-  color:var(--tinta-suave);cursor:pointer;
-  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  padding:0 0 2px;margin-top:var(--s3);
-  transition:color var(--t) var(--ease),border-color var(--t) var(--ease);
-}
-.pedido__quitar:hover{color:var(--lacre);border-color:var(--oro)}
-.pedido__vacio{color:var(--tinta-suave)}
+.pedido__item{display:flex;justify-content:space-between;gap:var(--s3);padding-block:var(--s4);border-bottom:1px solid var(--line-soft)}
+.pedido__item-name{font-weight:600;margin:0 0 var(--s1)}
+.pedido__item-spec{color:var(--ink-2);font-size:.8125rem;margin:0}
+.pedido__quitar{background:none;border:0;color:var(--ink-2);cursor:pointer;text-decoration:underline;text-underline-offset:3px;font-size:.8125rem;padding:0;margin-top:var(--s2)}
+.pedido__quitar:hover{color:var(--lacre)}
+.pedido__vacio{color:var(--ink-2)}
 
-/* ---------- Movimiento ----------
-   Prohibido: parallax, scroll-jacking, rebotes, rotaciones, scale en hover y
-   animaciones de entrada por elemento. Por eso .reveal ya no oculta nada:
-   la clase sigue en el markup y en el JS, pero no tiene efecto visual.
-   Como efecto secundario, desaparece para siempre el riesgo de que un fallo
-   del script dejara la página en blanco. */
-.reveal,.js .reveal{opacity:1;transform:none}
+/* ---------- Revelado ---------- */
+/* El ocultado inicial va condicionado a que HAYA JavaScript (.js en <html>).
+   Si el script falla o no carga, el contenido se ve igual — nunca se queda
+   invisible por depender de una animación. */
+.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.js .reveal.is-in{opacity:1;transform:none}
 
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{
     animation-duration:.01ms!important;animation-iteration-count:1!important;
     transition-duration:.01ms!important;scroll-behavior:auto!important;
   }
+  .seg,.reveal{opacity:1;transform:none}
+  .card__media::after{display:none}
 }
 </style>
 <script>
@@ -1230,33 +969,20 @@ document.documentElement.classList.add("js");
   </div>
   <div class="hero__velo"></div>
   <div class="wrap hero__contenido">
-    <!-- El nombre, con el filete de oro que ocupa el ancho exacto de la palabra.
-         El h1 sigue diciendo qué se vende: la parte descriptiva va oculta a la
-         vista pero presente para buscadores y lectores de pantalla. -->
-    <h1 class="hero__marca">
-      <span class="hero__wordmark">Laksmy</span>
-      <span class="vh"> — anillos de grado, aros de boda y piezas a la medida en Caracas</span>
-    </h1>
-    <!-- El lema de la casa. Cursiva: es la voz de la marca, no una descripción. -->
     <p class="hero__lema">Piezas que se heredan,<br>no que pasan de moda.</p>
+    <h1 class="hero__que">Anillos de grado, aros de boda<br>y piezas a la medida</h1>
+    <p class="hero__metal punzon">Oro 10k · 14k · 18k · Plata Ley 950</p>
     <div class="hero__cta">
       <a class="btn btn--primary" href="#grado">Ver anillos de grado</a>
+      <a class="btn btn--claro" data-wa="tienda" href="https://wa.me/584142464755" target="_blank" rel="noopener noreferrer">Escribir</a>
     </div>
-  </div>
-</section>
-
-<!-- Cierre del Acto I: el metal y las tres pruebas. Bajan aquí desde el hero
-     para que la apertura sostenga una sola idea. -->
-<div class="apertura__pie">
-  <div class="wrap">
-    <p class="punzon">Oro 10k · 14k · 18k · Plata Ley 950</p>
-    <ul class="apertura__pruebas">
-      <li class="punzon"><strong>14 días</strong> máximo</li>
-      <li class="punzon"><strong>Taller propio</strong> en Caracas</li>
-      <li class="punzon"><strong>Envíos</strong> a todo el país</li>
+    <ul class="hero__pruebas">
+      <li><strong>14 días</strong> máximo</li>
+      <li><strong>Taller propio</strong> en Caracas</li>
+      <li><strong>Envíos</strong> a todo el país</li>
     </ul>
   </div>
-</div>
+</section>
 
 <section class="espectro" id="espectro" aria-labelledby="espectro-t">
   <div class="wrap">
@@ -1265,22 +991,11 @@ document.documentElement.classList.add("js");
       <p class="espectro__note">La piedra dice lo que estudiaste. Escoge un color y mira los modelos.</p>
       <p class="espectro__carreras">
         Cada color agrupa varias carreras: <strong>toca uno y te decimos cuáles</strong>.
-        ¿No ves la tuya? <a class="enlace" data-wa="carrera" href="https://wa.me/584142464755" target="_blank" rel="noopener noreferrer">Escríbenos</a>
+        ¿No ves la tuya? <a data-wa="carrera" href="https://wa.me/584142464755" target="_blank" rel="noopener noreferrer">Escríbenos</a>
         y la ubicamos contigo — hacemos anillos para cualquier carrera o TSU.
       </p>
     </div>
     <div class="espectro__bar" role="group" aria-label="Filtrar anillos de grado por carrera"></div>
-
-    <!-- Segunda puerta al mismo control: el índice alfabético de carreras.
-         No es un filtro aparte — cada carrera activa exactamente la misma
-         piedra que su fila de arriba. -->
-    <div class="carreras" id="carreras">
-      <button class="carreras__abrir punzon" type="button" id="carrerasAbrir"
-              aria-expanded="false" aria-controls="carrerasLista">
-        <span>Buscar mi carrera por nombre</span><span aria-hidden="true">+</span>
-      </button>
-      <ul class="carreras__lista" id="carrerasLista"></ul>
-    </div>
     <div class="espectro__pie">
       <div class="piedra" id="piedraInfo" aria-live="polite"></div>
       <p class="espectro__libre">
@@ -1293,7 +1008,7 @@ document.documentElement.classList.add("js");
 <section class="section" id="grado" aria-labelledby="grado-t">
   <div class="wrap">
     <div class="section__head reveal">
-      <span class="punzon section__eyebrow">Acto II — La categoría de la casa</span>
+      <span class="punzon section__eyebrow">01 — La categoría de la casa</span>
       <h2 class="section__title" id="grado-t">Anillos de Grado</h2>
       <p class="section__lede">Diez modelos. Ábrelos y escoge quilate, talla, piedra y grabado.</p>
       <div class="aviso-precio">
@@ -1313,78 +1028,10 @@ document.documentElement.classList.add("js");
   </div>
 </section>
 
-<!-- ACTO III · El taller. Carta firmada. -->
-<section class="taller" id="taller" aria-labelledby="taller-t">
-  <div class="wrap"><div class="taller__carta">
-    <span class="punzon taller__eyebrow">Acto III — Fuera de catálogo</span>
-    <h2 class="taller__title" id="taller-t">¿La viste en una foto? La hacemos.</h2>
-    <p class="taller__text">Mándanos la foto y te cotizamos. La modelamos en 3D para que la apruebes antes de fundir. Se hace una sola vez.</p>
-    <p class="taller__firma">Taller propio · Caracas</p>
-    <a class="btn btn--claro" data-wa="medida" href="https://wa.me/584142464755" target="_blank" rel="noopener noreferrer">Mandar la foto y cotizar</a>
-    <!-- PLACEHOLDER: falta la foto documental del taller de Caracas. Hasta que
-         exista, el hueco se declara en vez de rellenarse con una foto de banco:
-         una foto prestada aquí desmiente justo lo que dice el texto. -->
-    <figure class="taller__foto">
-      <div class="taller__hueco">
-        <span class="punzon">Foto del taller · pendiente</span>
-      </div>
-    </figure>
-    </div>
-  </div>
-  <div class="wrap"><div class="taller__servicios">
-    <ul class="taller__list">
-      <li class="taller__item"><span class="taller__item-name">Diseño y modelado 3D</span><span class="dato taller__item-price">desde&nbsp;$45</span></li>
-      <li class="taller__item"><span class="taller__item-name">Cambio de talla</span><span class="dato taller__item-price">desde&nbsp;$18</span></li>
-      <li class="taller__item"><span class="taller__item-name">Grabado en pieza que ya tienes</span><span class="dato taller__item-price">desde&nbsp;$12</span></li>
-      <li class="taller__item"><span class="taller__item-name">Engaste de piedra</span><span class="dato taller__item-price">desde&nbsp;$25</span></li>
-      <li class="taller__item"><span class="taller__item-name">Baño de rodio</span><span class="dato taller__item-price">desde&nbsp;$20</span></li>
-    </ul>
-  </div></div>
-</section>
-
-<!-- ACTO IV · El oro como reserva de valor. Mismos datos, mismo gráfico,
-     redibujado como línea de 1px en oro sobre marfil. -->
-<section class="section refugio" id="refugio" aria-labelledby="refugio-t">
-  <div class="wrap">
-    <div class="refugio__grid">
-      <div>
-        <span class="punzon section__eyebrow">Acto IV — Lo que nadie te cuenta de una joya</span>
-        <h2 class="section__title" id="refugio-t">Se ve bonita. <br>Además, es ahorro.</h2>
-        <p class="refugio__lede">Una joya de oro es dos cosas a la vez: la usas y la heredas. Mientras tanto, sigue siendo oro.</p>
-        <p class="refugio__lede">El dólar guardado compra menos cada año. El oro no lo emite nadie: no hay banco que imprima más.</p>
-        <div class="refugio__cifras">
-          <div class="cifra">
-            <span class="cifra__valor dato">−47%</span>
-            <span class="cifra__label punzon">Poder de compra que perdió el dólar desde el año 2000</span>
-          </div>
-          <div class="cifra">
-            <span class="cifra__valor dato">×15,6</span>
-            <span class="cifra__label punzon">Lo que subió la onza de oro en ese mismo período</span>
-          </div>
-        </div>
-      </div>
-      <figure class="refugio__fig">
-        <figcaption class="refugio__figtitle">
-          <span class="punzon">Precio de la onza de oro · promedio anual en dólares</span>
-        </figcaption>
-        <div class="refugio__chart" id="chartOro"></div>
-        <table class="refugio__tabla" id="tablaOro">
-          <caption class="vh">Precio promedio anual de la onza de oro en dólares</caption>
-          <thead><tr><th scope="col">Año</th><th scope="col">USD / onza</th></tr></thead>
-          <tbody></tbody>
-        </table>
-        <button class="refugio__vertabla punzon" type="button" id="verTabla" aria-expanded="false" aria-controls="tablaOro">Ver los datos en tabla</button>
-      </figure>
-    </div>
-    <p class="refugio__aviso">Precio internacional del oro (promedio anual) e inflación del dólar según el índice de EE. UU. <strong>El rendimiento pasado no garantiza el futuro.</strong> El oro sube y baja. No es asesoría financiera: vendemos joyas.</p>
-  </div>
-</section>
-
-<!-- ACTO V · Catálogo, talla y cómo comprar. -->
 <section class="section registro" id="registro" aria-labelledby="registro-t">
   <div class="wrap">
     <div class="section__head reveal">
-      <span class="punzon section__eyebrow">Acto V — Todo lo que hacemos</span>
+      <span class="punzon section__eyebrow">02 — Todo lo que hacemos</span>
       <h2 class="section__title" id="registro-t">Catálogo</h2>
       <p class="section__lede">Escoge una categoría. Lo que no tiene foto va con su ficha completa.</p>
       <div class="aviso-precio">
@@ -1405,7 +1052,7 @@ document.documentElement.classList.add("js");
 <section class="section talla" id="talla" aria-labelledby="talla-t">
   <div class="wrap">
     <div class="section__head reveal">
-      <span class="punzon section__eyebrow">Acto V — Antes de encargar</span>
+      <span class="punzon section__eyebrow">03 — Antes de encargar</span>
       <h2 class="section__title" id="talla-t">Saber tu talla es más fácil de lo que parece</h2>
       <p class="section__lede">Dos formas de averiguarla en un minuto. Si le pegas al lado, lo arreglamos.</p>
     </div>
@@ -1466,7 +1113,7 @@ document.documentElement.classList.add("js");
 <section class="section comprar" id="comprar" aria-labelledby="comprar-t">
   <div class="wrap">
     <div class="section__head reveal">
-      <span class="punzon section__eyebrow">Acto V — Lo práctico</span>
+      <span class="punzon section__eyebrow">04 — Lo práctico</span>
       <h2 class="section__title" id="comprar-t">Cómo comprar</h2>
       <p class="section__lede">Cómo pagas, cuánto tarda, cómo te llega y dónde estamos.</p>
     </div>
@@ -1562,9 +1209,59 @@ document.documentElement.classList.add("js");
 </section>
 
 <!-- Valor refugio -->
+<section class="section refugio" id="refugio" aria-labelledby="refugio-t">
+  <div class="wrap">
+    <div class="refugio__grid">
+      <div>
+        <span class="punzon section__eyebrow">05 — Lo que nadie te cuenta de una joya</span>
+        <h2 class="section__title" id="refugio-t">Se ve bonita. <br>Además, es ahorro.</h2>
+        <p class="refugio__lede">Una joya de oro es dos cosas a la vez: la usas y la heredas. Mientras tanto, sigue siendo oro.</p>
+        <p class="refugio__lede">El dólar guardado compra menos cada año. El oro no lo emite nadie: no hay banco que imprima más.</p>
+        <div class="refugio__cifras">
+          <div class="cifra">
+            <span class="cifra__valor dato">−47%</span>
+            <span class="cifra__label punzon">Poder de compra que perdió el dólar desde el año 2000</span>
+          </div>
+          <div class="cifra">
+            <span class="cifra__valor dato">×15,6</span>
+            <span class="cifra__label punzon">Lo que subió la onza de oro en ese mismo período</span>
+          </div>
+        </div>
+      </div>
+      <figure class="refugio__fig">
+        <figcaption class="refugio__figtitle">
+          <span class="punzon">Precio de la onza de oro · promedio anual en dólares</span>
+        </figcaption>
+        <div class="refugio__chart" id="chartOro"></div>
+        <table class="refugio__tabla" id="tablaOro">
+          <caption class="vh">Precio promedio anual de la onza de oro en dólares</caption>
+          <thead><tr><th scope="col">Año</th><th scope="col">USD / onza</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <button class="refugio__vertabla punzon" type="button" id="verTabla" aria-expanded="false" aria-controls="tablaOro">Ver los datos en tabla</button>
+      </figure>
+    </div>
+    <p class="refugio__aviso">Precio internacional del oro (promedio anual) e inflación del dólar según el índice de EE. UU. <strong>El rendimiento pasado no garantiza el futuro.</strong> El oro sube y baja. No es asesoría financiera: vendemos joyas.</p>
+  </div>
+</section>
 
-
-
+<section class="taller" id="taller" aria-labelledby="taller-t">
+  <div class="wrap taller__grid">
+    <div>
+      <span class="punzon taller__eyebrow">06 — Fuera de catálogo</span>
+      <h2 class="taller__title" id="taller-t">¿La viste en una foto? La hacemos.</h2>
+      <p class="taller__text">Mándanos la foto y te cotizamos. La modelamos en 3D para que la apruebes antes de fundir. Se hace una sola vez.</p>
+      <a class="btn btn--primary" data-wa="medida" href="https://wa.me/584142464755" target="_blank" rel="noopener noreferrer">Mandar la foto y cotizar</a>
+    </div>
+    <ul class="taller__list">
+      <li class="taller__item"><span class="taller__item-name">Diseño y modelado 3D</span><span class="dato taller__item-price">desde&nbsp;$45</span></li>
+      <li class="taller__item"><span class="taller__item-name">Cambio de talla</span><span class="dato taller__item-price">desde&nbsp;$18</span></li>
+      <li class="taller__item"><span class="taller__item-name">Grabado en pieza que ya tienes</span><span class="dato taller__item-price">desde&nbsp;$12</span></li>
+      <li class="taller__item"><span class="taller__item-name">Engaste de piedra</span><span class="dato taller__item-price">desde&nbsp;$25</span></li>
+      <li class="taller__item"><span class="taller__item-name">Baño de rodio</span><span class="dato taller__item-price">desde&nbsp;$20</span></li>
+    </ul>
+  </div>
+</section>
 
 <!-- B2B: la derivada de orfebrería. Sección propia para que una joyería la
      encuentre sin buscar, pero después del catálogo para no desplazar al
@@ -1572,7 +1269,7 @@ document.documentElement.classList.add("js");
 <section class="section b2b" id="b2b" aria-labelledby="b2b-t">
   <div class="wrap">
     <div class="b2b__cab">
-      <span class="punzon section__eyebrow">Cierre — Para joyerías y talleres</span>
+      <span class="punzon section__eyebrow">07 — Para joyerías y talleres</span>
       <h2 class="section__title" id="b2b-t">Tu taller, sin montar un taller.</h2>
       <p class="section__lede">Fundición, engaste, terminado y 3D para otras joyerías. Tú pones la marca; nosotros la pieza. Ves el proceso, el gramaje y la merma.</p>
     </div>
@@ -1628,9 +1325,12 @@ document.documentElement.classList.add("js");
   </div>
 </footer>
 
-<!-- Pastilla de lacre con la palabra. Sin icono de burbuja. -->
-<a class="wafab" id="wafab" data-wa="tienda" href="https://wa.me/584142464755"
-   target="_blank" rel="noopener noreferrer">Escribir por WhatsApp</a>
+<a class="wafab" id="wafab" data-wa="tienda" href="https://wa.me/584142464755" target="_blank" rel="noopener noreferrer"
+   aria-label="Escribir por WhatsApp" target="_blank" rel="noopener noreferrer">
+  <svg viewBox="0 0 24 24" aria-hidden="true" width="26" height="26">
+    <path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.54.06-.25-.13-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.84-.2-.49-.4-.42-.55-.43h-.47c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.62 4.15 3.67.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.12-.22-.19-.47-.31Z"/>
+  </svg>
+</a>
 
 <!-- Índice -->
 <div class="indice" id="indice" role="dialog" aria-modal="true" aria-labelledby="indiceTitulo">
@@ -1877,11 +1577,6 @@ function precioDesde(p){
   });
 }
 const fmt = n => "$" + n.toLocaleString("es-VE");
-/* Formato de vitrina: "480 $", y en las tarjetas "desde 480 $ · 10k". Las
-   versalitas las pone el CSS. Es SÓLO para lo que se ve en pantalla: el
-   mensaje de WhatsApp sigue saliendo de fmt() sin tocar, porque cambiar la
-   cadena que se manda al chat no es un cambio de piel. */
-const fmtVitrina = n => n.toLocaleString("es-VE") + " $";
 
 const $  = (s,r=document)=>r.querySelector(s);
 const $$ = (s,r=document)=>Array.from(r.querySelectorAll(s));
@@ -1918,28 +1613,10 @@ function irA(sel){
 /* ---------- El Espectro ---------- */
 let piedraActiva = null;
 const barra = $(".espectro__bar"), info = $("#piedraInfo");
-/* El color ya no se muestra como área saturada: entinta el filete de la fila,
-   y el nombre de la piedra aparece a la derecha al pasar por encima. */
 barra.innerHTML = ESPECTRO.map(s=>`
-  <button class="seg" type="button" data-piedra="${s.id}" aria-pressed="false"
-          style="--c:${s.c};--c-txt:${s.id==="blanco"?"var(--tinta)":s.c}">
-    <span class="seg__label">${s.carrera}</span><span class="seg__piedra">${s.piedra}</span>
+  <button class="seg" type="button" data-piedra="${s.id}" aria-pressed="false" style="--c:${s.c}">
+    <span class="seg__caja"><span class="seg__chip"></span></span><span class="seg__label">${s.carrera}</span>
   </button>`).join("");
-
-/* Índice alfabético. Se arma de las mismas listas de ESPECTRO, así que no hay
-   una segunda fuente de verdad que se pueda desincronizar. */
-const listaCarreras = $("#carrerasLista"), cajaCarreras = $("#carreras");
-listaCarreras.innerHTML = ESPECTRO
-  .flatMap(s => s.carreras.map(c => ({c, id:s.id, color:s.c})))
-  .sort((a,b) => a.c.localeCompare(b.c,"es"))
-  .map(x => `<li class="carreras__item"><button class="carreras__btn" type="button"
-      data-piedra="${x.id}" style="--c:${x.color}">${esc(x.c)}</button></li>`).join("");
-
-$("#carrerasAbrir").addEventListener("click", e=>{
-  const on = cajaCarreras.classList.toggle("is-open");
-  e.currentTarget.setAttribute("aria-expanded", String(on));
-  e.currentTarget.querySelector("span:last-child").textContent = on ? "−" : "+";
-});
 
 /* Al escoger un color: se explica qué significa esa piedra y se avisa
    explícitamente que el catálogo de abajo ya quedó filtrado, con un botón que
@@ -1973,25 +1650,15 @@ function pintarInfoPiedra(){
     </div></div>`;
   info.classList.add("is-on");
 }
-/* Un solo camino para activar una piedra, lo pida la fila o el índice. */
-function activarPiedra(id, alternar){
-  piedraActiva = (alternar && piedraActiva === id) ? null : id;
+barra.addEventListener("click", e=>{
+  const b = e.target.closest(".seg"); if(!b) return;
+  piedraActiva = piedraActiva === b.dataset.piedra ? null : b.dataset.piedra;
   visiblesGrado = TANDA;
   $$(".seg",barra).forEach(s=>s.setAttribute("aria-pressed", String(s.dataset.piedra===piedraActiva)));
   pintarInfoPiedra();
   pintarGrado();
   if(piedraActiva) medirPiedra(piedraActiva);
   if(piedraActiva) destellarGrid();
-}
-barra.addEventListener("click", e=>{
-  const b = e.target.closest(".seg"); if(!b) return;
-  activarPiedra(b.dataset.piedra, true);
-});
-/* Desde el índice no se alterna: escoger una carrera siempre selecciona su
-   piedra, nunca la apaga. */
-listaCarreras.addEventListener("click", e=>{
-  const b = e.target.closest(".carreras__btn"); if(!b) return;
-  activarPiedra(b.dataset.piedra, false);
 });
 document.addEventListener("click", e=>{
   if(e.target.closest("#irModelos")){
@@ -2044,7 +1711,8 @@ function tarjeta(p, i){
       ${s ? `<span class="punzon card__career">${s.carrera}</span>` : ""}
       <div class="card__foot">
         <span class="card__precio-caja">
-          <span class="dato card__price">desde ${fmtVitrina(precioDesde(p))} · ${MATERIAL_BASE}</span>
+          <span class="dato card__price">desde&nbsp;${fmt(precioDesde(p))}</span>
+          <span class="punzon card__moneda">en oro 10k</span>
         </span>
         <span class="punzon card__more">Personalizar</span>
       </div>
@@ -2239,7 +1907,7 @@ function actualizarPrecio(){
     `<strong>Las copias en plata van incluidas.</strong> Al encargarlo en
      ${esc(MATERIALES.find(m=>m.id===sel.material).label.toLowerCase())} te llevas también
      tus copias en plata Ley 950, sin costo adicional.`;
-  $("#modalPrecio").textContent = fmtVitrina(t);
+  $("#modalPrecio").textContent = fmt(t);
   $("#modalWa").href = waLink(mensaje(actual, sel, t));
 }
 function resumen(sel){
@@ -2322,7 +1990,7 @@ function bloquearFondo(on){
   /* El nav se deja accesible cuando el índice está abierto: su botón vive ahí
      y tiene que poder recibir el foco para cerrarlo. */
   const indiceAbierto = $("#indice").classList.contains("is-open");
-  $$("header.nav, main, footer.footer, .wafab").forEach(el=>{
+  $$("header.nav, main, footer.footer, .wabar").forEach(el=>{
     const saltar = indiceAbierto && el.matches("header.nav");
     if(on && !saltar) el.setAttribute("inert",""); else el.removeAttribute("inert");
   });
@@ -2654,10 +2322,10 @@ function pintarPedido(){
         <div><p class="pedido__item-name">${esc(it.n)}</p>
         <p class="pedido__item-spec">${esc(it.spec)}</p>
         <button class="pedido__quitar" type="button" data-q="${i}">Quitar</button></div>
-        <span class="dato">${fmtVitrina(it.total)}</span></li>`).join("")
+        <span class="dato">${fmt(it.total)}</span></li>`).join("")
     : `<li class="pedido__vacio">Todavía no has agregado piezas.</li>`;
   const total = carrito.reduce((s,i)=>s+i.total,0);
-  $("#pedidoTotal").textContent = carrito.length ? fmtVitrina(total) : "—";
+  $("#pedidoTotal").textContent = carrito.length ? fmt(total) : "—";
   const texto = carrito.length
     ? "Hola, quiero encargar:\n\n" + carrito.map(i=>`• ${i.n}\n  ${i.spec}\n  ${fmt(i.total)}`).join("\n\n")
       + `\n\nTotal aproximado: ${fmt(total)}`
@@ -2779,6 +2447,13 @@ const MENSAJES = {
   visita:   "Hola, quiero pasar por la tienda. ¿En qué horario los consigo?"
 };
 $$("[data-wa]").forEach(a => a.href = waLink(MENSAJES[a.dataset.wa]));
+
+const wabar = $("#wabar");
+let lastY = scrollY;
+addEventListener("scroll", ()=>{
+  wabar.classList.toggle("is-hidden", scrollY > lastY && scrollY > 240);
+  lastY = scrollY;
+}, {passive:true});
 </script>
 
 <!-- ============================================================
