@@ -555,6 +555,11 @@ strong,b{font-weight:400}
 /* ---------- Secciones ---------- */
 .section{padding-block:var(--s9)}
 @media(min-width:1000px){.section{padding-block:var(--s10)}}
+/* Confirmación de que el catálogo de abajo se filtró. Era un destello de color
+   cálido; ahora es un cruce de opacidad, el único movimiento permitido. */
+@keyframes filtrado{from{opacity:.3}to{opacity:1}}
+.grid.is-filtrado{animation:filtrado var(--t) var(--ease)}
+
 /* Los enlaces del índice apuntan a estas secciones; sin este margen el nav
    fijo tapa el titular al llegar. */
 section[id],#talla,#comprar{scroll-margin-top:88px}
@@ -639,7 +644,6 @@ section[id],#talla,#comprar{scroll-margin-top:88px}
   .card__foot{flex-direction:row;align-items:baseline;justify-content:space-between;gap:var(--s4)}
 }
 .card__precio-caja{display:flex;flex-direction:column;gap:.15rem}
-.card__moneda{color:var(--tinta-suave);font-size:11px;letter-spacing:.18em}
 .card__more{
   position:relative;color:var(--tinta-suave);
   font-size:11px;letter-spacing:.18em;text-transform:uppercase;
@@ -929,8 +933,23 @@ section[id],#talla,#comprar{scroll-margin-top:88px}
    Carta firmada, centrada. */
 .taller{background:var(--verde-vitrina);color:var(--marfil);padding-block:var(--s9)}
 @media(min-width:1000px){.taller{padding-block:var(--s10)}}
-.taller__grid{display:grid;gap:var(--s8)}
-@media(min-width:800px){.taller__grid{grid-template-columns:1fr 1fr;gap:var(--s9)}}
+.taller__carta{
+  max-width:74ch;margin-inline:auto;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:var(--s5);
+}
+.taller__firma{
+  margin:0;font-family:var(--display);font-style:italic;font-weight:300;
+  font-size:clamp(24px,3vw,28px);line-height:1.45;color:var(--marfil);
+}
+/* Hueco declarado de la foto del taller. Una foto de banco aquí desmentiría
+   justo lo que dice el texto, así que el hueco se enseña como lo que es. */
+.taller__foto{margin:var(--s7) 0 0;width:100%}
+.taller__hueco{
+  aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(249,247,242,.28);
+}
+.taller__hueco .punzon{color:var(--sobre-oscuro)}
+.taller__servicios{margin-top:var(--s9);max-width:74ch;margin-inline:auto}
 .taller__title{font-family:var(--display);font-weight:300;font-size:clamp(40px,5vw,64px);line-height:1.02;margin:0 0 var(--s5)}
 .taller__eyebrow{display:block;margin-bottom:var(--s5);color:var(--sobre-oscuro)}
 .taller__text{color:var(--sobre-oscuro);margin:0 0 var(--s6);max-width:74ch}
@@ -1084,24 +1103,31 @@ section[id],#talla,#comprar{scroll-margin-top:88px}
 .modal__pie{
   position:sticky;bottom:0;z-index:3;margin-top:auto;
   background:var(--marfil);border-top:1px solid var(--oro);
-  padding:var(--s5) var(--s6) var(--s6);
+  padding:var(--s4) var(--s6) var(--s5);
   margin-inline:calc(var(--s6) * -1);margin-bottom:calc(var(--s6) * -1);
-  display:flex;flex-direction:column;gap:var(--s4);
+  display:flex;flex-direction:column;gap:var(--s3);
 }
+/* El pie es una barra de servicio, no una sección: aquí el espaciado generoso
+   del sistema se aprieta. Medido: con el espaciado de página ocupaba 285px de
+   un viewport de 814 y tapaba las opciones que hay que tocar. */
+.modal__acciones .btn{padding:.9rem 1.2rem}
 .precio{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s4);flex-wrap:wrap}
 .precio__izq{display:flex;flex-direction:column;gap:.15rem}
 .precio__mat{color:var(--tinta-suave);text-align:right}
 /* Cambio de metal: cruce de opacidad de los dígitos, 200 ms. Sin contadores
-   animados, sin destello de color, sin cambio de escala. */
-.precio__valor{display:inline-block;transition:opacity 200ms var(--ease)}
-.precio__valor.is-cambiado{opacity:0}
+   animados, sin destello de color, sin cambio de escala.
+   Va como animación y no como transición porque la clase la pone el JS y nadie
+   la quita: con una transición el precio se quedaría invisible. */
+@keyframes precioCruza{0%{opacity:1}45%{opacity:0}100%{opacity:1}}
+.precio__valor{display:inline-block}
+.precio__valor.is-cambiado{animation:precioCruza 200ms var(--ease)}
 .precio__label{color:var(--tinta-suave)}
 .precio__valor{font-size:2rem;letter-spacing:.16em}
 .precio__nota{color:var(--tinta-suave);font-size:.8125rem;margin:0;width:100%}
 /* Va dentro del pie fijo: antes quedaba debajo de la barra, fuera de la
    pantalla, y el argumento de las copias gratis no lo veía nadie. */
 .modal__regalo{
-  margin:0;padding:var(--s4) var(--s5);
+  margin:0;padding:var(--s3) var(--s4);
   background:var(--superficie);border-left:1px solid var(--lacre);
   font-size:.8125rem;line-height:1.6;color:var(--tinta-suave);
 }
@@ -1111,7 +1137,7 @@ section[id],#talla,#comprar{scroll-margin-top:88px}
 .modal__acciones .btn{flex:1 1 140px}
 /* En pantallas cortas el pie llegaba a ocupar más de la mitad: se aprieta el
    espaciado y el aviso del regalo para que quepan las opciones. */
-@media(max-height:700px),(max-width:360px){
+@media(max-height:860px),(max-width:360px){
   .modal__pie{padding:var(--s4) var(--s5) var(--s5);gap:var(--s3)}
   .modal__regalo{padding:var(--s3) var(--s4);font-size:.75rem;line-height:1.35}
   .precio__valor{font-size:1.5rem}
@@ -1239,11 +1265,22 @@ document.documentElement.classList.add("js");
       <p class="espectro__note">La piedra dice lo que estudiaste. Escoge un color y mira los modelos.</p>
       <p class="espectro__carreras">
         Cada color agrupa varias carreras: <strong>toca uno y te decimos cuáles</strong>.
-        ¿No ves la tuya? <a data-wa="carrera" href="https://wa.me/584142464755" target="_blank" rel="noopener noreferrer">Escríbenos</a>
+        ¿No ves la tuya? <a class="enlace" data-wa="carrera" href="https://wa.me/584142464755" target="_blank" rel="noopener noreferrer">Escríbenos</a>
         y la ubicamos contigo — hacemos anillos para cualquier carrera o TSU.
       </p>
     </div>
     <div class="espectro__bar" role="group" aria-label="Filtrar anillos de grado por carrera"></div>
+
+    <!-- Segunda puerta al mismo control: el índice alfabético de carreras.
+         No es un filtro aparte — cada carrera activa exactamente la misma
+         piedra que su fila de arriba. -->
+    <div class="carreras" id="carreras">
+      <button class="carreras__abrir punzon" type="button" id="carrerasAbrir"
+              aria-expanded="false" aria-controls="carrerasLista">
+        <span>Buscar mi carrera por nombre</span><span aria-hidden="true">+</span>
+      </button>
+      <ul class="carreras__lista" id="carrerasLista"></ul>
+    </div>
     <div class="espectro__pie">
       <div class="piedra" id="piedraInfo" aria-live="polite"></div>
       <p class="espectro__libre">
@@ -1256,7 +1293,7 @@ document.documentElement.classList.add("js");
 <section class="section" id="grado" aria-labelledby="grado-t">
   <div class="wrap">
     <div class="section__head reveal">
-      <span class="punzon section__eyebrow">01 — La categoría de la casa</span>
+      <span class="punzon section__eyebrow">Acto II — La categoría de la casa</span>
       <h2 class="section__title" id="grado-t">Anillos de Grado</h2>
       <p class="section__lede">Diez modelos. Ábrelos y escoge quilate, talla, piedra y grabado.</p>
       <div class="aviso-precio">
@@ -1276,10 +1313,78 @@ document.documentElement.classList.add("js");
   </div>
 </section>
 
+<!-- ACTO III · El taller. Carta firmada. -->
+<section class="taller" id="taller" aria-labelledby="taller-t">
+  <div class="wrap"><div class="taller__carta">
+    <span class="punzon taller__eyebrow">Acto III — Fuera de catálogo</span>
+    <h2 class="taller__title" id="taller-t">¿La viste en una foto? La hacemos.</h2>
+    <p class="taller__text">Mándanos la foto y te cotizamos. La modelamos en 3D para que la apruebes antes de fundir. Se hace una sola vez.</p>
+    <p class="taller__firma">Taller propio · Caracas</p>
+    <a class="btn btn--claro" data-wa="medida" href="https://wa.me/584142464755" target="_blank" rel="noopener noreferrer">Mandar la foto y cotizar</a>
+    <!-- PLACEHOLDER: falta la foto documental del taller de Caracas. Hasta que
+         exista, el hueco se declara en vez de rellenarse con una foto de banco:
+         una foto prestada aquí desmiente justo lo que dice el texto. -->
+    <figure class="taller__foto">
+      <div class="taller__hueco">
+        <span class="punzon">Foto del taller · pendiente</span>
+      </div>
+    </figure>
+    </div>
+  </div>
+  <div class="wrap"><div class="taller__servicios">
+    <ul class="taller__list">
+      <li class="taller__item"><span class="taller__item-name">Diseño y modelado 3D</span><span class="dato taller__item-price">desde&nbsp;$45</span></li>
+      <li class="taller__item"><span class="taller__item-name">Cambio de talla</span><span class="dato taller__item-price">desde&nbsp;$18</span></li>
+      <li class="taller__item"><span class="taller__item-name">Grabado en pieza que ya tienes</span><span class="dato taller__item-price">desde&nbsp;$12</span></li>
+      <li class="taller__item"><span class="taller__item-name">Engaste de piedra</span><span class="dato taller__item-price">desde&nbsp;$25</span></li>
+      <li class="taller__item"><span class="taller__item-name">Baño de rodio</span><span class="dato taller__item-price">desde&nbsp;$20</span></li>
+    </ul>
+  </div></div>
+</section>
+
+<!-- ACTO IV · El oro como reserva de valor. Mismos datos, mismo gráfico,
+     redibujado como línea de 1px en oro sobre marfil. -->
+<section class="section refugio" id="refugio" aria-labelledby="refugio-t">
+  <div class="wrap">
+    <div class="refugio__grid">
+      <div>
+        <span class="punzon section__eyebrow">Acto IV — Lo que nadie te cuenta de una joya</span>
+        <h2 class="section__title" id="refugio-t">Se ve bonita. <br>Además, es ahorro.</h2>
+        <p class="refugio__lede">Una joya de oro es dos cosas a la vez: la usas y la heredas. Mientras tanto, sigue siendo oro.</p>
+        <p class="refugio__lede">El dólar guardado compra menos cada año. El oro no lo emite nadie: no hay banco que imprima más.</p>
+        <div class="refugio__cifras">
+          <div class="cifra">
+            <span class="cifra__valor dato">−47%</span>
+            <span class="cifra__label punzon">Poder de compra que perdió el dólar desde el año 2000</span>
+          </div>
+          <div class="cifra">
+            <span class="cifra__valor dato">×15,6</span>
+            <span class="cifra__label punzon">Lo que subió la onza de oro en ese mismo período</span>
+          </div>
+        </div>
+      </div>
+      <figure class="refugio__fig">
+        <figcaption class="refugio__figtitle">
+          <span class="punzon">Precio de la onza de oro · promedio anual en dólares</span>
+        </figcaption>
+        <div class="refugio__chart" id="chartOro"></div>
+        <table class="refugio__tabla" id="tablaOro">
+          <caption class="vh">Precio promedio anual de la onza de oro en dólares</caption>
+          <thead><tr><th scope="col">Año</th><th scope="col">USD / onza</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <button class="refugio__vertabla punzon" type="button" id="verTabla" aria-expanded="false" aria-controls="tablaOro">Ver los datos en tabla</button>
+      </figure>
+    </div>
+    <p class="refugio__aviso">Precio internacional del oro (promedio anual) e inflación del dólar según el índice de EE. UU. <strong>El rendimiento pasado no garantiza el futuro.</strong> El oro sube y baja. No es asesoría financiera: vendemos joyas.</p>
+  </div>
+</section>
+
+<!-- ACTO V · Catálogo, talla y cómo comprar. -->
 <section class="section registro" id="registro" aria-labelledby="registro-t">
   <div class="wrap">
     <div class="section__head reveal">
-      <span class="punzon section__eyebrow">02 — Todo lo que hacemos</span>
+      <span class="punzon section__eyebrow">Acto V — Todo lo que hacemos</span>
       <h2 class="section__title" id="registro-t">Catálogo</h2>
       <p class="section__lede">Escoge una categoría. Lo que no tiene foto va con su ficha completa.</p>
       <div class="aviso-precio">
@@ -1300,7 +1405,7 @@ document.documentElement.classList.add("js");
 <section class="section talla" id="talla" aria-labelledby="talla-t">
   <div class="wrap">
     <div class="section__head reveal">
-      <span class="punzon section__eyebrow">03 — Antes de encargar</span>
+      <span class="punzon section__eyebrow">Acto V — Antes de encargar</span>
       <h2 class="section__title" id="talla-t">Saber tu talla es más fácil de lo que parece</h2>
       <p class="section__lede">Dos formas de averiguarla en un minuto. Si le pegas al lado, lo arreglamos.</p>
     </div>
@@ -1361,7 +1466,7 @@ document.documentElement.classList.add("js");
 <section class="section comprar" id="comprar" aria-labelledby="comprar-t">
   <div class="wrap">
     <div class="section__head reveal">
-      <span class="punzon section__eyebrow">04 — Lo práctico</span>
+      <span class="punzon section__eyebrow">Acto V — Lo práctico</span>
       <h2 class="section__title" id="comprar-t">Cómo comprar</h2>
       <p class="section__lede">Cómo pagas, cuánto tarda, cómo te llega y dónde estamos.</p>
     </div>
@@ -1457,59 +1562,9 @@ document.documentElement.classList.add("js");
 </section>
 
 <!-- Valor refugio -->
-<section class="section refugio" id="refugio" aria-labelledby="refugio-t">
-  <div class="wrap">
-    <div class="refugio__grid">
-      <div>
-        <span class="punzon section__eyebrow">05 — Lo que nadie te cuenta de una joya</span>
-        <h2 class="section__title" id="refugio-t">Se ve bonita. <br>Además, es ahorro.</h2>
-        <p class="refugio__lede">Una joya de oro es dos cosas a la vez: la usas y la heredas. Mientras tanto, sigue siendo oro.</p>
-        <p class="refugio__lede">El dólar guardado compra menos cada año. El oro no lo emite nadie: no hay banco que imprima más.</p>
-        <div class="refugio__cifras">
-          <div class="cifra">
-            <span class="cifra__valor dato">−47%</span>
-            <span class="cifra__label punzon">Poder de compra que perdió el dólar desde el año 2000</span>
-          </div>
-          <div class="cifra">
-            <span class="cifra__valor dato">×15,6</span>
-            <span class="cifra__label punzon">Lo que subió la onza de oro en ese mismo período</span>
-          </div>
-        </div>
-      </div>
-      <figure class="refugio__fig">
-        <figcaption class="refugio__figtitle">
-          <span class="punzon">Precio de la onza de oro · promedio anual en dólares</span>
-        </figcaption>
-        <div class="refugio__chart" id="chartOro"></div>
-        <table class="refugio__tabla" id="tablaOro">
-          <caption class="vh">Precio promedio anual de la onza de oro en dólares</caption>
-          <thead><tr><th scope="col">Año</th><th scope="col">USD / onza</th></tr></thead>
-          <tbody></tbody>
-        </table>
-        <button class="refugio__vertabla punzon" type="button" id="verTabla" aria-expanded="false" aria-controls="tablaOro">Ver los datos en tabla</button>
-      </figure>
-    </div>
-    <p class="refugio__aviso">Precio internacional del oro (promedio anual) e inflación del dólar según el índice de EE. UU. <strong>El rendimiento pasado no garantiza el futuro.</strong> El oro sube y baja. No es asesoría financiera: vendemos joyas.</p>
-  </div>
-</section>
 
-<section class="taller" id="taller" aria-labelledby="taller-t">
-  <div class="wrap taller__grid">
-    <div>
-      <span class="punzon taller__eyebrow">06 — Fuera de catálogo</span>
-      <h2 class="taller__title" id="taller-t">¿La viste en una foto? La hacemos.</h2>
-      <p class="taller__text">Mándanos la foto y te cotizamos. La modelamos en 3D para que la apruebes antes de fundir. Se hace una sola vez.</p>
-      <a class="btn btn--primary" data-wa="medida" href="https://wa.me/584142464755" target="_blank" rel="noopener noreferrer">Mandar la foto y cotizar</a>
-    </div>
-    <ul class="taller__list">
-      <li class="taller__item"><span class="taller__item-name">Diseño y modelado 3D</span><span class="dato taller__item-price">desde&nbsp;$45</span></li>
-      <li class="taller__item"><span class="taller__item-name">Cambio de talla</span><span class="dato taller__item-price">desde&nbsp;$18</span></li>
-      <li class="taller__item"><span class="taller__item-name">Grabado en pieza que ya tienes</span><span class="dato taller__item-price">desde&nbsp;$12</span></li>
-      <li class="taller__item"><span class="taller__item-name">Engaste de piedra</span><span class="dato taller__item-price">desde&nbsp;$25</span></li>
-      <li class="taller__item"><span class="taller__item-name">Baño de rodio</span><span class="dato taller__item-price">desde&nbsp;$20</span></li>
-    </ul>
-  </div>
-</section>
+
+
 
 <!-- B2B: la derivada de orfebrería. Sección propia para que una joyería la
      encuentre sin buscar, pero después del catálogo para no desplazar al
@@ -1517,7 +1572,7 @@ document.documentElement.classList.add("js");
 <section class="section b2b" id="b2b" aria-labelledby="b2b-t">
   <div class="wrap">
     <div class="b2b__cab">
-      <span class="punzon section__eyebrow">07 — Para joyerías y talleres</span>
+      <span class="punzon section__eyebrow">Cierre — Para joyerías y talleres</span>
       <h2 class="section__title" id="b2b-t">Tu taller, sin montar un taller.</h2>
       <p class="section__lede">Fundición, engaste, terminado y 3D para otras joyerías. Tú pones la marca; nosotros la pieza. Ves el proceso, el gramaje y la merma.</p>
     </div>
@@ -1822,6 +1877,11 @@ function precioDesde(p){
   });
 }
 const fmt = n => "$" + n.toLocaleString("es-VE");
+/* Formato de vitrina: "480 $", y en las tarjetas "desde 480 $ · 10k". Las
+   versalitas las pone el CSS. Es SÓLO para lo que se ve en pantalla: el
+   mensaje de WhatsApp sigue saliendo de fmt() sin tocar, porque cambiar la
+   cadena que se manda al chat no es un cambio de piel. */
+const fmtVitrina = n => n.toLocaleString("es-VE") + " $";
 
 const $  = (s,r=document)=>r.querySelector(s);
 const $$ = (s,r=document)=>Array.from(r.querySelectorAll(s));
@@ -1858,10 +1918,28 @@ function irA(sel){
 /* ---------- El Espectro ---------- */
 let piedraActiva = null;
 const barra = $(".espectro__bar"), info = $("#piedraInfo");
+/* El color ya no se muestra como área saturada: entinta el filete de la fila,
+   y el nombre de la piedra aparece a la derecha al pasar por encima. */
 barra.innerHTML = ESPECTRO.map(s=>`
-  <button class="seg" type="button" data-piedra="${s.id}" aria-pressed="false" style="--c:${s.c}">
-    <span class="seg__caja"><span class="seg__chip"></span></span><span class="seg__label">${s.carrera}</span>
+  <button class="seg" type="button" data-piedra="${s.id}" aria-pressed="false"
+          style="--c:${s.c};--c-txt:${s.id==="blanco"?"var(--tinta)":s.c}">
+    <span class="seg__label">${s.carrera}</span><span class="seg__piedra">${s.piedra}</span>
   </button>`).join("");
+
+/* Índice alfabético. Se arma de las mismas listas de ESPECTRO, así que no hay
+   una segunda fuente de verdad que se pueda desincronizar. */
+const listaCarreras = $("#carrerasLista"), cajaCarreras = $("#carreras");
+listaCarreras.innerHTML = ESPECTRO
+  .flatMap(s => s.carreras.map(c => ({c, id:s.id, color:s.c})))
+  .sort((a,b) => a.c.localeCompare(b.c,"es"))
+  .map(x => `<li class="carreras__item"><button class="carreras__btn" type="button"
+      data-piedra="${x.id}" style="--c:${x.color}">${esc(x.c)}</button></li>`).join("");
+
+$("#carrerasAbrir").addEventListener("click", e=>{
+  const on = cajaCarreras.classList.toggle("is-open");
+  e.currentTarget.setAttribute("aria-expanded", String(on));
+  e.currentTarget.querySelector("span:last-child").textContent = on ? "−" : "+";
+});
 
 /* Al escoger un color: se explica qué significa esa piedra y se avisa
    explícitamente que el catálogo de abajo ya quedó filtrado, con un botón que
@@ -1895,15 +1973,25 @@ function pintarInfoPiedra(){
     </div></div>`;
   info.classList.add("is-on");
 }
-barra.addEventListener("click", e=>{
-  const b = e.target.closest(".seg"); if(!b) return;
-  piedraActiva = piedraActiva === b.dataset.piedra ? null : b.dataset.piedra;
+/* Un solo camino para activar una piedra, lo pida la fila o el índice. */
+function activarPiedra(id, alternar){
+  piedraActiva = (alternar && piedraActiva === id) ? null : id;
   visiblesGrado = TANDA;
   $$(".seg",barra).forEach(s=>s.setAttribute("aria-pressed", String(s.dataset.piedra===piedraActiva)));
   pintarInfoPiedra();
   pintarGrado();
   if(piedraActiva) medirPiedra(piedraActiva);
   if(piedraActiva) destellarGrid();
+}
+barra.addEventListener("click", e=>{
+  const b = e.target.closest(".seg"); if(!b) return;
+  activarPiedra(b.dataset.piedra, true);
+});
+/* Desde el índice no se alterna: escoger una carrera siempre selecciona su
+   piedra, nunca la apaga. */
+listaCarreras.addEventListener("click", e=>{
+  const b = e.target.closest(".carreras__btn"); if(!b) return;
+  activarPiedra(b.dataset.piedra, false);
 });
 document.addEventListener("click", e=>{
   if(e.target.closest("#irModelos")){
@@ -1956,8 +2044,7 @@ function tarjeta(p, i){
       ${s ? `<span class="punzon card__career">${s.carrera}</span>` : ""}
       <div class="card__foot">
         <span class="card__precio-caja">
-          <span class="dato card__price">desde&nbsp;${fmt(precioDesde(p))}</span>
-          <span class="punzon card__moneda">en oro 10k</span>
+          <span class="dato card__price">desde ${fmtVitrina(precioDesde(p))} · ${MATERIAL_BASE}</span>
         </span>
         <span class="punzon card__more">Personalizar</span>
       </div>
@@ -2152,7 +2239,7 @@ function actualizarPrecio(){
     `<strong>Las copias en plata van incluidas.</strong> Al encargarlo en
      ${esc(MATERIALES.find(m=>m.id===sel.material).label.toLowerCase())} te llevas también
      tus copias en plata Ley 950, sin costo adicional.`;
-  $("#modalPrecio").textContent = fmt(t);
+  $("#modalPrecio").textContent = fmtVitrina(t);
   $("#modalWa").href = waLink(mensaje(actual, sel, t));
 }
 function resumen(sel){
@@ -2567,10 +2654,10 @@ function pintarPedido(){
         <div><p class="pedido__item-name">${esc(it.n)}</p>
         <p class="pedido__item-spec">${esc(it.spec)}</p>
         <button class="pedido__quitar" type="button" data-q="${i}">Quitar</button></div>
-        <span class="dato">${fmt(it.total)}</span></li>`).join("")
+        <span class="dato">${fmtVitrina(it.total)}</span></li>`).join("")
     : `<li class="pedido__vacio">Todavía no has agregado piezas.</li>`;
   const total = carrito.reduce((s,i)=>s+i.total,0);
-  $("#pedidoTotal").textContent = carrito.length ? fmt(total) : "—";
+  $("#pedidoTotal").textContent = carrito.length ? fmtVitrina(total) : "—";
   const texto = carrito.length
     ? "Hola, quiero encargar:\n\n" + carrito.map(i=>`• ${i.n}\n  ${i.spec}\n  ${fmt(i.total)}`).join("\n\n")
       + `\n\nTotal aproximado: ${fmt(total)}`
