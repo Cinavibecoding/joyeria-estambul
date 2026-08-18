@@ -31,6 +31,13 @@ del teléfono, los cuatro problemas desaparecen solos.
    nombre del archivo, no encima de la pieza.
 3. **La pieza entera dentro del cuadro**, con aire alrededor. Deja margen: la web
    recorta a cuadrado y necesita de dónde cortar.
+
+   Cómo recorta exactamente, para que encuadres sabiendo dónde va a cortar:
+   la tarjeta usa un cuadrado y toma como centro el **30% de arriba** de la
+   foto, no el medio. En la práctica: **pon la pieza un poco por encima del
+   centro del cuadro y deja más aire abajo que arriba.** Si la centras justo,
+   la parte de abajo se pierde. Es lo que salva del recorte los códigos de
+   modelo que Instagram quema en la franja inferior.
 4. **Fondo liso y siempre el mismo.** Cartulina gris claro mate. No terciopelo rojo,
    no la mesa del taller, no fondo negro brillante.
 5. **Luz de ventana, sin flash.** El flash del teléfono aplana el metal y mata el brillo.
