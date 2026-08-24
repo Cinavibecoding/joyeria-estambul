@@ -58,7 +58,7 @@ const GRADO = [
   {n:"Anillo de Grado Cuarzo",   piedra:"blanco",   tipo:"grado", g:8},
   {n:"Anillo de Grado Turmalina",piedra:"rosa",     tipo:"grado", g:8.5},
   {n:"Anillo de Grado Ópalo",    piedra:"blanco",   tipo:"grado", g:9},
-  {n:"Anillo de Grado Esmeralda",piedra:"verde",    tipo:"grado", g:8.5},
+  {n:"Anillo de Grado Celeste",  piedra:"celeste",  tipo:"grado", g:8.5},
   {n:"Anillo de Grado Granate",  piedra:"rojo",     tipo:"grado", g:10.5,
    img:"grado-oro-granate-09.jpg", alt:"Anillo de grado en oro 18k con piedra granate"},
   {n:"Anillo de Grado Lila",     piedra:"morado",   tipo:"grado", g:9}

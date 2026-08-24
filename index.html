@@ -35,10 +35,14 @@
   --line:#CBCEC7;
   --line-soft:#E1DFD6;
 
-  /* Espectro — exclusivo de Anillos de Grado */
-  --e-azul:#20458C; --e-verde:#0F6B4A; --e-rojo:#9E2233;
-  --e-amarillo:#8A6410; --e-morado:#5B3A87; --e-rosa:#A83A62;
-  --e-blanco:#C9CFC9;
+  /* Espectro — exclusivo de Anillos de Grado.
+     Los colores no son libres: la convención venezolana viene de Salamanca
+     por vía colonial y es la que usan las universidades. Fuente en DESIGN.md.
+     El fucsia va bien separado del rosa turmalina a propósito: uno es
+     Odontología y el otro Diseño, y de cerca se confundían. */
+  --e-azul:#20458C; --e-amarillo:#8A6410; --e-rojo:#9E2233;
+  --e-morado:#5B3A87; --e-fucsia:#B0106F; --e-celeste:#2E6E9E;
+  --e-rosa:#A83A62; --e-blanco:#8E968E;
 
   --t-oro:#EDE7DA; --t-plata:#E7E9E4;
 
@@ -305,7 +309,7 @@ button{font:inherit;color:inherit}
 .espectro__carreras a{color:var(--lacre);font-weight:600;text-underline-offset:3px}
 /* minmax(0,1fr): sin esto una palabra larga fija el ancho mínimo de la pista
    y las siete columnas dejan de ser iguales. */
-.espectro__bar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:var(--s2);margin-bottom:var(--s5)}
+.espectro__bar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s4) var(--s2);margin-bottom:var(--s5)}
 .seg{
   position:relative;border:0;padding:0;cursor:pointer;background:transparent;text-align:left;
   display:flex;flex-direction:column;gap:var(--s2);
@@ -331,7 +335,7 @@ button{font:inherit;color:inherit}
 .seg[aria-pressed="true"] .seg__chip{height:70px;box-shadow:inset 0 0 0 2px var(--ink)}
 .seg[aria-pressed="true"] .seg__label{color:var(--ink);font-weight:500}
 @media(max-width:640px){
-  .espectro__bar{grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s4) var(--s2)}
+  .espectro__bar{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4) var(--s2)}
   .seg__caja{height:56px}
   .seg__chip{height:44px}
   .seg__label{font-size:.5625rem;letter-spacing:.04em}
@@ -1579,27 +1583,31 @@ const TALLAS = Array.from({length:12},(_,i)=>i+4);   // 4 a 15
    la dueña y se ampliaron con las carreras y TSU más cursados en Venezuela. */
 const ESPECTRO = [
   {id:"azul", piedra:"Azul zafiro", carrera:"Ingenierías", c:"var(--e-azul)",
-   carreras:["Ingeniería civil, mecánica y eléctrica","Informática y sistemas · TSU","Arquitectura y topografía"],
+   carreras:["Ingeniería civil, mecánica y eléctrica","Informática y sistemas · TSU","Arquitectura y topografía","Geología e ingeniería industrial"],
    sig:"El azul es el color del cálculo y la cabeza fría. Se le asocia desde siempre con la precisión y con quien resuelve un problema antes de que se note que existía."},
-  {id:"verde", piedra:"Verde esmeralda", carrera:"Salud", c:"var(--e-verde)",
-   carreras:["Medicina y Odontología","Enfermería · TSU","Bioanálisis y Nutrición"],
-   sig:"El verde es vida y recuperación. Ningún otro color se ha ligado tanto a la salud: es el que se escoge cuando el oficio es cuidar a alguien más."},
-  {id:"rojo", piedra:"Rojo granate", carrera:"Derecho", c:"var(--e-rojo)",
-   carreras:["Derecho","Ciencias Políticas","Estudios Internacionales"],
-   sig:"El rojo es convicción. Es el color de quien sostiene una posición y la defiende de frente, aunque la sala esté en contra."},
-  {id:"amarillo", piedra:"Amarillo citrino", carrera:"Farmacia · Educación", c:"var(--e-amarillo)",
-   carreras:["Farmacia","Educación y Pedagogía","Administración y Contaduría · TSU"],
-   sig:"El amarillo es luz. Enseñar, curar y poner orden en las cuentas de otros son el mismo gesto: alumbrarle el camino a alguien para que pueda seguir solo."},
-  {id:"morado", piedra:"Morado amatista", carrera:"Letras · Artes", c:"var(--e-morado)",
-   carreras:["Letras y Filosofía","Artes y Música","Psicología"],
-   sig:"El morado fue durante siglos el color de lo reservado y lo difícil de conseguir. Hoy es el de quien piensa distinto y crea algo que antes no estaba."},
-  {id:"rosa", piedra:"Rosa turmalina", carrera:"Diseño", c:"var(--e-rosa)",
+  {id:"amarillo", piedra:"Amarillo citrino", carrera:"Salud", c:"var(--e-amarillo)",
+   carreras:["Medicina","Bioanálisis","Enfermería · TSU","Nutrición y Dietética"],
+   sig:"El amarillo es el color de Medicina desde que existen las facultades. Es luz: alumbrarle el camino a alguien que llegó a oscuras."},
+  {id:"rojo", piedra:"Rojo granate", carrera:"Derecho · Administración", c:"var(--e-rojo)",
+   carreras:["Derecho","Ciencias Políticas y Estudios Internacionales","Contaduría Pública","Administración comercial e industrial · TSU"],
+   sig:"El rojo es convicción. Es el color de quien sostiene una posición y la defiende de frente, y el de quien responde por las cuentas de otros."},
+  {id:"morado", piedra:"Morado amatista", carrera:"Farmacia", c:"var(--e-morado)",
+   carreras:["Farmacia","Química farmacéutica"],
+   sig:"El morado fue durante siglos el color de lo reservado y difícil de conseguir. Le quedó a Farmacia, que es el oficio de saber exactamente cuánto de cada cosa."},
+  {id:"fucsia", piedra:"Fucsia", carrera:"Odontología", c:"var(--e-fucsia)",
+   carreras:["Odontología"],
+   sig:"El fucsia es el color propio de Odontología en el traje académico. No se comparte con ninguna otra carrera: es de ellos solos."},
+  {id:"celeste", piedra:"Azul celeste", carrera:"Educación · Letras", c:"var(--e-celeste)",
+   carreras:["Educación y Pedagogía","Letras y Filosofía","Historia","Artes y Música"],
+   sig:"El celeste agrupa a quienes trabajan con lo que no se toca: enseñar, escribir, pensar y componer. En el traje académico van todas bajo el mismo color."},
+  {id:"rosa", piedra:"Rosa turmalina", carrera:"Diseño · Comunicación", c:"var(--e-rosa)",
    carreras:["Diseño gráfico e industrial","Comunicación Social","Publicidad y Mercadeo"],
    sig:"El rosa es sensibilidad y detalle. El color de quien nota lo que los demás pasan por alto y le dedica tiempo a que quede bien."},
   {id:"blanco", piedra:"Blanco cuarzo", carrera:"Cualquiera", c:"var(--e-blanco)",
-   carreras:["Cualquier carrera o TSU","Bachillerato","Postgrados y maestrías"],
-   sig:"El blanco no se casa con ninguna carrera. Es para quien prefiere que la pieza hable de la persona y no del título — y para toda carrera o TSU que no esté en la lista."}
+   carreras:["Psicología","Ciencias básicas: Biología, Física, Química","Cualquier carrera o TSU que no veas arriba"],
+   sig:"El blanco sirve para todas. Si tu carrera no está en la lista, esta es tu piedra — o escríbenos y la ubicamos contigo."}
 ];
+
 const CARRERA = Object.fromEntries(ESPECTRO.map(s=>[s.id,s]));
 
 /* Pesos base en gramos: ESTIMACIÓN, pendiente de confirmar con la dueña.
@@ -1708,7 +1716,7 @@ function pintarInfoPiedra(){
   const n = GRADO.filter(g=>g.piedra===piedraActiva).length;
   const modelos = n === 1 ? "1 modelo" : `${n} modelos`;
   info.style.setProperty("--c", s.c);
-  info.style.setProperty("--c-txt", s.id === "blanco" ? "var(--ink)" : s.c);
+  info.style.setProperty("--c-txt", s.id === "blanco" ? "var(--ink-2)" : s.c);
   info.innerHTML = `
     <div class="piedra__wrap"><div class="piedra__card">
       <span class="piedra__muestra"></span>
