@@ -248,7 +248,7 @@ no significa nada en una pulsera.
 
 ## 7b. WhatsApp
 
-Número único: **0414-246-4755** (Caracas) → `wa.me/584142464755`.
+Número único: **0424-276-5908** (Caracas) → `wa.me/584242765908`.
 
 Cada enlace lleva su mensaje prellenado según de dónde salga el cliente:
 
@@ -276,7 +276,7 @@ Cada enlace lleva su mensaje prellenado según de dónde salga el cliente:
 
 ## 8. Pendientes
 
-- [x] ~~Números de WhatsApp~~ — 0414-246-4755, aplicado en los 9 enlaces.
+- [x] ~~Números de WhatsApp~~ — 0424-276-5908, aplicado en los 9 enlaces.
 - [x] ~~Pesos en gramos~~ — confirmados como válidos por ahora.
 - [x] ~~Mano de obra de plata~~ — confirmada.
 - [ ] **Sello de marca:** los 3 assets dicen "CL" (Casa de Ley). Con el nombre Laksmy

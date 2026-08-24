@@ -128,7 +128,7 @@ Ver bug #6. Es la decisión menos obvia del proyecto.
 ### Entorno
 **No hay `.env`, ni credenciales, ni servicios externos.** El único dato
 sensible-ish es el número de WhatsApp, que es público por definición:
-`const WA = "584142464755"` en `index.html`.
+`const WA = "584242765908"` en `index.html`.
 
 ---
 
@@ -397,7 +397,7 @@ cd PUBLICAR && zip -qr ../laksmy-web.zip .
     la URL directa se usa sólo al abrir por JS. Ver bug #6.
 12. **"¿Volvemos a poner los sellos CL?"** No, son de la marca anterior.
 13. **"¿Ponemos scroll infinito?"** No.
-14. **"¿Qué número de WhatsApp usamos?"** `584142464755`, ya está en el código.
+14. **"¿Qué número de WhatsApp usamos?"** `584242765908`, ya está en el código.
 15. **"¿Recreamos las decisiones de paleta/tipografía desde cero?"** No.
     Están documentadas en `DESIGN.md` con su justificación.
 
