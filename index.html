@@ -730,21 +730,50 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .b2b__cab{margin-bottom:var(--s6);max-width:60ch}
 .b2b__grid{display:grid;gap:var(--s5)}
 @media(min-width:800px){.b2b__grid{grid-template-columns:1fr 1fr;gap:var(--s6)}}
-.b2b__aval,.b2b__bluecast{
+.b2b__aval{
   border:1px solid var(--line);border-radius:var(--radius);
   padding:var(--s5);background:var(--field);
   display:flex;flex-direction:column;gap:var(--s3);align-items:flex-start;
 }
-.b2b__bluecast{background:var(--toque);border-color:var(--toque);color:var(--panel)}
 .b2b__label{color:var(--ink-2)}
-.b2b__bluecast .b2b__label{color:var(--panel);opacity:.6}
-.b2b__marca{font-family:var(--display);font-size:2rem;line-height:1;margin:0}
 .b2b__avaltxt{margin:0;color:var(--ink-2);line-height:1.65}
 .b2b__aval strong{color:var(--ink);font-weight:600}
-.b2b__bluecast .b2b__avaltxt{color:var(--panel);opacity:.82}
-.b2b__bluecast strong{color:var(--panel);opacity:1;font-weight:600}
-.b2b__bluecast .btn--ghost{color:var(--panel);border-color:rgba(247,249,247,.4)}
-.b2b__bluecast .btn--ghost:hover{background:rgba(247,249,247,.1);border-color:var(--panel)}
+/* ---------- Bluecast ----------
+   Bloque oscuro, como el taller: dice "esto es la puerta de servicio" sin
+   necesidad de decirlo. Va después del B2B para que ninguna de las dos
+   secciones de taller se cruce delante del catálogo de graduandas. */
+.bluecast{background:var(--toque);color:var(--panel)}
+.bluecast .section__title{color:var(--panel)}
+.bluecast .section__eyebrow{color:var(--panel);opacity:.6}
+.bluecast .section__lede{color:var(--panel);opacity:.82}
+.bluecast .section__lede strong{opacity:1;font-weight:600}
+.bluecast__grid{display:grid;gap:var(--s5)}
+@media(min-width:760px){.bluecast__grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s6)}}
+.bluecast__caja{
+  border-top:1px solid rgba(247,249,247,.22);padding-top:var(--s4);
+  display:flex;flex-direction:column;gap:var(--s3);
+}
+.bluecast__label{color:var(--panel);opacity:.6}
+.bluecast__txt{margin:0;color:var(--panel);opacity:.82;line-height:1.65}
+.bluecast__txt strong{opacity:1;font-weight:600}
+.bluecast__pie{
+  margin-top:var(--s7);padding-top:var(--s5);
+  border-top:1px solid rgba(247,249,247,.22);
+  display:flex;align-items:center;justify-content:space-between;
+  gap:var(--s5);flex-wrap:wrap;
+}
+.bluecast__cta-t{
+  font-family:var(--display);font-size:clamp(1.25rem,2.6vw,1.6rem);
+  line-height:1.15;margin:0 0 var(--s2);color:var(--panel);
+}
+.bluecast__cta-n{margin:0;color:var(--panel);opacity:.66;font-size:.875rem;line-height:1.6;max-width:46ch}
+/* En el bloque oscuro el botón claro es el que más contrasta. */
+.bluecast .btn--primary{background:var(--panel);color:var(--toque)}
+.bluecast .btn--primary:hover{background:#fff}
+
+/* Con Bluecast fuera de la rejilla, el aval de GoldToday se queda solo. */
+@media(min-width:800px){.b2b__grid--uno{grid-template-columns:1fr}}
+
 .b2b__cierre{
   margin-top:var(--s6);padding-top:var(--s5);border-top:1px solid var(--line);
   display:flex;align-items:center;justify-content:space-between;gap:var(--s4);flex-wrap:wrap;
@@ -883,10 +912,38 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
   .modal__acciones .btn{flex:1 1 120px;padding:.7rem 1rem;font-size:.875rem}
 }
 
-/* ---------- Pedido (carrito) ---------- */
-.pedido{position:fixed;inset:0;z-index:90;display:none;background:rgba(22,29,28,.55);backdrop-filter:blur(3px)}
-.pedido.is-open{display:flex;justify-content:flex-end}
-.pedido__box{background:var(--panel);width:min(460px,100%);height:100%;overflow-y:auto;padding:var(--s5);display:flex;flex-direction:column;gap:var(--s4)}
+/* ---------- Pedido (carrito) ----------
+   Se abre igual que el índice: el velo entra por opacidad y el panel entra
+   deslizándose. Antes era display:none -> display:flex, que no admite
+   transición ninguna: el panel aparecía de golpe encima de la página.
+   El velo va en ::before y no en el fondo del contenedor porque hace falta
+   animar su opacidad sin arrastrar la del panel. Como los pseudo-elementos
+   no reciben eventos, el clic en el velo sigue llegando a #pedido y el
+   cierre al pulsar fuera funciona igual. */
+.pedido{
+  position:fixed;inset:0;z-index:90;display:flex;justify-content:flex-end;
+  visibility:hidden;pointer-events:none;
+  overflow:hidden;   /* el panel se aparca fuera del borde: sin esto asoma */
+  /* La visibilidad espera a que termine el deslizamiento. Sin este retardo el
+     panel desaparece de golpe al cerrar y sólo se ve fluido al abrir. */
+  transition:visibility 0s .38s;
+}
+.pedido::before{
+  content:"";position:absolute;inset:0;
+  background:rgba(22,29,28,.55);backdrop-filter:blur(3px);
+  opacity:0;transition:opacity .32s var(--ease);
+}
+.pedido.is-open{visibility:visible;pointer-events:auto;transition:visibility 0s}
+.pedido.is-open::before{opacity:1}
+.pedido__box{
+  position:relative;   /* por encima del velo */
+  background:var(--panel);width:min(460px,100%);height:100%;overflow-y:auto;
+  padding:var(--s5);display:flex;flex-direction:column;gap:var(--s4);
+  transform:translateX(100%);
+  transition:transform .38s var(--ease);
+  box-shadow:0 0 40px rgba(22,29,28,.28);
+}
+.pedido.is-open .pedido__box{transform:none}
 .pedido__lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
 .pedido__item{display:flex;justify-content:space-between;gap:var(--s3);padding-block:var(--s4);border-bottom:1px solid var(--line-soft)}
 .pedido__item-name{font-weight:600;margin:0 0 var(--s1)}
@@ -1264,17 +1321,10 @@ document.documentElement.classList.add("js");
       <p class="section__lede">Fundición, engaste, terminado y 3D para otras joyerías. Tú pones la marca; nosotros la pieza. Ves el proceso, el gramaje y la merma.</p>
     </div>
 
-    <div class="b2b__grid">
+    <div class="b2b__grid b2b__grid--uno">
       <div class="b2b__aval">
         <span class="punzon b2b__label">Quién nos respalda</span>
         <p class="b2b__avaltxt">Fabricamos para <strong>GoldToday</strong>: <strong>Sambil Chacao</strong> y <strong>C.C. Cerro Verde</strong>. Pregúntales por nosotros.</p>
-      </div>
-
-      <div class="b2b__bluecast">
-        <span class="punzon b2b__label">Insumos</span>
-        <h3 class="b2b__marca">Bluecast</h3>
-        <p class="b2b__avaltxt"><strong>Proveedor autorizado para Venezuela.</strong> Importada directo de Europa. Si imprimes en 3D, la traemos para ti.</p>
-        <a class="btn btn--ghost btn--sm" data-wa="bluecast" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Consultar por Bluecast</a>
       </div>
     </div>
 
@@ -1286,6 +1336,43 @@ document.documentElement.classList.add("js");
 </section>
 
 </main>
+
+<!-- Insumos. Es la otra pata del B2B y hasta ahora vivia como una tarjeta
+     dentro de la rejilla, del tamano de una nota al pie. Va despues del B2B
+     y no antes: el grueso del negocio son las graduandas, y el taller no
+     puede taparlas. -->
+<section class="section bluecast" id="bluecast" aria-labelledby="bluecast-t">
+  <div class="wrap">
+    <div class="section__head">
+      <span class="punzon section__eyebrow">08 — Insumos para talleres</span>
+      <h2 class="section__title" id="bluecast-t">Resina Bluecast,<br>traida de Europa.</h2>
+      <p class="section__lede">Somos <strong>proveedor autorizado para Venezuela</strong>. Si imprimes tus modelos en 3D y los mandas a fundir, la resina te la traemos nosotros.</p>
+    </div>
+
+    <div class="bluecast__grid">
+      <div class="bluecast__caja">
+        <span class="punzon bluecast__label">Para qué sirve</span>
+        <p class="bluecast__txt">Es resina de <strong>fundición</strong>: imprimes el modelo, se quema en el revestimiento y sale la pieza en metal. Lo que antes tallabas a mano, lo imprimes.</p>
+      </div>
+      <div class="bluecast__caja">
+        <span class="punzon bluecast__label">De dónde viene</span>
+        <p class="bluecast__txt">Importada <strong>directo de Europa</strong>, no comprada aquí y revendida. Por eso el precio es el que es y hay respaldo de la marca.</p>
+      </div>
+      <div class="bluecast__caja">
+        <span class="punzon bluecast__label">Para quién</span>
+        <p class="bluecast__txt">Joyerías y talleres que ya imprimen en 3D, o que están montando el equipo y quieren empezar con la resina correcta.</p>
+      </div>
+    </div>
+
+    <div class="bluecast__pie">
+      <div>
+        <p class="bluecast__cta-t">Disponibilidad y precio del día, por WhatsApp.</p>
+        <p class="bluecast__cta-n">El precio se mueve con el cambio y con cada importación: por eso no lo publicamos.</p>
+      </div>
+      <a class="btn btn--primary" data-wa="bluecast" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Consultar por Bluecast</a>
+    </div>
+  </div>
+</section>
 
 <footer class="footer">
   <div class="wrap">
@@ -1368,7 +1455,7 @@ document.documentElement.classList.add("js");
         <span class="indice__dt">Fabricación orfebre para terceros</span>
         <span class="indice__dd">Fundición, engaste y terminado. Trabajamos para GoldToday (Sambil Chacao y C.C. Cerro Verde).</span>
       </a>
-      <a class="indice__destacado" href="#b2b">
+      <a class="indice__destacado" href="#bluecast">
         <span class="indice__dt">Resina Bluecast — proveedor oficial</span>
         <span class="indice__dd">Distribuidor autorizado para Venezuela. Importada directo de Europa.</span>
       </a>
