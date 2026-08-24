@@ -1,5 +1,5 @@
 /* ============================================================
-   CATÁLOGO Y PRECIOS — LAKSMY
+   CATÁLOGO Y PRECIOS — JOYERÍA ESTAMBUL
    ------------------------------------------------------------
    Este es el ÚNICO archivo que hay que tocar para:
      · actualizar el precio del oro y la plata

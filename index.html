@@ -3,23 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Laksmy — Joyería en Caracas · Oro 10k, 14k, 18k y plata Ley 950</title>
-<meta name="description" content="Laksmy. Joyería en Caracas. Anillos de grado, aros de boda, cadenas y piezas a la medida en oro 10k, 14k, 18k y plata Ley 950. También taller de orfebrería para joyerías.">
+<title>Joyería Estambul — Caracas · Oro 10k, 14k, 18k y plata Ley 950</title>
+<meta name="description" content="Joyería Estambul. Caracas. Anillos de grado, aros de boda, cadenas y piezas a la medida en oro 10k, 14k, 18k y plata Ley 950. También taller de orfebrería para joyerías.">
 <meta name="theme-color" content="#F9F7F2">
 <!-- Favicon tipográfico en línea: la "L" sobre piedra de toque. Provisional
      hasta que exista el sello nuevo — los assets viejos son el monograma "CL"
-     de Casa de Ley y ya no corresponden a Laksmy. -->
+     de Casa de Ley y ya no corresponden a Joyería Estambul. -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23161D1C'/%3E%3Ctext x='32' y='47' font-family='Georgia,serif' font-size='42' fill='%23F7F9F7' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="assets/fuentes/cormorant-garamond-300-500.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fuentes/jost-300-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fuentes.css">
 <style>
 /* ============================================================
-   LAKSMY — Sistema "El Espectro"
+   JOYERÍA ESTAMBUL — Sistema "El Espectro"
    Todo el color vive en :root. Nada de hex literal fuera de aquí.
    ============================================================ */
 :root{
-  /* Paleta Casa Laksmy. Los nombres de token se conservan del sistema
+  /* Paleta de la casa. Los nombres de token se conservan del sistema
      anterior: lo que cambia es el valor, no la estructura. */
   --field:#F9F7F2;      /* Marfil — fondo base de todo el sitio */
   --panel:#EDE7DA;      /* Superficie — tarjetas, bloques secundarios, inputs */
@@ -986,7 +986,7 @@ document.documentElement.classList.add("js");
       <span class="punzon menu-btn__txt">Índice</span>
     </button>
     <a class="brand" href="#">
-      <span class="brand__name">Laksmy</span>
+      <span class="brand__name">Estambul</span>
       <span class="brand__mark punzon">Caracas</span>
     </a>
     <div class="nav__links">
@@ -1378,7 +1378,7 @@ document.documentElement.classList.add("js");
   <div class="wrap">
     <div class="footer__grid">
       <div>
-        <h2 class="footer__title">Laksmy</h2>
+        <h2 class="footer__title">Joyería Estambul</h2>
         <p class="footer__text">Joyería y taller de orfebrería en Caracas. Piezas en oro 10k, 14k, 18k y plata Ley 950, hechas a mano.</p>
         <p class="footer__text">Lo que compras es oro. Se usa, se hereda, y sigue valiendo lo que vale el metal.</p>
         <p class="punzon" style="color:var(--ink-2)">Ley 950 · Oro 18k · Hecho a mano · Pieza única</p>
@@ -1397,7 +1397,9 @@ document.documentElement.classList.add("js");
     <p class="footer__aviso">Precios en dólares como referencia. Se paga en bolívares a la tasa BCV del día y toda venta se factura en bolívares. Los montos son aproximados y varían con el precio del metal. Metal actualizado: <span class="dato" id="fechaSpot"></span>.</p>
     <div class="footer__legal punzon">
       <span>Inversiones Lakshmy 3000, C.A. · RIF J-40677790-0</span>
-      <span>Instagram @inv.laksmy</span>
+      <!-- PENDIENTE: el usuario de la cuenta nueva. La vieja (@inv.laksmy) ya no
+           corresponde a la marca; se deja el nombre sin arroba hasta tenerlo. -->
+      <span>Instagram · Joyería Estambul</span>
     </div>
   </div>
 </footer>
@@ -2361,7 +2363,7 @@ if(tallaSec){
 /* ---------- Pedido ----------
    El pedido sobrevive a la recarga. En móvil el cliente sale a WhatsApp y
    vuelve al navegador: sin esto perdía todo lo que había armado. */
-const GUARDADO = "laksmy.pedido";
+const GUARDADO = "estambul.pedido";
 
 /* Lo guardado no es de fiar: puede venir corrupto, a medio escribir o
    manipulado. Se valida entrada por entrada — un pedido roto no puede tumbar

@@ -45,7 +45,7 @@ propia, logo) y conectar analítica.
 │   │   └── descartadas/          15 fotos rechazadas — NO referenciar
 │   └── IMAGENES.md               manifiesto: qué foto es de qué pieza y por qué
 ├── PUBLICAR/                     paquete listo para Hostinger (se regenera)
-├── laksmy-web.zip                el mismo paquete comprimido
+├── estambul-web.zip                el mismo paquete comprimido
 ├── ACTUALIZAR-CATALOGO.md        guía para la dueña: precios y productos
 ├── GUIA-FOTOGRAFIA.md            cómo fotografiar las 34 piezas
 ├── MEDICION.md                   cómo conectar analítica (falta pegar el ID)
@@ -336,13 +336,13 @@ El código del simulador no quedó en el repo; se reconstruye desde `AUDITORIA.m
 
 ### Regenerar el paquete de publicación
 ```bash
-rm -rf PUBLICAR laksmy-web.zip
+rm -rf PUBLICAR estambul-web.zip
 mkdir -p PUBLICAR/assets/img PUBLICAR/assets/fuentes
 cp index.html catalogo.js PUBLICAR/
 cp assets/fuentes.css PUBLICAR/assets/
 cp assets/fuentes/*.woff2 PUBLICAR/assets/fuentes/
 cp assets/img/*.jpg PUBLICAR/assets/img/     # NUNCA descartadas/
-cd PUBLICAR && zip -qr ../laksmy-web.zip .
+cd PUBLICAR && zip -qr ../estambul-web.zip .
 ```
 
 ---
