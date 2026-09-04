@@ -916,6 +916,25 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
   .modal__acciones .btn{flex:1 1 120px;padding:.7rem 1rem;font-size:.875rem}
 }
 
+/* ---------- Galería de la ficha ----------
+   Va SOBRE la foto, abajo, y no debajo del bloque: el modal ya es alto y
+   una fila más empujaba el precio fuera de la pantalla en móvil. */
+.galeria{
+  position:absolute;left:0;right:0;bottom:0;
+  display:flex;gap:var(--s2);padding:var(--s3);
+  background:linear-gradient(to top,rgba(22,29,28,.72),transparent);
+  overflow-x:auto;
+}
+.galeria__b{
+  flex:0 0 auto;width:52px;height:52px;padding:0;cursor:pointer;
+  border:1px solid rgba(247,249,247,.5);border-radius:2px;overflow:hidden;
+  background:none;transition:border-color .2s var(--ease),opacity .2s var(--ease);
+  opacity:.75;
+}
+.galeria__b img{width:100%;height:100%;object-fit:cover}
+.galeria__b:hover{opacity:1}
+.galeria__b.is-on{border-color:var(--panel);opacity:1;border-width:2px}
+
 /* ---------- Clásicos / Modernos ---------- */
 .estilos{display:flex;gap:var(--s2);flex-wrap:wrap;margin-bottom:var(--s5)}
 .estilo{
@@ -1575,7 +1594,7 @@ document.documentElement.classList.add("js");
         <p class="modal__regalo" id="modalRegalo" hidden></p>
         <div class="precio">
           <div class="precio__izq">
-            <span class="punzon precio__label">Precio aproximado</span>
+            <span class="punzon precio__label" id="precioLabel">Precio aproximado</span>
             <span class="dato precio__valor" id="modalPrecio" aria-live="polite">—</span>
           </div>
           <span class="punzon precio__mat" id="modalMaterial"></span>
@@ -1934,6 +1953,15 @@ document.addEventListener("click", e=>{
   medir("ver_mas", {zona: b.dataset.mas});
 });
 
+/* Cambiar de toma dentro de la ficha. Delegado en #modalMedia porque las
+   miniaturas se repintan enteras cada vez que se abre una pieza. */
+document.addEventListener("click", e=>{
+  const b = e.target.closest(".galeria__b"); if(!b) return;
+  const foto = $("#modalFoto"); if(!foto) return;
+  foto.src = "assets/img/" + b.dataset.toma;
+  $$(".galeria__b").forEach(x=>x.classList.toggle("is-on", x===b));
+});
+
 /* ---------- Estilo: clásicos y modernos ----------
    Otro eje de filtro, independiente del color de la piedra. Se pueden
    combinar: "Salud" + "Modernos" deja los amarillos con circonitas. */
@@ -2127,11 +2155,16 @@ function actualizarPrecio(){
      tus copias en plata Ley 950, sin costo adicional.`;
   /* Mientras la pieza no tenga peso confirmado se dice "Consultar" en vez de
      inventar una cifra. Un precio equivocado en joyería no es un detalle. */
+  const et = $("#precioLabel");
   if(actual && actual.consultar){
     $("#modalPrecio").textContent = "Consultar";
-    $("#modalMaterial").textContent = "precio del día por WhatsApp";
+    $("#modalMaterial").textContent = "";
+    /* "Precio aproximado: Consultar" no dice nada. Con el precio pendiente
+       la etiqueta tiene que explicar por qué no hay cifra. */
+    if(et) et.textContent = "Te lo pasamos por WhatsApp";
   }else{
     $("#modalPrecio").textContent = fmt(t);
+    if(et) et.textContent = "Precio aproximado";
   }
   $("#modalWa").href = waLink(mensaje(actual, sel, t));
 }
@@ -2170,10 +2203,19 @@ function abrirModal(p){
   $("#modalSeal").textContent = p.acabado || (p.piedra ? "Anillo de grado" : "");
   const esOro = sel.material !== "950";
   $("#modalMedia").className = "modal__media" + (esOro ? " modal__media--oro" : "");
+  /* Galería: la portada es la toma de frente y debajo van las laterales.
+     Es la pregunta que sigue después de "me gusta": cómo se ve de perfil,
+     cuánto levanta, cómo queda el grabado del costado. */
+  const tomas = [p.img].concat(Array.isArray(p.mas) ? p.mas : []);
   $("#modalMedia").innerHTML = p.img
     /* esc() en src y alt: sin esto, un alt con comillas escrito en
        catalogo.js inyecta atributos vivos en el DOM. Comprobado. */
-    ? `<img src="assets/img/${esc(p.img)}" alt="${esc(p.alt)}">`
+    ? `<img src="assets/img/${esc(p.img)}" alt="${esc(p.alt)}" id="modalFoto">
+       ${tomas.length>1 ? `<div class="galeria">${tomas.map((t,i)=>
+         `<button class="galeria__b${i?"":" is-on"}" type="button" data-toma="${esc(t)}"
+                  aria-label="Ver toma ${i+1} de ${tomas.length}">
+            <img src="assets/img/${esc(t)}" alt="" loading="lazy">
+          </button>`).join("")}</div>` : ""}`
     : `<div class="modal__ficha" aria-hidden="true"><span class="modal__ficha-name">${esc(p.n)}</span>
        <span class="punzon" style="color:var(--ink-2)">Foto en camino</span></div>`;
   precioAnterior = null;
