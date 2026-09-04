@@ -30,7 +30,7 @@ grupo 12 (que es una captura de pantalla, no un producto).
 | 1ª cadena | #0 | IMG_8742–8744 | Eslabón 4x3, "tipo Gucci" | eslabón 4x3 |
 | 2ª | #1 | IMG_8745 | Eslabón 6x4, "tipo Gucci" | eslabón 6x4 |
 | 3ª | #2 | IMG_8748–8750 | Eslabón 10x8, **"tipo Rolex" — verificar** | eslabón 10x8 |
-| 4ª | #3 | IMG_8751–8755 | Eslabón 6x8, "tipo Gucci" | eslabón 6x8 |
+| 4ª | #3 | IMG_8751–8755 | Eslabón 6x8, "tipo Gucci" | eslabón marino 6x8, **labrado** (los eslabones llevan textura diamantada, a diferencia de los lisos de #0–#2) |
 | 5ª | #4 | IMG_8756–8759 | Eslabón 6x8 **en plata** | eslabón 6x8, plata |
 | 6ª | #5 | IMG_8760–8761 | **Pieza única, stock limitado.** Cadena de oro con dije de 3 gracias | — |
 | 7ª | #6 | IMG_8762 | Zarcillo 10x8 | zarcillo 10x8 |
@@ -51,8 +51,8 @@ sustituirlos por el nombre técnico del tejido antes de que salgan a la web:
 
 | Nombre de taller | Riesgo | Publicable |
 |---|---|---|
-| "tipo Gucci" | Marca registrada | Por confirmar mirando el tejido: **marino plano**, **barbada** o **grumet** |
-| "tipo Rolex" | Marca registrada | Por confirmar: probablemente **presidente** o **jubileo**, que también son nombres de modelo — mejor describir el tejido |
+| "tipo Gucci" | Marca registrada | **Eslabón marino** (o **ancla**). VERIFICADO mirando las cinco cadenas a resolución completa: todas son el eslabón ovalado de dos perforaciones unido por barra — el marino de toda la vida, que en el gremio se apoda "grano de café" o "puerquito". El nombre técnico es correcto y publicable |
+| "tipo Rolex" | Marca registrada | Por confirmar con una foto más cerrada. En el recorte se ve también de la familia marino; "presidente" y "jubileo" tampoco sirven, son nombres de modelo de la misma marca |
 | "tipo Chanel" | Marca registrada | Por confirmar |
 
 Nombres de tejido que **sí** son genéricos y se pueden publicar sin problema:
