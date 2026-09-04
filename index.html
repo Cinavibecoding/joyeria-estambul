@@ -916,6 +916,20 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
   .modal__acciones .btn{flex:1 1 120px;padding:.7rem 1rem;font-size:.875rem}
 }
 
+/* ---------- Clásicos / Modernos ---------- */
+.estilos{display:flex;gap:var(--s2);flex-wrap:wrap;margin-bottom:var(--s5)}
+.estilo{
+  background:transparent;border:1px solid var(--line);border-radius:var(--radius);
+  padding:.7rem 1.1rem;min-height:44px;cursor:pointer;
+  display:flex;flex-direction:column;gap:.15rem;align-items:flex-start;text-align:left;
+  transition:background .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease);
+}
+.estilo:hover{border-color:var(--ink)}
+.estilo[aria-pressed="true"]{background:var(--toque);border-color:var(--toque);color:var(--panel)}
+.estilo__n{font-weight:600;font-size:.9375rem;line-height:1.2}
+.estilo__d{font-size:.75rem;line-height:1.3;color:var(--ink-2)}
+.estilo[aria-pressed="true"] .estilo__d{color:var(--panel);opacity:.7}
+
 /* ---------- Sellos de la tarjeta ---------- */
 .card__sello{display:inline-block;padding:.25rem .5rem;border-radius:2px;letter-spacing:.12em}
 .card__sello--unica{background:var(--toque);color:var(--panel)}
@@ -1054,9 +1068,18 @@ document.documentElement.classList.add("js");
 
 <section class="hero">
   <div class="hero__foto">
-    <img src="assets/img/hero-referencia-anillos-oro-trenzados-01.jpg"
-         width="1200" height="1500" fetchpriority="high"
-         alt="Par de alianzas de boda en oro trenzado, hechas a mano">
+    <!-- FOTO PROPIA, tomada en el taller el 24 de agosto de 2026. Sustituye a
+         la de referencia de Unsplash, que además enseñaba pulseras y no lo
+         que de verdad se vende.
+
+         PARA CAMBIARLA: hay dos versiones listas en assets/img/
+           hero-cadena-oro-marino.jpg     ← la puesta ahora (cadena)
+           hero-anillo-grado-zafiro.jpg   ← anillo de grado, el producto estrella
+         Se cambia el src y ya. La segunda tiene la pieza más al centro, así
+         que si se usa conviene subir el object-position a "center 35%". -->
+    <img src="assets/img/hero-cadena-oro-marino.jpg"
+         width="1600" height="2000" fetchpriority="high"
+         alt="Cadena de oro de eslabón marino sobre el expositor del taller">
   </div>
   <div class="hero__velo"></div>
   <div class="wrap hero__contenido">
@@ -1106,6 +1129,11 @@ document.documentElement.classList.add("js");
         <p class="aviso-precio__p aviso-precio__p--regalo"><strong>En oro, las copias en plata van incluidas.</strong> Sin costo extra.</p>
       </div>
     </div>
+    <!-- Clásicos y modernos. Es lo primero que separa a una clienta de otra:
+         la que quiere el anillo de siempre y la que quiere lo que se lleva
+         ahora. Arranca en "Todos" a propósito, porque la clasificación de
+         cada pieza todavía está por confirmar. -->
+    <div class="estilos" id="estilos" role="group" aria-label="Estilo del anillo"></div>
     <div class="grid" id="grado-grid"></div>
     <div class="vermas" id="grado-vermas" hidden>
       <button class="vermas__btn" type="button" data-mas="grado"></button>
@@ -1906,9 +1934,35 @@ document.addEventListener("click", e=>{
   medir("ver_mas", {zona: b.dataset.mas});
 });
 
+/* ---------- Estilo: clásicos y modernos ----------
+   Otro eje de filtro, independiente del color de la piedra. Se pueden
+   combinar: "Salud" + "Modernos" deja los amarillos con circonitas. */
+let estiloActivo = null;
+(function pintarEstilos(){
+  const c = $("#estilos");
+  if(!c || typeof ESTILOS === "undefined") return;
+  c.innerHTML = ESTILOS.map(e=>{
+    const n = GRADO.filter(g=>g.estilo===e.id).length;
+    return `<button class="estilo" type="button" data-estilo="${esc(e.id)}" aria-pressed="false">
+      <span class="estilo__n">${esc(e.nombre)} · ${n}</span>
+      <span class="estilo__d">${esc(e.nota)}</span>
+    </button>`;
+  }).join("");
+  c.addEventListener("click", ev=>{
+    const b = ev.target.closest(".estilo"); if(!b) return;
+    estiloActivo = estiloActivo === b.dataset.estilo ? null : b.dataset.estilo;
+    visiblesGrado = TANDA;
+    $$(".estilo", c).forEach(x=>x.setAttribute("aria-pressed", String(x.dataset.estilo===estiloActivo)));
+    pintarGrado();
+    if(estiloActivo) destellarGrid();
+  });
+})();
+
 function pintarGrado(){
   reconstruirIndice();
-  const filtrados = piedraActiva ? GRADO.filter(g=>g.piedra===piedraActiva) : GRADO;
+  /* Los dos filtros se aplican en cadena: piedra y estilo. */
+  let filtrados = piedraActiva ? GRADO.filter(g=>g.piedra===piedraActiva) : GRADO;
+  if(estiloActivo) filtrados = filtrados.filter(g=>g.estilo===estiloActivo);
   const resto     = piedraActiva ? GRADO.filter(g=>g.piedra!==piedraActiva) : [];
   /* Con filtro de color caben todos (son pocos); sin filtro va por tandas. */
   const aMostrar = piedraActiva ? filtrados : filtrados.slice(0, visiblesGrado);
