@@ -253,7 +253,7 @@ button{font:inherit;color:inherit}
    Ahora: foto a sangre, mensaje encima, y todo dentro de la primera pantalla. */
 .hero{
   position:relative;isolation:isolate;
-  min-height:min(68vh,560px);
+  min-height:min(82vh,720px);
   display:flex;align-items:flex-end;
   padding-block:var(--s7) var(--s6);
   overflow:hidden;
@@ -288,14 +288,14 @@ button{font:inherit;color:inherit}
 .hero__pruebas li{display:flex;gap:.35rem;align-items:baseline}
 .hero__pruebas strong{font-weight:600;opacity:1}
 @media(min-width:700px){
-  .hero{min-height:min(72vh,620px);padding-block:var(--s8) var(--s7)}
+  .hero{min-height:min(78vh,760px);padding-block:var(--s8) var(--s7)}
   .hero__contenido{max-width:34rem}
   .hero__cta .btn{flex:0 0 auto}
   .hero__pruebas{gap:var(--s5);font-size:.875rem}
 }
 
 /* ---------- 4 · EL ESPECTRO (firma) ---------- */
-.espectro{padding-block:var(--s7);border-block:1px solid var(--line)}
+.espectro{padding-block:var(--s6);border-block:1px solid var(--line)}
 .espectro__head{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s4);flex-wrap:wrap;margin-bottom:var(--s5)}
 .espectro__title{font-family:var(--display);font-size:clamp(1.75rem,4vw,2.5rem);line-height:1.05;margin:0}
 .espectro__note{color:var(--ink-2);max-width:38ch;margin:0}
@@ -309,6 +309,10 @@ button{font:inherit;color:inherit}
 .espectro__carreras a{color:var(--lacre);font-weight:600;text-underline-offset:3px}
 /* minmax(0,1fr): sin esto una palabra larga fija el ancho mínimo de la pista
    y las siete columnas dejan de ser iguales. */
+.espectro__aviso{
+  margin:0 0 var(--s4);color:var(--ink-2);font-size:.9375rem;line-height:1.5;
+}
+.espectro__aviso strong{color:var(--ink);font-weight:600}
 .espectro__bar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s4) var(--s2);margin-bottom:var(--s5)}
 .seg{
   position:relative;border:0;padding:0;cursor:pointer;background:transparent;text-align:left;
@@ -319,9 +323,9 @@ button{font:inherit;color:inherit}
 .espectro.is-struck .seg{opacity:1;transform:none}
 /* El chip crece hacia arriba dentro de una caja de alto fijo: si creciera hacia
    abajo, la etiqueta del color activo se desalinearía de las otras seis. */
-.seg__caja{height:70px;display:flex;align-items:flex-end}
+.seg__caja{height:52px;display:flex;align-items:flex-end}
 .seg__chip{
-  width:100%;height:56px;border-radius:2px;background:var(--c);
+  width:100%;height:42px;border-radius:2px;background:var(--c);
   box-shadow:inset 0 0 0 1px rgba(22,29,28,.12);
   transition:height .26s var(--ease),box-shadow .2s var(--ease);
 }
@@ -330,9 +334,9 @@ button{font:inherit;color:inherit}
   text-transform:uppercase;letter-spacing:.06em;line-height:1.3;color:var(--ink-2);
   overflow-wrap:anywhere;transition:color .2s var(--ease);
 }
-.seg:hover .seg__chip,.seg:focus-visible .seg__chip{height:70px}
+.seg:hover .seg__chip,.seg:focus-visible .seg__chip{height:52px}
 .seg:hover .seg__label,.seg:focus-visible .seg__label{color:var(--ink)}
-.seg[aria-pressed="true"] .seg__chip{height:70px;box-shadow:inset 0 0 0 2px var(--ink)}
+.seg[aria-pressed="true"] .seg__chip{height:52px;box-shadow:inset 0 0 0 2px var(--ink)}
 .seg[aria-pressed="true"] .seg__label{color:var(--ink);font-weight:500}
 @media(max-width:640px){
   .espectro__bar{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4) var(--s2)}
@@ -345,13 +349,17 @@ button{font:inherit;color:inherit}
    evidente que el catálogo de abajo ya se había filtrado. */
 /* El panel se despliega en altura en vez de aparecer de golpe. `grid-template-rows`
    de 0fr a 1fr anima una altura desconocida sin fijar un max-height a ojo. */
+/* Se despliega en el sitio, creciendo desde cero. `grid-template-rows` de
+   0fr a 1fr anima una altura que no se conoce de antemano sin fijar un
+   max-height a ojo. Va JUSTO debajo de los colores, no al final de la
+   sección: al tocar un color se ve nacer el panel ahí mismo. */
 .piedra{
   display:grid;grid-template-rows:0fr;opacity:0;
   transition:grid-template-rows .42s var(--ease), opacity .3s var(--ease),
-             margin-bottom .42s var(--ease);
-  margin-bottom:0;
+             margin .42s var(--ease);
+  margin:0;
 }
-.piedra.is-on{grid-template-rows:1fr;opacity:1;margin-bottom:var(--s5)}
+.piedra.is-on{grid-template-rows:1fr;opacity:1;margin:0 0 var(--s5)}
 .piedra__wrap{overflow:hidden;min-height:0}
 .piedra__card{
   display:grid;gap:var(--s4);align-items:start;grid-template-columns:auto 1fr;
@@ -407,7 +415,9 @@ button{font:inherit;color:inherit}
 /* Los enlaces del índice apuntan a estas secciones; sin este margen el nav
    fijo tapa el titular al llegar. */
 section[id],#talla,#comprar{scroll-margin-top:80px}
-.section__head{margin-bottom:var(--s6)}
+/* Menos aire en el cabezal de sección: en móvil cada rem de aquí es scroll
+   antes de ver la primera pieza, y ahí es donde se decide si alguien sigue. */
+.section__head{margin-bottom:var(--s5)}
 .section__eyebrow{color:var(--ink-2);display:block;margin-bottom:var(--s3)}
 .section__title{font-family:var(--display);font-size:clamp(2rem,5.5vw,3.4rem);line-height:1;letter-spacing:-.015em;margin:0 0 var(--s3)}
 .section__lede{color:var(--ink-2);max-width:52ch;margin:0}
@@ -439,9 +449,13 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .card:hover{transform:translateY(-4px);border-color:var(--line);box-shadow:0 12px 28px -14px rgba(22,29,28,.34)}
 /* Las fotos son capturas de Instagram con el código de modelo quemado en la
    franja inferior. `cover` al 30% centra la pieza y deja esa franja fuera. */
-.card__media{position:relative;aspect-ratio:1;overflow:hidden;background:var(--t-plata)}
+/* 3/4 vertical: es la proporción con la que se tomaron las fotos. Con
+   aspect-ratio:1 la tarjeta volvía a recortar y el anillo se veía acostado. */
+.card__media{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--t-plata)}
 .card__media--oro{background:var(--t-oro)}
-.card__media img{width:100%;height:100%;object-fit:cover;object-position:center 30%;transition:transform .5s var(--ease)}
+/* object-position al centro: la pieza ya viene centrada del recorte, y el
+   30% de antes la subía y le cortaba la base. */
+.card__media img{width:100%;height:100%;object-fit:cover;object-position:center}
 .card:hover .card__media img{transform:scale(1.045)}
 /* Bruñido: barrido especular, como luz sobre metal pulido */
 .card__media::after{
@@ -828,10 +842,10 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
   width:min(920px,100%);margin-block:auto;
   display:grid;grid-template-columns:1fr;
 }
-@media(min-width:820px){.modal__box{grid-template-columns:.85fr 1fr}}
-.modal__media{position:relative;background:var(--t-plata);aspect-ratio:1;overflow:hidden;border-radius:var(--radius) var(--radius) 0 0}
+@media(min-width:820px){.modal__box{grid-template-columns:.72fr 1fr}}
+.modal__media{position:relative;background:var(--t-plata);aspect-ratio:3/4;overflow:hidden;border-radius:var(--radius) var(--radius) 0 0}
 .modal__media--oro{background:var(--t-oro)}
-.modal__media img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.modal__media img{width:100%;height:100%;object-fit:cover;object-position:center}
 .modal__ficha{position:absolute;inset:0;padding:var(--s5);display:flex;flex-direction:column;justify-content:space-between}
 .modal__ficha-name{display:block;font-family:var(--display);font-size:1.9rem;line-height:1.05;margin:0}
 
@@ -839,7 +853,27 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .modal__head{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s4)}
 .modal__title{font-family:var(--display);font-size:1.9rem;line-height:1.05;margin:0 0 var(--s2)}
 .modal__eyebrow{color:var(--ink-2)}
-.modal__close{background:none;border:1px solid var(--line);border-radius:var(--radius);width:44px;height:44px;flex:0 0 auto;cursor:pointer;font-size:1.1rem;line-height:1}
+/* La X flota arriba a la derecha de la ficha, sobre la foto, siempre en el
+   mismo sitio pase lo que pase con el scroll de dentro. */
+.modal__close{
+  position:absolute;top:var(--s3);right:var(--s3);z-index:5;
+  background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:50%;
+  width:40px;height:40px;cursor:pointer;font-size:1rem;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 10px -4px rgba(22,29,28,.5);
+}
+.modal__close:hover{background:#fff;border-color:var(--ink)}
+/* El aviso de las copias: bajo el nombre, en pequeño, sin caja ni borde.
+   Antes era un bloque con fondo dentro del pie flotante y tapaba las
+   opciones, que es lo que el cliente ha venido a tocar. */
+.modal__regalo{
+  margin:var(--s2) 0 0;padding:0;background:none;border:0;
+  font-size:.8125rem;line-height:1.45;color:var(--ink-2);
+}
+.modal__regalo strong{color:var(--ink);font-weight:600}
+.modal__regalo[hidden]{display:none}
+/* La foto se puede ampliar: cursor de lupa para que se note. */
+#modalFoto{cursor:zoom-in}
 .modal__close:hover{border-color:var(--ink)}
 
 .campo{display:flex;flex-direction:column;gap:var(--s2)}
@@ -939,8 +973,8 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .estilos{display:flex;gap:var(--s2);flex-wrap:wrap;margin-bottom:var(--s5)}
 .estilo{
   background:transparent;border:1px solid var(--line);border-radius:var(--radius);
-  padding:.7rem 1.1rem;min-height:44px;cursor:pointer;
-  display:flex;flex-direction:column;gap:.15rem;align-items:flex-start;text-align:left;
+  padding:.6rem 1rem;min-height:44px;cursor:pointer;
+  display:flex;align-items:center;
   transition:background .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease);
 }
 .estilo:hover{border-color:var(--ink)}
@@ -949,11 +983,57 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .estilo__d{font-size:.75rem;line-height:1.3;color:var(--ink-2)}
 .estilo[aria-pressed="true"] .estilo__d{color:var(--panel);opacity:.7}
 
+
+/* ============================================================
+   FONDO DE LAS FOTOS — tres variantes para comparar
+   ------------------------------------------------------------
+   El problema, medido: el borde de las fotos del taller es #757671,
+   un gris neutro al 45% de luminancia. El fondo de la página es
+   marfil al 96%. Son 52 puntos de salto: la foto no se apoya en la
+   página, se pega encima como un recorte.
+
+   Y hay un segundo choque, de temperatura: el beige de las tarjetas
+   tira a cálido (R-B = +19) contra el gris casi neutro de la foto
+   (R-B = +4). Ese amarilleo es lo que se ve "sucio" al lado.
+
+   Se prueban poniendo en la consola:
+     document.documentElement.dataset.fondo = "vitrina"   (o "neutro", "difuminado")
+   Sin atributo queda la actual.
+   ============================================================ */
+
+/* A · VITRINA — la tarjeta se oscurece hasta el tono de la foto.
+   Es lo que hace una joyería de verdad: fondo oscuro, pieza iluminada.
+   El salto de 52 puntos baja a 6 y la costura desaparece. */
+[data-fondo="vitrina"] .card__media{background:#757671}
+[data-fondo="vitrina"] .card{background:#E7E8E5}
+[data-fondo="vitrina"] .modal__media{background:#757671}
+[data-fondo="vitrina"] .card__ficha{background:#8A8C84}
+[data-fondo="vitrina"] .card__ficha-name,
+[data-fondo="vitrina"] .card__ficha-specs{color:#F4F5F2}
+
+/* B · NEUTRO — se deja el fondo claro pero se le quita el amarillo.
+   No arregla la luminancia; sí el choque de temperatura. */
+[data-fondo="neutro"]{--panel:#E9EAE7; --field:#F5F6F4; --t-oro:#E9EAE7; --t-plata:#E4E6E3}
+
+/* C · DIFUMINADO — la foto se funde con la tarjeta por los bordes.
+   Es lo que pedía el dueño. Funciona porque el borde de TODAS las fotos
+   es el mismo gris; con fondos variados se vería sucio. */
+[data-fondo="difuminado"] .card__media{background:#757671}
+[data-fondo="difuminado"] .card{background:#DCDDD9}
+[data-fondo="difuminado"] .card__media::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  box-shadow:inset 0 0 30px 14px #DCDDD9;
+}
+[data-fondo="difuminado"] .modal__media{background:#757671}
+
 /* ---------- Sellos de la tarjeta ---------- */
 .card__sello{display:inline-block;padding:.25rem .5rem;border-radius:2px;letter-spacing:.12em}
 .card__sello--unica{background:var(--toque);color:var(--panel)}
 .card__sello--stock{background:var(--lacre);color:var(--panel)}
 .card__medida{color:var(--ink-2)}
+/* La institución grabada. Va en lacre porque es el dato que hace que una
+   graduanda pare el scroll: no busca un anillo bonito, busca EL de su casa. */
+.card__inst{color:var(--lacre);font-weight:600}
 /* "Consultar" no es una cifra: se le quita el apretado de las tabulares para
    que no se lea como si lo fuera. */
 .card__price--consultar{font-variant-numeric:normal;letter-spacing:.02em}
@@ -987,6 +1067,42 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .medidas__nota strong{color:var(--ink);font-weight:600}
 .medidas__regla{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s5);color:var(--ink-2)}
 .medidas__regla i{display:block;height:2px;background:var(--ink);flex:0 0 auto}
+
+/* ---------- Visor de fotos ---------- */
+.visor{
+  position:fixed;inset:0;z-index:95;display:none;
+  background:rgba(10,14,12,.96);
+  flex-direction:column;align-items:center;justify-content:center;
+}
+.visor.is-open{display:flex}
+.visor__lienzo{
+  flex:1;width:100%;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  touch-action:none;      /* el arrastre lo maneja el JS, no el navegador */
+}
+.visor__lienzo img{
+  max-width:100%;max-height:100%;object-fit:contain;
+  transform-origin:center center;cursor:zoom-in;
+  transition:transform .28s var(--ease);
+  will-change:transform;
+}
+.visor.is-zoom .visor__lienzo img{cursor:grab;transition:none}
+.visor.is-zoom.is-arrastrando .visor__lienzo img{cursor:grabbing}
+.visor__cerrar{
+  position:absolute;top:var(--s4);right:var(--s4);z-index:2;
+  width:44px;height:44px;border-radius:50%;cursor:pointer;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);
+  color:#fff;font-size:1.1rem;line-height:1;
+}
+.visor__tomas{display:flex;gap:var(--s2);padding:var(--s3);flex:0 0 auto}
+.visor__tomas button{
+  width:54px;height:72px;padding:0;cursor:pointer;overflow:hidden;border-radius:2px;
+  background:none;border:1px solid rgba(255,255,255,.35);opacity:.65;
+}
+.visor__tomas button.is-on{opacity:1;border-color:#fff;border-width:2px}
+.visor__tomas img{width:100%;height:100%;object-fit:cover}
+.visor__ayuda{color:rgba(255,255,255,.6);padding-bottom:var(--s4);margin:0;text-align:center}
+.visor.is-zoom .visor__ayuda{visibility:hidden}
 
 /* ---------- Pedido (carrito) ----------
    Se abre igual que el índice: el velo entra por opacidad y el panel entra
@@ -1087,18 +1203,14 @@ document.documentElement.classList.add("js");
 
 <section class="hero">
   <div class="hero__foto">
-    <!-- FOTO PROPIA, tomada en el taller el 24 de agosto de 2026. Sustituye a
-         la de referencia de Unsplash, que además enseñaba pulseras y no lo
-         que de verdad se vende.
+    <!-- FOTO PROPIA del taller. VERTICAL, que es como se tomó.
+         Antes pasaba por `sips`, que informa los ejes al revés y escribe la
+         imagen girada 90 grados: por eso salía acostada.
 
-         PARA CAMBIARLA: hay dos versiones listas en assets/img/
-           hero-cadena-oro-marino.jpg     ← la puesta ahora (cadena)
-           hero-anillo-grado-zafiro.jpg   ← anillo de grado, el producto estrella
-         Se cambia el src y ya. La segunda tiene la pieza más al centro, así
-         que si se usa conviene subir el object-position a "center 35%". -->
-    <img src="assets/img/hero-cadena-oro-marino.jpg"
-         width="1600" height="2000" fetchpriority="high"
-         alt="Cadena de oro de eslabón marino sobre el expositor del taller">
+         Alternativa lista en assets/img/hero-cadena-oro-marino.jpg -->
+    <img src="assets/img/hero-cadena-oro-marino.jpg?v=3"
+         width="1200" height="1600" fetchpriority="high"
+         alt="Cadena de oro de eslabón marino sobre el busto del taller">
   </div>
   <div class="hero__velo"></div>
   <div class="wrap hero__contenido">
@@ -1127,9 +1239,11 @@ document.documentElement.classList.add("js");
         y la ubicamos contigo — hacemos anillos para cualquier carrera o TSU.
       </p>
     </div>
+    <p class="espectro__aviso"><strong>Cada color agrupa varias carreras.</strong> Toca el tuyo y te decimos cuáles.</p>
     <div class="espectro__bar" role="group" aria-label="Filtrar anillos de grado por carrera"></div>
+    <div class="piedra" id="piedraInfo" aria-live="polite"></div>
     <div class="espectro__pie">
-      <div class="piedra" id="piedraInfo" aria-live="polite"></div>
+      
       <p class="espectro__libre">
         <strong>La piedra no amarra el modelo.</strong> Cualquier color va en cualquier anillo.
       </p>
@@ -1144,7 +1258,7 @@ document.documentElement.classList.add("js");
       <h2 class="section__title" id="grado-t">Anillos de Grado</h2>
       <p class="section__lede">Diez modelos. Ábrelos y escoge quilate, talla, piedra y grabado.</p>
       <div class="aviso-precio">
-        <p class="aviso-precio__p"><strong>El precio se da por WhatsApp.</strong> Depende del metal que escojas — oro 10k, 14k, 18k o <strong>plata Ley 950</strong> — y del tamaño de la piedra. Te pasamos el precio del día en el momento.</p>
+        <p class="aviso-precio__p"><strong>Los precios que ves son en plata Ley 950</strong>, que es el punto de partida. Al abrir una pieza puedes cambiarla a <strong>oro 10k, 14k o 18k</strong> y el precio se recalcula solo.</p>
         <p class="aviso-precio__p aviso-precio__p--regalo"><strong>En oro, las copias en plata van incluidas.</strong> Sin costo extra.</p>
       </div>
     </div>
@@ -1169,8 +1283,8 @@ document.documentElement.classList.add("js");
       <h2 class="section__title" id="registro-t">Catálogo</h2>
       <p class="section__lede">Escoge una categoría. Lo que no tiene foto va con su ficha completa.</p>
       <div class="aviso-precio">
-        <p class="aviso-precio__p"><strong>El precio se da por WhatsApp.</strong> Escoge metal y medida
-          al personalizar, y te pasamos el precio del día.</p>
+        <p class="aviso-precio__p"><strong>En plata Ley 950.</strong> Cámbialo a oro 10k, 14k o 18k
+          al personalizar y el precio se ajusta.</p>
       </div>
     </div>
     <div class="cats" role="tablist" aria-label="Categorías del catálogo"></div>
@@ -1520,6 +1634,21 @@ document.documentElement.classList.add("js");
   </svg>
 </a>
 
+<!-- Visor a pantalla completa. La pregunta que sigue a "me gusta" es
+     "déjame verlo de cerca": el grabado, la carrera, el año, el engaste.
+     Se abre tocando la foto de la ficha. -->
+<div class="visor" id="visor" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button class="visor__cerrar" id="visorCerrar" type="button" aria-label="Cerrar">✕</button>
+  <div class="visor__lienzo" id="visorLienzo">
+    <!-- Arranca con un píxel transparente en vez de sin src: una <img> sin
+         src cuenta como imagen rota para el navegador y para el banco de
+         pruebas, y ensucia el diagnóstico de las fotos que sí importan. -->
+    <img id="visorFoto" alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+  </div>
+  <div class="visor__tomas" id="visorTomas"></div>
+  <p class="punzon visor__ayuda">Toca la foto para acercar · arrastra para mover</p>
+</div>
+
 <!-- Índice -->
 <div class="indice" id="indice" role="dialog" aria-modal="true" aria-labelledby="indiceTitulo">
   <div class="indice__velo" data-cerrar-indice></div>
@@ -1580,18 +1709,22 @@ document.documentElement.classList.add("js");
 <!-- Modal de personalización -->
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal__box">
+    <!-- La X, arriba a la derecha de TODO y flotando sobre la foto. Antes
+         vivía en el cabezal del panel, es decir debajo de la imagen: para
+         cerrar había que bajar primero, que es justo lo contrario de lo que
+         busca alguien que quiere salir. -->
+    <button class="modal__close" id="modalClose" type="button" aria-label="Cerrar">✕</button>
     <div class="modal__media" id="modalMedia"></div>
     <div class="modal__panel">
       <div class="modal__head">
         <div>
           <span class="punzon modal__eyebrow" id="modalSeal"></span>
           <h2 class="modal__title" id="modalTitle"></h2>
+          <p class="modal__regalo" id="modalRegalo" hidden></p>
         </div>
-        <button class="modal__close" id="modalClose" type="button" aria-label="Cerrar">✕</button>
       </div>
       <div id="modalCampos" style="display:flex;flex-direction:column;gap:var(--s4)"></div>
       <div class="modal__pie">
-        <p class="modal__regalo" id="modalRegalo" hidden></p>
         <div class="precio">
           <div class="precio__izq">
             <span class="punzon precio__label" id="precioLabel">Precio aproximado</span>
@@ -1759,7 +1892,10 @@ function calcular(p, sel){
    en plata y la tarjeta decía "desde $138" mientras el modal abría en $1.447:
    un salto de 10x al primer clic. Tarjeta y modal arrancan ahora en el mismo
    material, así el precio de la tarjeta es el que el cliente ve al abrirla. */
-const MATERIAL_BASE = "10k";
+/* El precio que se enseña de entrada es el de PLATA, el más bajo. Quien
+   entra ve una cifra que no asusta y sube desde ahí si quiere oro. Al revés
+   —empezar en oro— la mitad se va antes de tocar nada. */
+const MATERIAL_BASE = "950";
 function precioDesde(p){
   return calcular(p, {
     material: MATERIAL_BASE,
@@ -1884,7 +2020,7 @@ function tarjeta(p, i){
      el modal. Con seis tarjetas en pantalla eso es 173 KB en vez de 680 KB,
      que en un teléfono venezolano son varios segundos de diferencia. */
   const media = p.img
-    ? `<img src="assets/img/${esc(mini(p.img))}" alt="${esc(p.alt)}" loading="lazy" decoding="async" width="400" height="400">`
+    ? `<img src="assets/img/${esc(mini(p.img))}" alt="${esc(p.alt)}" loading="lazy" decoding="async" width="360" height="480">`
     : `<div class="card__ficha" aria-hidden="true">
          <span class="card__ficha-name">${esc(p.n)}</span>
          <div class="card__ficha-specs punzon">
@@ -1912,14 +2048,12 @@ function tarjeta(p, i){
       <span class="punzon card__seal">${sello}</span>
       <h3 class="card__name">${esc(p.n)}</h3>
       ${s ? `<span class="punzon card__career">${esc(s.carrera)}</span>` : ""}
+      ${p.institucion ? `<span class="punzon card__inst">${esc(p.institucion)}</span>` : ""}
       ${p.medida ? `<span class="punzon card__medida">Piedra ${esc(p.medida)} mm</span>` : ""}
       <div class="card__foot">
         <span class="card__precio-caja">
-          ${p.consultar
-            ? `<span class="dato card__price card__price--consultar">Consultar</span>
-               <span class="punzon card__moneda">precio del día</span>`
-            : `<span class="dato card__price">desde&nbsp;${fmt(precioDesde(p))}</span>
-               <span class="punzon card__moneda">en oro 10k</span>`}
+          <span class="dato card__price">desde&nbsp;${fmt(precioDesde(p))}</span>
+          <span class="punzon card__moneda">en plata Ley 950</span>
         </span>
         <span class="punzon card__more">Personalizar</span>
       </div>
@@ -1968,6 +2102,70 @@ document.addEventListener("click", e=>{
   $$(".galeria__b").forEach(x=>x.classList.toggle("is-on", x===b));
 });
 
+/* ---------- Visor de fotos con zoom ----------
+   Dos gestos y nada más: tocar acerca al triple, arrastrar mueve. Sin
+   pellizco de dos dedos porque en un catálogo lo que se busca es mirar el
+   grabado de cerca, no explorar un mapa. */
+(function visor(){
+  const v=$("#visor"), lienzo=$("#visorLienzo"), foto=$("#visorFoto"), tiras=$("#visorTomas");
+  if(!v) return;
+  let zoom=1, x=0, y=0, arrastrando=false, px=0, py=0;
+
+  function pintar(){
+    foto.style.transform = `translate(${x}px, ${y}px) scale(${zoom})`;
+    v.classList.toggle("is-zoom", zoom > 1);
+  }
+  function reset(){ zoom=1; x=0; y=0; pintar(); }
+
+  function abrir(tomas, i){
+    tiras.innerHTML = tomas.length>1 ? tomas.map((t,j)=>
+      `<button type="button" data-t="${esc(t)}" class="${j===i?"is-on":""}"
+               aria-label="Toma ${j+1}"><img src="assets/img/${esc(t)}" alt=""></button>`).join("") : "";
+    foto.src = "assets/img/" + tomas[i];
+    reset(); v.classList.add("is-open"); bloquearFondo(true); $("#visorCerrar").focus();
+  }
+  function cerrar(){ v.classList.remove("is-open"); reset();
+    if(!$("#modal").classList.contains("is-open")) bloquearFondo(false); }
+
+  /* Se abre desde la foto de la ficha, con todas sus tomas. */
+  document.addEventListener("click", e=>{
+    if(e.target.id === "modalFoto" && actual){
+      const tomas=[actual.img].concat(Array.isArray(actual.mas)?actual.mas:[]);
+      const i=Math.max(0, tomas.findIndex(t=>e.target.src.endsWith(t)));
+      abrir(tomas, i);
+    }
+  });
+  $("#visorCerrar").addEventListener("click", cerrar);
+  v.addEventListener("click", e=>{ if(e.target===v) cerrar(); });
+  addEventListener("keydown", e=>{ if(e.key==="Escape" && v.classList.contains("is-open")) cerrar(); });
+
+  tiras.addEventListener("click", e=>{
+    const b=e.target.closest("button"); if(!b) return;
+    foto.src="assets/img/"+b.dataset.t; reset();
+    $$("button",tiras).forEach(x=>x.classList.toggle("is-on", x===b));
+  });
+
+  /* Tocar acerca y aleja. Se acerca HACIA donde se tocó, no al centro:
+     si no, para ver una esquina hay que acercar y luego buscarla. */
+  foto.addEventListener("click", e=>{
+    e.stopPropagation();
+    if(zoom>1){ reset(); return; }
+    const r=foto.getBoundingClientRect();
+    zoom=3;
+    x=(r.left+r.width/2 - e.clientX)*(zoom-1)/zoom*1.0;
+    y=(r.top+r.height/2 - e.clientY)*(zoom-1)/zoom*1.0;
+    pintar();
+  });
+
+  const empezar=(cx,cy)=>{ if(zoom<=1) return; arrastrando=true; px=cx-x; py=cy-y; v.classList.add("is-arrastrando"); };
+  const mover=(cx,cy)=>{ if(!arrastrando) return; x=cx-px; y=cy-py; pintar(); };
+  const soltar=()=>{ arrastrando=false; v.classList.remove("is-arrastrando"); };
+  lienzo.addEventListener("pointerdown", e=>empezar(e.clientX,e.clientY));
+  addEventListener("pointermove", e=>mover(e.clientX,e.clientY));
+  addEventListener("pointerup", soltar);
+  addEventListener("pointercancel", soltar);
+})();
+
 /* ---------- Estilo: clásicos y modernos ----------
    Otro eje de filtro, independiente del color de la piedra. Se pueden
    combinar: "Salud" + "Modernos" deja los amarillos con circonitas. */
@@ -1977,9 +2175,11 @@ let estiloActivo = null;
   if(!c || typeof ESTILOS === "undefined") return;
   c.innerHTML = ESTILOS.map(e=>{
     const n = GRADO.filter(g=>g.estilo===e.id).length;
+    /* Sólo nombre y cuenta. La descripción ("más fino, con circonitas")
+       ocupaba dos líneas por botón y empujaba los anillos fuera de la
+       primera pantalla, que es donde se decide si alguien sigue o se va. */
     return `<button class="estilo" type="button" data-estilo="${esc(e.id)}" aria-pressed="false">
       <span class="estilo__n">${esc(e.nombre)} · ${n}</span>
-      <span class="estilo__d">${esc(e.nota)}</span>
     </button>`;
   }).join("");
   c.addEventListener("click", ev=>{
@@ -2152,26 +2352,17 @@ function actualizarPrecio(){
   precioAnterior = t;
   /* El regalo de las copias sólo aplica a anillos de grado en oro: se muestra
      justo cuando la decisión está sobre la mesa, no como letra pequeña. */
+  /* El aviso de las copias sale del pie flotante y se pone bajo el nombre de
+     la pieza, en pequeño. Ahí se lee sin tapar las opciones, que es lo que
+     el cliente ha venido a tocar. */
   const caja = $("#modalRegalo");
   const aplica = actual.tipo === "grado" && sel.material !== "950";
   caja.hidden = !aplica;
   if(aplica) caja.innerHTML =
-    `<strong>Las copias en plata van incluidas.</strong> Al encargarlo en
-     ${esc(MATERIALES.find(m=>m.id===sel.material).label.toLowerCase())} te llevas también
-     tus copias en plata Ley 950, sin costo adicional.`;
+    `<strong>Copias en plata incluidas</strong> al encargarlo en ${esc(MATERIALES.find(m=>m.id===sel.material).label.toLowerCase())}.`;
   /* Mientras la pieza no tenga peso confirmado se dice "Consultar" en vez de
      inventar una cifra. Un precio equivocado en joyería no es un detalle. */
-  const et = $("#precioLabel");
-  if(actual && actual.consultar){
-    $("#modalPrecio").textContent = "Consultar";
-    $("#modalMaterial").textContent = "";
-    /* "Precio aproximado: Consultar" no dice nada. Con el precio pendiente
-       la etiqueta tiene que explicar por qué no hay cifra. */
-    if(et) et.textContent = "Te lo pasamos por WhatsApp";
-  }else{
-    $("#modalPrecio").textContent = fmt(t);
-    if(et) et.textContent = "Precio aproximado";
-  }
+  $("#modalPrecio").textContent = fmt(t);
   $("#modalWa").href = waLink(mensaje(actual, sel, t));
 }
 function resumen(sel){
@@ -2206,7 +2397,8 @@ function abrirModal(p){
     largoP: p.tipo==="pulsera" ? 18 : null
   };
   $("#modalTitle").textContent = p.n;
-  $("#modalSeal").textContent = p.acabado || (p.piedra ? "Anillo de grado" : "");
+  $("#modalSeal").textContent = p.institucion ? p.institucion
+    : (p.grabado || p.acabado || (p.piedra ? "Anillo de grado" : ""));
   const esOro = sel.material !== "950";
   $("#modalMedia").className = "modal__media" + (esOro ? " modal__media--oro" : "");
   /* Galería: la portada es la toma de frente y debajo van las laterales.

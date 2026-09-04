@@ -1,73 +1,72 @@
 #!/usr/bin/env python3
 """
-De FOTOS-CRUDAS a assets/img/piezas, de una pasada.
+De FOTOS-CRUDAS a assets/img/piezas.   python3 HERRAMIENTAS/procesar-fotos.py
 
-    python3 HERRAMIENTAS/procesar-fotos.py
+EL FALLO QUE COSTÓ TRES RONDAS
+------------------------------
+Las fotos del iPhone son 3024x4032: VERTICALES. `sips` informa los ejes al
+revés ("pixelWidth: 4032") y al convertir a JPEG ESCRIBE LA IMAGEN GIRADA 90
+GRADOS. Las 463 pasaron por ahí y todo el catálogo salió acostado.
 
-Qué hace, en orden:
-  1. Lee la fecha de captura de cada foto y agrupa por saltos de más de 12
-     segundos. Ese umbral salió de medir la sesión real: da 3,0 fotos por
-     grupo, que es justo el método de tres ángulos por pieza.
-  2. De cada grupo se queda con la toma más nítida.
-  3. Localiza la pieza y recorta al cuadrado ajustado a su tamaño (encuadre.py).
-  4. Guarda 800px para el modal y 400px para la tarjeta.
+    sips -s format jpeg -Z 800 IMG_8778.HEIC  ->  800x600  (horizontal)
+    pillow_heif leyendo el mismo archivo      ->  3024x4032 (vertical)
 
-Las fotos crudas NO están en git: son 661 MB. Este script es lo que permite
-rehacerlas si se pierden los recortes.
+sips está fuera del pipeline. Se lee el HEIC directamente con pillow-heif.
+
+REGLAS
+------
+  · No se gira, no se voltea, no se invierte, no se reordena nada.
+  · La PRIMERA toma es la central y es la portada; la 2ª el lado derecho y
+    la 3ª el izquierdo, en ese orden.
+  · Lo único que se hace es recortar y centrar, siempre en vertical 3:4.
+  · Aire FIJO respecto a la piedra: así las tres tomas de una pieza salen
+    al mismo tamaño aparente. Sólo se amplía la toma que quede cortada.
+  · Cada recorte se comprueba dos veces: que haya joya dentro y que no
+    toque el borde. Sin eso se publican fotos de cuero vacío y anillos
+    partidos por la mitad; ambas cosas pasaron.
 """
-import os, re, sys, json, subprocess, datetime as dt
-from PIL import Image, ImageFilter, ImageStat
+import os, sys, json, datetime as dt, subprocess
+from PIL import Image
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import encuadre
+import fotos
 
 RAIZ   = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CRUDAS = os.path.join(RAIZ, "FOTOS-CRUDAS")
 DESTINO= os.path.join(RAIZ, "assets", "img", "piezas")
-TMP    = "/tmp/estambul-foto.jpg"
-HUECO  = 12          # segundos entre disparos que separan una pieza de la siguiente
+HUECO  = 12      # segundos entre disparos que separan una pieza de la siguiente
 
-def fechas(archivos):
+def fechas(rutas):
     out = subprocess.run(["mdls","-name","kMDItemContentCreationDate","-raw",
-                          "-nullMarker","?"]+archivos, capture_output=True, text=True).stdout
+                          "-nullMarker","?"]+rutas, capture_output=True, text=True).stdout
     return out.split("\0")
-
-def nitidez(ruta):
-    im = Image.open(ruta).convert("L").resize((600,450))
-    return ImageStat.Stat(im.filter(ImageFilter.FIND_EDGES)).stddev[0]
 
 def main():
     fs = sorted(f for f in os.listdir(CRUDAS) if not f.startswith("."))
-    print(f"{len(fs)} archivos en FOTOS-CRUDAS")
-    rutas = [os.path.join(CRUDAS,f) for f in fs]
-    datos = []
-    for f, d in zip(fs, fechas(rutas)):
-        d = d.strip()
-        if d == "?": continue
-        datos.append({"f":f, "t":dt.datetime.strptime(d[:19], "%Y-%m-%d %H:%M:%S")})
+    datos=[]
+    for f, d in zip(fs, fechas([os.path.join(CRUDAS,f) for f in fs])):
+        d=d.strip()
+        if d!="?": datos.append({"f":f,"t":dt.datetime.strptime(d[:19],"%Y-%m-%d %H:%M:%S")})
     datos.sort(key=lambda x:x["t"])
-
     grupos, actual = [], [datos[0]]
-    for a, b in zip(datos, datos[1:]):
-        (grupos.append(actual) or actual.clear() or actual.append(b)) \
-            if (b["t"]-a["t"]).total_seconds() > HUECO else actual.append(b)
+    for a,b in zip(datos, datos[1:]):
+        if (b["t"]-a["t"]).total_seconds() > HUECO:
+            grupos.append(actual); actual=[b]
+        else: actual.append(b)
     grupos.append(actual)
-    print(f"{len(grupos)} piezas")
+    print(f"{len(fs)} fotos -> {len(grupos)} piezas")
 
-    os.makedirs(os.path.join(DESTINO,"mini"), exist_ok=True)
-    for i, g in enumerate(grupos):
-        for x in g:
-            subprocess.run(["sips","-s","format","jpeg","-Z","1200",
-                            os.path.join(CRUDAS,x["f"]),"--out",TMP], capture_output=True)
-            x["n"] = nitidez(TMP)
-        mejor = max(g, key=lambda x:x["n"])
-        subprocess.run(["sips","-s","format","jpeg","-Z","2400",
-                        os.path.join(CRUDAS,mejor["f"]),"--out",TMP], capture_output=True)
-        rec,_ = encuadre.recorte_web(Image.open(TMP))
-        rec.resize((800,800), Image.LANCZOS).save(
-            f"{DESTINO}/pieza-{i:03d}.jpg", quality=80, optimize=True, progressive=True)
-        rec.resize((400,400), Image.LANCZOS).save(
-            f"{DESTINO}/mini/pieza-{i:03d}.jpg", quality=76, optimize=True, progressive=True)
-        print(f"  #{i:03d}  {len(g)} tomas  mejor {mejor['f']}")
+    for sub in ("","mini","gal"): os.makedirs(os.path.join(DESTINO,sub), exist_ok=True)
+    for i,g in enumerate(grupos):
+        for j,t in enumerate(g[:3]):
+            rec,info = fotos.encuadrar_completo(fotos.abrir(os.path.join(CRUDAS,t["f"])))
+            if j==0:
+                rec.resize((720,960), Image.LANCZOS).save(f"{DESTINO}/pieza-{i:03d}.jpg",
+                    quality=80, optimize=True, progressive=True)
+                rec.resize((360,480), Image.LANCZOS).save(f"{DESTINO}/mini/pieza-{i:03d}.jpg",
+                    quality=76, optimize=True, progressive=True)
+            else:
+                rec.resize((600,800), Image.LANCZOS).save(f"{DESTINO}/gal/pieza-{i:03d}-{j+1}.jpg",
+                    quality=76, optimize=True, progressive=True)
+        print(f"  #{i:03d}  {len(g)} tomas")
 
-if __name__ == "__main__":
-    main()
+if __name__ == "__main__": main()
