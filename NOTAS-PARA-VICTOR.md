@@ -170,9 +170,24 @@ limpia desde que existe el banco.
 
 ## 5. Cosas que dejé anotadas y no toqué
 
-- **Peso de la página.** Cada tarjeta carga una miniatura de 29 KB en vez de la
-  foto de 800 px, así que la primera pantalla son 173 KB en vez de 680 KB. Para
-  un teléfono en Venezuela eso son varios segundos.
+- **Peso de la página, medido.** Esto importa mucho con tu público:
+
+  | | |
+  |---|---|
+  | index.html | 140 KB |
+  | catalogo.js | 41 KB |
+  | Fuentes (3 woff2) | 86 KB |
+  | Foto del hero | 309 KB |
+  | 6 miniaturas del catálogo | 148 KB (25 KB cada una) |
+  | **Primera pantalla** | **724 KB** |
+
+  Dos cosas ya hechas para bajarlo: cada tarjeta carga una miniatura de 25 KB en
+  vez de la foto de 800 px (de 680 KB a 148 KB en las seis primeras), y bajé el
+  hero de 578 a 309 KB.
+
+  **Lo que falta y no depende de mí: activar GZIP en hPanel.** Comprime el HTML
+  de 140 KB a unos 30 y el JS de 41 a unos 10. Son 140 KB menos por visita, y es
+  marcar una casilla.
 - **Encuadres que no me convencen.** Repasé las 153 una por una en hoja de
   contactos. Estas seis son las que arreglaría a mano si me dices que sí:
 
