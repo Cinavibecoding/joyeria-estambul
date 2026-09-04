@@ -4,18 +4,23 @@
    Este es el ÚNICO archivo que hay que tocar para:
      · actualizar el precio del oro y la plata
      · añadir, quitar o cambiar productos
-     · marcar una pieza como recién llegada
+     · marcar una pieza como recién llegada, única o de stock
 
    No hace falta tocar index.html para nada de eso.
    Después de editar: guardar y subir este archivo. Nada más.
+
+   ATENCIÓN — este catálogo se generó de la sesión de fotos del 24 de
+   agosto de 2026. Falta confirmar tres cosas antes de publicar:
+     1. El PESO EN GRAMOS de cada pieza. Los de aquí son estimados por
+        tipo, no medidos. Por eso todas las piezas llevan `consultar:true`
+        y la página muestra "Consultar" en vez de un precio inventado.
+     2. El COLOR de la piedra: se leyó de la foto, no del inventario.
+     3. El NOMBRE real de cada modelo y la carrera que lleva grabada.
    ============================================================ */
 
 /* ------------------------------------------------------------
    1. PRECIO DEL METAL   ← revisar cada semana en kitco.com
-   ------------------------------------------------------------
-   Copia el precio de la ONZA que aparece en Kitco y ponlo aquí.
-   La página divide sola entre 31,1035 para sacar el gramo.
-   Cambia también la fecha: sale visible en el pie de la página. */
+   ------------------------------------------------------------ */
 const ORO_ONZA   = 4341.30;   // dólares por onza troy de oro
 const PLATA_ONZA = 63.46;     // dólares por onza troy de plata
 const SPOT = { oro24_g: ORO_ONZA/31.1035, plata999_g: PLATA_ONZA/31.1035, fecha:"7 ago 2026" };
@@ -24,81 +29,363 @@ const SPOT = { oro24_g: ORO_ONZA/31.1035, plata999_g: PLATA_ONZA/31.1035, fecha:
    2. MANO DE OBRA Y EXTRAS
    ------------------------------------------------------------ */
 const OBRA  = { oro:45, plata:10 };            // dólares por gramo trabajado
-/* El grabado interno va incluido en toda pieza que se fabrica: no suma.
-   El precio de $12 del listado de servicios es para grabar una pieza que el
-   cliente ya tiene, que es otro trabajo. */
 const EXTRA = { rodio:20, engaste:25 };
 
 /* ------------------------------------------------------------
-   3. PRODUCTOS
+   3. MEDIDAS
+   ------------------------------------------------------------
+   El número (4x3, 6x8, 10x12...) son MILÍMETROS: ancho por largo.
+   En un anillo o un zarcillo es el tamaño de la piedra; en una cadena,
+   el tamaño del eslabón. Es como se vende aquí: no por gramo, sino por
+   medida — y la medida arrastra el peso.
+
+   Si añades una medida nueva, añádela también aquí para que salga en el
+   apartado que se lo explica al cliente. */
+const MEDIDAS = [
+  {id:"4x3",   mm:[4,3],   nombre:"Discreta",  nota:"La más pequeña. Se nota poco, para llevar a diario."},
+  {id:"6x4",   mm:[6,4],   nombre:"Menuda",    nota:"Pequeña pero visible."},
+  {id:"6x8",   mm:[6,8],   nombre:"Clásica",   nota:"La medida más pedida."},
+  {id:"10x8",  mm:[10,8],  nombre:"Amplia",    nota:"Se ve de lejos."},
+  {id:"10x12", mm:[10,12], nombre:"Grande",    nota:"La de mayor presencia."}
+];
+
+/* ------------------------------------------------------------
+   4. PRODUCTOS
    ------------------------------------------------------------
    Cada pieza se escribe así:
 
      {n:"Nombre visible", tipo:"anillo", g:4.5,
-      acabado:"Cómo se ve",
-      nuevo:true,                                  ← opcional
-      img:"archivo.jpg", alt:"Descripción de la foto"}   ← opcional
+      medida:"6x8",          ← tamaño de piedra o eslabón (opcional)
+      consultar:true,        ← muestra "Consultar" en vez de precio
+      unica:true,            ← pieza única, no se repite
+      stock:true,            ← stock limitado
+      nuevo:true,            ← recién llegada
+      img:"piezas/archivo.jpg", alt:"Descripción de la foto"}
 
-   · n       nombre que ve el cliente
    · tipo    anillo · aro · cadena · pulsera · zarcillo · dije · grado
-             (decide qué opciones salen al personalizar)
-   · g       peso en gramos de la pieza (de ahí sale el precio)
-   · nuevo   ponle  nuevo:true  y aparece en "Recién llegados"
-             con su sello. Quítalo cuando deje de ser novedad.
-   · img     nombre del archivo dentro de assets/img/
-             SIN foto: no pongas img ni alt — sale la ficha, que
-             se ve bien. Nunca pongas la foto de otra pieza.
+   · g       peso en gramos (de ahí sale el precio si no lleva consultar)
    ------------------------------------------------------------ */
 
 const GRADO = [
-  {n:"Anillo de Grado Zafiro",   piedra:"azul",     tipo:"grado", g:9.5},
-  {n:"Anillo de Grado Citrino",  piedra:"amarillo", tipo:"grado", g:9.5},
-  {n:"Anillo de Grado Rubí",     piedra:"rojo",     tipo:"grado", g:10},
-  {n:"Anillo de Grado Amatista", piedra:"morado",   tipo:"grado", g:8.5},
-  {n:"Anillo de Grado Cuarzo",   piedra:"blanco",   tipo:"grado", g:8},
-  {n:"Anillo de Grado Turmalina",piedra:"rosa",     tipo:"grado", g:8.5},
-  {n:"Anillo de Grado Ópalo",    piedra:"blanco",   tipo:"grado", g:9},
-  {n:"Anillo de Grado Celeste",  piedra:"celeste",  tipo:"grado", g:8.5},
-  {n:"Anillo de Grado Granate",  piedra:"rojo",     tipo:"grado", g:10.5,
-   img:"grado-oro-granate-09.jpg", alt:"Anillo de grado en oro 18k con piedra granate"},
-  {n:"Anillo de Grado Lila",     piedra:"morado",   tipo:"grado", g:9}
+  {n:"Anillo de Grado Amatista 01", tipo:"grado", g:6.5, piedra:"morado", consultar:true,
+   img:"piezas/grado-013.jpg", alt:"Anillo de Grado Amatista 01, foto del taller"},
+  {n:"Anillo de Grado Aguamarina 01", tipo:"grado", g:6.5, piedra:"celeste", consultar:true,
+   img:"piezas/grado-014.jpg", alt:"Anillo de Grado Aguamarina 01, foto del taller"},
+  {n:"Anillo de Grado Granate 01", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-015.jpg", alt:"Anillo de Grado Granate 01, foto del taller"},
+  {n:"Anillo de Grado Granate 02", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-016.jpg", alt:"Anillo de Grado Granate 02, foto del taller"},
+  {n:"Anillo de Grado Aguamarina 02", tipo:"grado", g:6.5, piedra:"celeste", consultar:true,
+   img:"piezas/grado-017.jpg", alt:"Anillo de Grado Aguamarina 02, foto del taller"},
+  {n:"Anillo de Grado Zafiro 01", tipo:"grado", g:6.5, piedra:"azul", consultar:true,
+   img:"piezas/grado-018.jpg", alt:"Anillo de Grado Zafiro 01, foto del taller"},
+  {n:"Anillo de Grado Citrino 01", tipo:"grado", g:6.5, piedra:"amarillo", consultar:true,
+   img:"piezas/grado-019.jpg", alt:"Anillo de Grado Citrino 01, foto del taller"},
+  {n:"Anillo de Grado Citrino 02", tipo:"grado", g:6.5, piedra:"amarillo", consultar:true,
+   img:"piezas/grado-020.jpg", alt:"Anillo de Grado Citrino 02, foto del taller"},
+  {n:"Anillo de Grado Amatista 02", tipo:"grado", g:6.5, piedra:"morado", consultar:true,
+   img:"piezas/grado-021.jpg", alt:"Anillo de Grado Amatista 02, foto del taller"},
+  {n:"Anillo de Grado Cuarzo 01", tipo:"grado", g:6.5, piedra:"blanco", consultar:true,
+   img:"piezas/grado-022.jpg", alt:"Anillo de Grado Cuarzo 01, foto del taller"},
+  {n:"Anillo de Grado Cuarzo 02", tipo:"grado", g:6.5, piedra:"blanco", consultar:true,
+   img:"piezas/grado-023.jpg", alt:"Anillo de Grado Cuarzo 02, foto del taller"},
+  {n:"Anillo de Grado Granate 03", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-024.jpg", alt:"Anillo de Grado Granate 03, foto del taller"},
+  {n:"Anillo de Grado Granate 04", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-025.jpg", alt:"Anillo de Grado Granate 04, foto del taller"},
+  {n:"Anillo de Grado Citrino 03", tipo:"grado", g:6.5, piedra:"amarillo", consultar:true,
+   img:"piezas/grado-026.jpg", alt:"Anillo de Grado Citrino 03, foto del taller"},
+  {n:"Anillo de Grado Zafiro 02", tipo:"grado", g:6.5, piedra:"azul", consultar:true,
+   img:"piezas/grado-027.jpg", alt:"Anillo de Grado Zafiro 02, foto del taller"},
+  {n:"Anillo de Grado Zafiro 03", tipo:"grado", g:6.5, piedra:"azul", consultar:true,
+   img:"piezas/grado-028.jpg", alt:"Anillo de Grado Zafiro 03, foto del taller"},
+  {n:"Anillo de Grado Granate 05", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-029.jpg", alt:"Anillo de Grado Granate 05, foto del taller"},
+  {n:"Anillo de Grado Citrino 04", tipo:"grado", g:6.5, piedra:"amarillo", consultar:true,
+   img:"piezas/grado-030.jpg", alt:"Anillo de Grado Citrino 04, foto del taller"},
+  {n:"Anillo de Grado Zafiro 04", tipo:"grado", g:6.5, piedra:"azul", consultar:true,
+   img:"piezas/grado-031.jpg", alt:"Anillo de Grado Zafiro 04, foto del taller"},
+  {n:"Anillo de Grado Citrino 05", tipo:"grado", g:6.5, piedra:"amarillo", consultar:true,
+   img:"piezas/grado-032.jpg", alt:"Anillo de Grado Citrino 05, foto del taller"},
+  {n:"Anillo de Grado Citrino 06", tipo:"grado", g:6.5, piedra:"amarillo", consultar:true,
+   img:"piezas/grado-033.jpg", alt:"Anillo de Grado Citrino 06, foto del taller"},
+  {n:"Anillo de Grado Citrino 07", tipo:"grado", g:6.5, piedra:"amarillo", consultar:true,
+   img:"piezas/grado-034.jpg", alt:"Anillo de Grado Citrino 07, foto del taller"},
+  {n:"Anillo de Grado Zafiro 05", tipo:"grado", g:6.5, piedra:"azul", consultar:true,
+   img:"piezas/grado-035.jpg", alt:"Anillo de Grado Zafiro 05, foto del taller"},
+  {n:"Anillo de Grado Zafiro 06", tipo:"grado", g:6.5, piedra:"azul", consultar:true,
+   img:"piezas/grado-036.jpg", alt:"Anillo de Grado Zafiro 06, foto del taller"},
+  {n:"Anillo de Grado Citrino 08", tipo:"grado", g:6.5, piedra:"amarillo", consultar:true,
+   img:"piezas/grado-037.jpg", alt:"Anillo de Grado Citrino 08, foto del taller"},
+  {n:"Anillo de Grado Granate 06", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-038.jpg", alt:"Anillo de Grado Granate 06, foto del taller"},
+  {n:"Anillo de Grado Granate 07", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-039.jpg", alt:"Anillo de Grado Granate 07, foto del taller"},
+  {n:"Anillo de Grado Granate 08", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-040.jpg", alt:"Anillo de Grado Granate 08, foto del taller"},
+  {n:"Anillo de Grado Aguamarina 03", tipo:"grado", g:6.5, piedra:"celeste", consultar:true,
+   img:"piezas/grado-041.jpg", alt:"Anillo de Grado Aguamarina 03, foto del taller"},
+  {n:"Anillo de Grado Granate 09", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-042.jpg", alt:"Anillo de Grado Granate 09, foto del taller"},
+  {n:"Anillo de Grado Granate 10", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-043.jpg", alt:"Anillo de Grado Granate 10, foto del taller"},
+  {n:"Anillo de Grado Amatista 03", tipo:"grado", g:6.5, piedra:"morado", consultar:true,
+   img:"piezas/grado-044.jpg", alt:"Anillo de Grado Amatista 03, foto del taller"},
+  {n:"Anillo de Grado Turmalina 01", tipo:"grado", g:6.5, piedra:"rosa", consultar:true,
+   img:"piezas/grado-045.jpg", alt:"Anillo de Grado Turmalina 01, foto del taller"},
+  {n:"Anillo de Grado Granate 11", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-046.jpg", alt:"Anillo de Grado Granate 11, foto del taller"},
+  {n:"Anillo de Grado Granate 12", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-047.jpg", alt:"Anillo de Grado Granate 12, foto del taller"},
+  {n:"Anillo de Grado Zafiro 07", tipo:"grado", g:6.5, piedra:"azul", consultar:true,
+   img:"piezas/grado-048.jpg", alt:"Anillo de Grado Zafiro 07, foto del taller"},
+  {n:"Anillo de Grado Aguamarina 04", tipo:"grado", g:6.5, piedra:"celeste", consultar:true,
+   img:"piezas/grado-049.jpg", alt:"Anillo de Grado Aguamarina 04, foto del taller"},
+  {n:"Anillo de Grado Zafiro 08", tipo:"grado", g:6.5, piedra:"azul", consultar:true,
+   img:"piezas/grado-050.jpg", alt:"Anillo de Grado Zafiro 08, foto del taller"},
+  {n:"Anillo de Grado Granate 13", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-051.jpg", alt:"Anillo de Grado Granate 13, foto del taller"},
+  {n:"Anillo de Grado Zafiro 09", tipo:"grado", g:6.5, piedra:"azul", consultar:true,
+   img:"piezas/grado-052.jpg", alt:"Anillo de Grado Zafiro 09, foto del taller"},
+  {n:"Anillo de Grado Granate 14", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-053.jpg", alt:"Anillo de Grado Granate 14, foto del taller"},
+  {n:"Anillo de Grado Citrino 09", tipo:"grado", g:6.5, piedra:"amarillo", consultar:true,
+   img:"piezas/grado-054.jpg", alt:"Anillo de Grado Citrino 09, foto del taller"},
+  {n:"Anillo de Grado Granate 15", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-055.jpg", alt:"Anillo de Grado Granate 15, foto del taller"},
+  {n:"Anillo de Grado Zafiro 10", tipo:"grado", g:6.5, piedra:"azul", consultar:true,
+   img:"piezas/grado-056.jpg", alt:"Anillo de Grado Zafiro 10, foto del taller"},
+  {n:"Anillo de Grado Granate 16", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-057.jpg", alt:"Anillo de Grado Granate 16, foto del taller"},
+  {n:"Anillo de Grado Zafiro 11", tipo:"grado", g:6.5, piedra:"azul", consultar:true,
+   img:"piezas/grado-058.jpg", alt:"Anillo de Grado Zafiro 11, foto del taller"},
+  {n:"Anillo de Grado Citrino 10", tipo:"grado", g:6.5, piedra:"amarillo", consultar:true,
+   img:"piezas/grado-059.jpg", alt:"Anillo de Grado Citrino 10, foto del taller"},
+  {n:"Anillo de Grado Aguamarina 05", tipo:"grado", g:6.5, piedra:"celeste", consultar:true,
+   img:"piezas/grado-060.jpg", alt:"Anillo de Grado Aguamarina 05, foto del taller"},
+  {n:"Anillo de Grado Granate 17", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-061.jpg", alt:"Anillo de Grado Granate 17, foto del taller"},
+  {n:"Anillo de Grado Citrino 11", tipo:"grado", g:6.5, piedra:"amarillo", consultar:true,
+   img:"piezas/grado-062.jpg", alt:"Anillo de Grado Citrino 11, foto del taller"},
+  {n:"Anillo de Grado Granate 18", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-063.jpg", alt:"Anillo de Grado Granate 18, foto del taller"},
+  {n:"Anillo de Grado Cuarzo 03", tipo:"grado", g:6.5, piedra:"blanco", consultar:true,
+   img:"piezas/grado-096.jpg", alt:"Anillo de Grado Cuarzo 03, foto del taller"},
+  {n:"Anillo de Grado Citrino 12", tipo:"grado", g:6.5, piedra:"amarillo", consultar:true,
+   img:"piezas/grado-099.jpg", alt:"Anillo de Grado Citrino 12, foto del taller"},
+  {n:"Anillo de Grado Citrino 13", tipo:"grado", g:6.5, piedra:"amarillo", consultar:true,
+   img:"piezas/grado-100.jpg", alt:"Anillo de Grado Citrino 13, foto del taller"},
+  {n:"Anillo de Grado Cuarzo 04", tipo:"grado", g:6.5, piedra:"blanco", consultar:true,
+   img:"piezas/grado-110.jpg", alt:"Anillo de Grado Cuarzo 04, foto del taller"},
+  {n:"Anillo de Grado Cuarzo 05", tipo:"grado", g:6.5, piedra:"blanco", consultar:true,
+   img:"piezas/grado-111.jpg", alt:"Anillo de Grado Cuarzo 05, foto del taller"},
+  {n:"Anillo de Grado Cuarzo 06", tipo:"grado", g:6.5, piedra:"blanco", consultar:true,
+   img:"piezas/grado-112.jpg", alt:"Anillo de Grado Cuarzo 06, foto del taller"},
+  {n:"Anillo de Grado Cuarzo 07", tipo:"grado", g:6.5, piedra:"blanco", consultar:true,
+   img:"piezas/grado-113.jpg", alt:"Anillo de Grado Cuarzo 07, foto del taller"},
+  {n:"Anillo de Grado Cuarzo 08", tipo:"grado", g:6.5, piedra:"blanco", consultar:true,
+   img:"piezas/grado-114.jpg", alt:"Anillo de Grado Cuarzo 08, foto del taller"},
+  {n:"Anillo de Grado Cuarzo 09", tipo:"grado", g:6.5, piedra:"blanco", consultar:true,
+   img:"piezas/grado-115.jpg", alt:"Anillo de Grado Cuarzo 09, foto del taller"},
+  {n:"Anillo de Grado Cuarzo 10", tipo:"grado", g:6.5, piedra:"blanco", consultar:true,
+   img:"piezas/grado-116.jpg", alt:"Anillo de Grado Cuarzo 10, foto del taller"},
+  {n:"Anillo de Grado Cuarzo 11", tipo:"grado", g:6.5, piedra:"blanco", consultar:true,
+   img:"piezas/grado-117.jpg", alt:"Anillo de Grado Cuarzo 11, foto del taller"},
+  {n:"Anillo de Grado Citrino 14", tipo:"grado", g:6.5, piedra:"amarillo", consultar:true,
+   img:"piezas/grado-118.jpg", alt:"Anillo de Grado Citrino 14, foto del taller"},
+  {n:"Anillo de Grado Turmalina 02", tipo:"grado", g:6.5, piedra:"rosa", consultar:true,
+   img:"piezas/grado-119.jpg", alt:"Anillo de Grado Turmalina 02, foto del taller"},
+  {n:"Anillo de Grado Amatista 04", tipo:"grado", g:6.5, piedra:"morado", consultar:true,
+   img:"piezas/grado-120.jpg", alt:"Anillo de Grado Amatista 04, foto del taller"},
+  {n:"Anillo de Grado Cuarzo 12", tipo:"grado", g:6.5, piedra:"blanco", consultar:true,
+   img:"piezas/grado-121.jpg", alt:"Anillo de Grado Cuarzo 12, foto del taller"},
+  {n:"Anillo de Grado Zafiro 12", tipo:"grado", g:6.5, piedra:"azul", consultar:true,
+   img:"piezas/grado-122.jpg", alt:"Anillo de Grado Zafiro 12, foto del taller"},
+  {n:"Anillo de Grado Granate 19", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-123.jpg", alt:"Anillo de Grado Granate 19, foto del taller"},
+  {n:"Anillo de Grado Granate 20", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-124.jpg", alt:"Anillo de Grado Granate 20, foto del taller"},
+  {n:"Anillo de Grado Zafiro 13", tipo:"grado", g:6.5, piedra:"azul", consultar:true,
+   img:"piezas/grado-125.jpg", alt:"Anillo de Grado Zafiro 13, foto del taller"},
+  {n:"Anillo de Grado Granate 21", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-126.jpg", alt:"Anillo de Grado Granate 21, foto del taller"},
+  {n:"Anillo de Grado Aguamarina 06", tipo:"grado", g:6.5, piedra:"celeste", consultar:true,
+   img:"piezas/grado-127.jpg", alt:"Anillo de Grado Aguamarina 06, foto del taller"},
+  {n:"Anillo de Grado Granate 22", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-128.jpg", alt:"Anillo de Grado Granate 22, foto del taller"},
+  {n:"Anillo de Grado Zafiro 14", tipo:"grado", g:6.5, piedra:"azul", consultar:true,
+   img:"piezas/grado-129.jpg", alt:"Anillo de Grado Zafiro 14, foto del taller"},
+  {n:"Anillo de Grado Amatista 05", tipo:"grado", g:6.5, piedra:"morado", consultar:true,
+   img:"piezas/grado-130.jpg", alt:"Anillo de Grado Amatista 05, foto del taller"},
+  {n:"Anillo de Grado Granate 23", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-131.jpg", alt:"Anillo de Grado Granate 23, foto del taller"},
+  {n:"Anillo de Grado Aguamarina 07", tipo:"grado", g:6.5, piedra:"celeste", consultar:true,
+   img:"piezas/grado-132.jpg", alt:"Anillo de Grado Aguamarina 07, foto del taller"},
+  {n:"Anillo de Grado Granate 24", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-133.jpg", alt:"Anillo de Grado Granate 24, foto del taller"},
+  {n:"Anillo de Grado Citrino 15", tipo:"grado", g:6.5, piedra:"amarillo", consultar:true,
+   img:"piezas/grado-134.jpg", alt:"Anillo de Grado Citrino 15, foto del taller"},
+  {n:"Anillo de Grado Cuarzo 13", tipo:"grado", g:6.5, piedra:"blanco", consultar:true,
+   img:"piezas/grado-135.jpg", alt:"Anillo de Grado Cuarzo 13, foto del taller"},
+  {n:"Anillo de Grado Granate 25", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-136.jpg", alt:"Anillo de Grado Granate 25, foto del taller"},
+  {n:"Anillo de Grado Cuarzo 14", tipo:"grado", g:6.5, piedra:"blanco", consultar:true,
+   img:"piezas/grado-137.jpg", alt:"Anillo de Grado Cuarzo 14, foto del taller"},
+  {n:"Anillo de Grado Zafiro 15", tipo:"grado", g:6.5, piedra:"azul", consultar:true,
+   img:"piezas/grado-138.jpg", alt:"Anillo de Grado Zafiro 15, foto del taller"},
+  {n:"Anillo de Grado Zafiro 16", tipo:"grado", g:6.5, piedra:"azul", consultar:true,
+   img:"piezas/grado-139.jpg", alt:"Anillo de Grado Zafiro 16, foto del taller"},
+  {n:"Anillo de Grado Cuarzo 15", tipo:"grado", g:6.5, piedra:"blanco", consultar:true,
+   img:"piezas/grado-140.jpg", alt:"Anillo de Grado Cuarzo 15, foto del taller"},
+  {n:"Anillo de Grado Granate 26", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-141.jpg", alt:"Anillo de Grado Granate 26, foto del taller"},
+  {n:"Anillo de Grado Cuarzo 16", tipo:"grado", g:6.5, piedra:"blanco", consultar:true,
+   img:"piezas/grado-142.jpg", alt:"Anillo de Grado Cuarzo 16, foto del taller"},
+  {n:"Anillo de Grado Granate 27", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-143.jpg", alt:"Anillo de Grado Granate 27, foto del taller"},
+  {n:"Anillo de Grado Granate 28", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-144.jpg", alt:"Anillo de Grado Granate 28, foto del taller"},
+  {n:"Anillo de Grado Zafiro 17", tipo:"grado", g:6.5, piedra:"azul", consultar:true,
+   img:"piezas/grado-145.jpg", alt:"Anillo de Grado Zafiro 17, foto del taller"},
+  {n:"Anillo de Grado Amatista 06", tipo:"grado", g:6.5, piedra:"morado", consultar:true,
+   img:"piezas/grado-146.jpg", alt:"Anillo de Grado Amatista 06, foto del taller"},
+  {n:"Anillo de Grado Amatista 07", tipo:"grado", g:6.5, piedra:"morado", consultar:true,
+   img:"piezas/grado-147.jpg", alt:"Anillo de Grado Amatista 07, foto del taller"},
+  {n:"Anillo de Grado Esmeralda 01", tipo:"grado", g:6.5, consultar:true,
+   img:"piezas/grado-148.jpg", alt:"Anillo de Grado Esmeralda 01, foto del taller"},
+  {n:"Anillo de Grado Granate 29", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-149.jpg", alt:"Anillo de Grado Granate 29, foto del taller"},
+  {n:"Anillo de Grado Granate 30", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-150.jpg", alt:"Anillo de Grado Granate 30, foto del taller"},
+  {n:"Anillo de Grado Granate 31", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-151.jpg", alt:"Anillo de Grado Granate 31, foto del taller"},
+  {n:"Anillo de Grado Esmeralda 02", tipo:"grado", g:6.5, consultar:true,
+   img:"piezas/grado-152.jpg", alt:"Anillo de Grado Esmeralda 02, foto del taller"},
+  {n:"Anillo de Grado Granate 32", tipo:"grado", g:6.5, piedra:"rojo", consultar:true,
+   img:"piezas/grado-153.jpg", alt:"Anillo de Grado Granate 32, foto del taller"},
 ];
 
 const REGISTRO = {
   "Anillos":[
-    {n:"Anillo Pavé Abierto", tipo:"anillo", g:4.5, acabado:"Pavé, pulido espejo"},
-    {n:"Anillo Media Caña",   tipo:"anillo", g:4,   acabado:"Bruñido"},
-    {n:"Anillo Sello Liso",   tipo:"anillo", g:6,   acabado:"Satinado, apto grabado", nuevo:true},
-    {n:"Anillo Trenzado",     tipo:"anillo", g:5,   acabado:"Trenzado a mano"}
+    {n:"Anillo Citrino 01", tipo:"anillo", g:4.2, piedra:"amarillo", consultar:true,
+     img:"piezas/anillo-064.jpg", alt:"Anillo Citrino 01, foto del taller"},
+    {n:"Anillo Esmeralda 01", tipo:"anillo", g:4.2, consultar:true,
+     img:"piezas/anillo-065.jpg", alt:"Anillo Esmeralda 01, foto del taller"},
+    {n:"Anillo Aguamarina 01", tipo:"anillo", g:4.2, piedra:"celeste", consultar:true,
+     img:"piezas/anillo-066.jpg", alt:"Anillo Aguamarina 01, foto del taller"},
+    {n:"Anillo Granate 01", tipo:"anillo", g:4.2, piedra:"rojo", consultar:true,
+     img:"piezas/anillo-067.jpg", alt:"Anillo Granate 01, foto del taller"},
+    {n:"Anillo Citrino 02", tipo:"anillo", g:4.2, piedra:"amarillo", consultar:true,
+     img:"piezas/anillo-068.jpg", alt:"Anillo Citrino 02, foto del taller"},
+    {n:"Anillo Citrino 03", tipo:"anillo", g:4.2, piedra:"amarillo", consultar:true,
+     img:"piezas/anillo-069.jpg", alt:"Anillo Citrino 03, foto del taller"},
+    {n:"Anillo Granate 02", tipo:"anillo", g:4.2, piedra:"rojo", consultar:true,
+     img:"piezas/anillo-070.jpg", alt:"Anillo Granate 02, foto del taller"},
+    {n:"Anillo Citrino 04", tipo:"anillo", g:4.2, piedra:"amarillo", consultar:true,
+     img:"piezas/anillo-071.jpg", alt:"Anillo Citrino 04, foto del taller"},
+    {n:"Anillo Amatista 01", tipo:"anillo", g:4.2, piedra:"morado", consultar:true,
+     img:"piezas/anillo-072.jpg", alt:"Anillo Amatista 01, foto del taller"},
+    {n:"Anillo Zafiro 01", tipo:"anillo", g:4.2, piedra:"azul", consultar:true,
+     img:"piezas/anillo-073.jpg", alt:"Anillo Zafiro 01, foto del taller"},
+    {n:"Anillo Esmeralda 02", tipo:"anillo", g:4.2, consultar:true,
+     img:"piezas/anillo-074.jpg", alt:"Anillo Esmeralda 02, foto del taller"},
+    {n:"Anillo Citrino 05", tipo:"anillo", g:4.2, piedra:"amarillo", consultar:true,
+     img:"piezas/anillo-075.jpg", alt:"Anillo Citrino 05, foto del taller"},
+    {n:"Anillo Zafiro 02", tipo:"anillo", g:4.2, piedra:"azul", consultar:true,
+     img:"piezas/anillo-076.jpg", alt:"Anillo Zafiro 02, foto del taller"},
+    {n:"Anillo Granate 03", tipo:"anillo", g:4.2, piedra:"rojo", consultar:true,
+     img:"piezas/anillo-077.jpg", alt:"Anillo Granate 03, foto del taller"},
+    {n:"Anillo Citrino 06", tipo:"anillo", g:4.2, piedra:"amarillo", consultar:true,
+     img:"piezas/anillo-078.jpg", alt:"Anillo Citrino 06, foto del taller"},
+    {n:"Anillo Aguamarina 02", tipo:"anillo", g:4.2, piedra:"celeste", consultar:true,
+     img:"piezas/anillo-079.jpg", alt:"Anillo Aguamarina 02, foto del taller"},
+    {n:"Anillo Zafiro 03", tipo:"anillo", g:4.2, piedra:"azul", consultar:true,
+     img:"piezas/anillo-080.jpg", alt:"Anillo Zafiro 03, foto del taller"},
+    {n:"Anillo Turmalina 01", tipo:"anillo", g:4.2, piedra:"rosa", consultar:true,
+     img:"piezas/anillo-081.jpg", alt:"Anillo Turmalina 01, foto del taller"},
+    {n:"Anillo Citrino 07", tipo:"anillo", g:4.2, piedra:"amarillo", consultar:true,
+     img:"piezas/anillo-082.jpg", alt:"Anillo Citrino 07, foto del taller"},
+    {n:"Anillo Zafiro 04", tipo:"anillo", g:4.2, piedra:"azul", consultar:true,
+     img:"piezas/anillo-083.jpg", alt:"Anillo Zafiro 04, foto del taller"},
+    {n:"Anillo Amatista 02", tipo:"anillo", g:4.2, piedra:"morado", consultar:true,
+     img:"piezas/anillo-084.jpg", alt:"Anillo Amatista 02, foto del taller"},
+    {n:"Anillo Aguamarina 03", tipo:"anillo", g:4.2, piedra:"celeste", consultar:true,
+     img:"piezas/anillo-085.jpg", alt:"Anillo Aguamarina 03, foto del taller"},
+    {n:"Anillo Aguamarina 04", tipo:"anillo", g:4.2, piedra:"celeste", consultar:true,
+     img:"piezas/anillo-086.jpg", alt:"Anillo Aguamarina 04, foto del taller"},
+    {n:"Anillo Granate 04", tipo:"anillo", g:4.2, piedra:"rojo", consultar:true,
+     img:"piezas/anillo-087.jpg", alt:"Anillo Granate 04, foto del taller"},
+    {n:"Anillo Turmalina 02", tipo:"anillo", g:4.2, piedra:"rosa", consultar:true,
+     img:"piezas/anillo-088.jpg", alt:"Anillo Turmalina 02, foto del taller"},
+    {n:"Anillo Citrino 08", tipo:"anillo", g:4.2, piedra:"amarillo", consultar:true,
+     img:"piezas/anillo-089.jpg", alt:"Anillo Citrino 08, foto del taller"},
+    {n:"Anillo Granate 05", tipo:"anillo", g:4.2, piedra:"rojo", consultar:true,
+     img:"piezas/anillo-090.jpg", alt:"Anillo Granate 05, foto del taller"},
+    {n:"Anillo Aguamarina 05", tipo:"anillo", g:4.2, piedra:"celeste", consultar:true,
+     img:"piezas/anillo-091.jpg", alt:"Anillo Aguamarina 05, foto del taller"},
+    {n:"Anillo Aguamarina 06", tipo:"anillo", g:4.2, piedra:"celeste", consultar:true,
+     img:"piezas/anillo-092.jpg", alt:"Anillo Aguamarina 06, foto del taller"},
+    {n:"Anillo Turmalina 03", tipo:"anillo", g:4.2, piedra:"rosa", consultar:true,
+     img:"piezas/anillo-093.jpg", alt:"Anillo Turmalina 03, foto del taller"},
+    {n:"Anillo Aguamarina 07", tipo:"anillo", g:4.2, piedra:"celeste", consultar:true,
+     img:"piezas/anillo-094.jpg", alt:"Anillo Aguamarina 07, foto del taller"},
+    {n:"Anillo Zafiro 05", tipo:"anillo", g:4.2, piedra:"azul", consultar:true,
+     img:"piezas/anillo-095.jpg", alt:"Anillo Zafiro 05, foto del taller"},
+    {n:"Anillo Zafiro 06", tipo:"anillo", g:4.2, piedra:"azul", consultar:true,
+     img:"piezas/anillo-097.jpg", alt:"Anillo Zafiro 06, foto del taller"},
+    {n:"Anillo Amatista 03", tipo:"anillo", g:4.2, piedra:"morado", consultar:true,
+     img:"piezas/anillo-098.jpg", alt:"Anillo Amatista 03, foto del taller"},
+    {n:"Anillo Zafiro 07", tipo:"anillo", g:4.2, piedra:"azul", consultar:true,
+     img:"piezas/anillo-101.jpg", alt:"Anillo Zafiro 07, foto del taller"},
+    {n:"Anillo Citrino 09", tipo:"anillo", g:4.2, piedra:"amarillo", consultar:true,
+     img:"piezas/anillo-102.jpg", alt:"Anillo Citrino 09, foto del taller"},
+    {n:"Anillo Citrino 10", tipo:"anillo", g:4.2, piedra:"amarillo", consultar:true,
+     img:"piezas/anillo-103.jpg", alt:"Anillo Citrino 10, foto del taller"},
+    {n:"Anillo Aguamarina 08", tipo:"anillo", g:4.2, piedra:"celeste", consultar:true,
+     img:"piezas/anillo-104.jpg", alt:"Anillo Aguamarina 08, foto del taller"},
+    {n:"Anillo Granate 06", tipo:"anillo", g:4.2, piedra:"rojo", consultar:true,
+     img:"piezas/anillo-105.jpg", alt:"Anillo Granate 06, foto del taller"},
+    {n:"Anillo Cuarzo 01", tipo:"anillo", g:4.2, piedra:"blanco", consultar:true,
+     img:"piezas/anillo-106.jpg", alt:"Anillo Cuarzo 01, foto del taller"},
+    {n:"Anillo Citrino 11", tipo:"anillo", g:4.2, piedra:"amarillo", consultar:true,
+     img:"piezas/anillo-107.jpg", alt:"Anillo Citrino 11, foto del taller"},
+    {n:"Anillo Granate 07", tipo:"anillo", g:4.2, piedra:"rojo", consultar:true,
+     img:"piezas/anillo-108.jpg", alt:"Anillo Granate 07, foto del taller"},
+    {n:"Anillo Granate 08", tipo:"anillo", g:4.2, piedra:"rojo", consultar:true,
+     img:"piezas/anillo-109.jpg", alt:"Anillo Granate 08, foto del taller"},
   ],
   "Aros de Boda":[
-    {n:"Par Alianzas Trenzadas", tipo:"aro", g:9,  acabado:"Trenzado a mano", img:"aro-oro-trenzado-par-01.jpg", alt:"Par de alianzas de boda en oro 18k, trenzadas"},
-    {n:"Par Alianzas Clásicas",  tipo:"aro", g:8,  acabado:"Media caña, pulido"},
-    {n:"Par Alianzas Mate",      tipo:"aro", g:8.5,acabado:"Satinado mate"},
-    {n:"Par Alianzas Delgadas",  tipo:"aro", g:6,  acabado:"Pulido espejo"}
   ],
   "Cadenas y Esclavas":[
-    {n:"Cadena Eslabón Bruñido", tipo:"cadena", g:9,  acabado:"Bruñido"},
-    {n:"Cadena Mariner Doble",   tipo:"cadena", g:11, acabado:"Mariner doble", img:"cadena-oro-mariner-doble-01.jpg",   alt:"Cadena en oro 18k, eslabón mariner doble"},
-    {n:"Cadena Veneciana",       tipo:"cadena", g:7,  acabado:"Veneciana pulida"},
-    {n:"Esclava Clásica",        tipo:"pulsera",g:13, acabado:"Pulido espejo"}
+    {n:"Cadena eslabón marino 4x3", tipo:"cadena", g:11.0, medida:"4x3", consultar:true,
+     img:"piezas/cadena-000.jpg", alt:"Cadena eslabón marino 4x3, foto del taller"},
+    {n:"Cadena eslabón marino 6x4", tipo:"cadena", g:11.0, medida:"6x4", consultar:true,
+     img:"piezas/cadena-001.jpg", alt:"Cadena eslabón marino 6x4, foto del taller"},
+    {n:"Cadena eslabón marino 10x8", tipo:"cadena", g:11.0, medida:"10x8", consultar:true,
+     img:"piezas/cadena-002.jpg", alt:"Cadena eslabón marino 10x8, foto del taller"},
+    {n:"Cadena eslabón marino 6x8", tipo:"cadena", g:11.0, medida:"6x8", consultar:true,
+     img:"piezas/cadena-003.jpg", alt:"Cadena eslabón marino 6x8, foto del taller"},
+    {n:"Cadena eslabón marino 6x8 en plata", tipo:"cadena", g:11.0, medida:"6x8", consultar:true,
+     img:"piezas/cadena-004.jpg", alt:"Cadena eslabón marino 6x8 en plata, foto del taller"},
+    {n:"Cadena con dije de las Tres Gracias", tipo:"cadena", g:11.0, unica:true, consultar:true,
+     img:"piezas/cadena-005.jpg", alt:"Cadena con dije de las Tres Gracias, foto del taller"},
+    {n:"Cadena con dije y medalla", tipo:"cadena", g:11.0, stock:true, consultar:true,
+     img:"piezas/cadena-009.jpg", alt:"Cadena con dije y medalla, foto del taller"},
+    {n:"Cadena fina de oro", tipo:"cadena", g:11.0, stock:true, consultar:true,
+     img:"piezas/cadena-010.jpg", alt:"Cadena fina de oro, foto del taller"},
   ],
   "Pulseras":[
-    {n:"Pulsera Cordón",  tipo:"pulsera", g:8,  acabado:"Tejido cordón"},
-    {n:"Pulsera Eslabón", tipo:"pulsera", g:11, acabado:"Eslabón bruñido"},
-    {n:"Pulsera Tejida",  tipo:"pulsera", g:9,  acabado:"Tejido plano"},
-    {n:"Esclava Grabada", tipo:"pulsera", g:12, acabado:"Satinada, apta grabado"}
+    {n:"Pulsera de esferas volcánicas", tipo:"pulsera", g:9.0, unica:true, consultar:true,
+     img:"piezas/pulsera-011.jpg", alt:"Pulsera de esferas volcánicas, foto del taller"},
   ],
   "Zarcillos":[
-    {n:"Zarcillo Aro",      tipo:"zarcillo", g:3,   acabado:"Aro pulido"},
-    {n:"Zarcillo Botón",    tipo:"zarcillo", g:1.8, acabado:"Botón con circonia"},
-    {n:"Zarcillo Candonga", tipo:"zarcillo", g:4,   acabado:"Bruñido"},
-    {n:"Zarcillo Gota",     tipo:"zarcillo", g:2.5, acabado:"Colgante, engaste garra", nuevo:true}
+    {n:"Zarcillo 10x8", tipo:"zarcillo", g:2.4, medida:"10x8", consultar:true,
+     img:"piezas/zarcillo-006.jpg", alt:"Zarcillo 10x8, foto del taller"},
+    {n:"Zarcillo 6x8", tipo:"zarcillo", g:2.4, medida:"6x8", consultar:true,
+     img:"piezas/zarcillo-007.jpg", alt:"Zarcillo 6x8, foto del taller"},
+    {n:"Zarcillo 6x4", tipo:"zarcillo", g:2.4, medida:"6x4", consultar:true,
+     img:"piezas/zarcillo-008.jpg", alt:"Zarcillo 6x4, foto del taller"},
   ],
   "Dijes":[
-    {n:"Dije Osito",           tipo:"dije", g:2.5, acabado:"Relieve, pulido",   img:"dije-oro-osito-01.jpg",           alt:"Dije en oro 18k en forma de osito"},
-    {n:"Dije Medallón Grecas", tipo:"dije", g:3.5, acabado:"Grecas cinceladas", img:"dije-oro-medallon-grecas-01.jpg", alt:"Dije en oro 18k, medallón con grecas"},
-    {n:"Dije Corazón",         tipo:"dije", g:2,   acabado:"Liso, apto grabado"},
-    {n:"Dije Placa",           tipo:"dije", g:3,   acabado:"Placa satinada"}
-  ]
+  ],
 };

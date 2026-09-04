@@ -916,6 +916,45 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
   .modal__acciones .btn{flex:1 1 120px;padding:.7rem 1rem;font-size:.875rem}
 }
 
+/* ---------- Sellos de la tarjeta ---------- */
+.card__sello{display:inline-block;padding:.25rem .5rem;border-radius:2px;letter-spacing:.12em}
+.card__sello--unica{background:var(--toque);color:var(--panel)}
+.card__sello--stock{background:var(--lacre);color:var(--panel)}
+.card__medida{color:var(--ink-2)}
+/* "Consultar" no es una cifra: se le quita el apretado de las tabulares para
+   que no se lea como si lo fuera. */
+.card__price--consultar{font-variant-numeric:normal;letter-spacing:.02em}
+
+/* ---------- Qué significan las medidas ----------
+   La duda que más frena: "4x3" no le dice nada a nadie. Se resuelve enseñando
+   las piedras DIBUJADAS A ESCALA, unas al lado de otras. El cliente no
+   necesita entender milímetros; le basta ver que la 10x12 es tres veces la
+   4x3. Es lo mismo que se hace en el mostrador. */
+.medidas{background:var(--panel);border-block:1px solid var(--line)}
+.medidas__intro{color:var(--ink-2);max-width:60ch;margin:0}
+.medidas__intro strong{color:var(--ink);font-weight:600}
+.medidas__tira{
+  display:flex;align-items:flex-end;justify-content:center;gap:var(--s5);
+  flex-wrap:wrap;padding:var(--s6) var(--s4);
+  background:var(--field);border:1px solid var(--line);border-radius:var(--radius);
+}
+.medida{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:var(--s3);text-align:center;min-height:130px}
+.medida__forma{
+  display:block;      /* sin esto el <span> es inline y se come el alto */
+  flex:0 0 auto;
+  background:var(--t-oro);border:1px solid var(--ink);border-radius:2px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.55);
+}
+.medida__id{font-weight:600;color:var(--ink)}
+.medida__nombre{color:var(--ink-2)}
+.medidas__nota{
+  margin:var(--s6) 0 0;padding-top:var(--s4);border-top:1px solid var(--line-soft);
+  color:var(--ink-2);font-size:.9375rem;line-height:1.65;max-width:70ch;
+}
+.medidas__nota strong{color:var(--ink);font-weight:600}
+.medidas__regla{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s5);color:var(--ink-2)}
+.medidas__regla i{display:block;height:2px;background:var(--ink);flex:0 0 auto}
+
 /* ---------- Pedido (carrito) ----------
    Se abre igual que el índice: el velo entra por opacidad y el panel entra
    deslizándose. Antes era display:none -> display:flex, que no admite
@@ -1063,11 +1102,8 @@ document.documentElement.classList.add("js");
       <h2 class="section__title" id="grado-t">Anillos de Grado</h2>
       <p class="section__lede">Diez modelos. Ábrelos y escoge quilate, talla, piedra y grabado.</p>
       <div class="aviso-precio">
-        <p class="aviso-precio__p"><strong>Ojo con el precio:</strong> todo lo que ves está en
-          <strong>oro 10k</strong>. Al abrir una pieza puedes cambiar a 14k, 18k o
-          <strong>plata Ley 950</strong> — y el precio baja mucho.</p>
-        <p class="aviso-precio__p aviso-precio__p--regalo"><strong>En oro, las copias en plata
-          van incluidas.</strong> Sin costo extra.</p>
+        <p class="aviso-precio__p"><strong>El precio se da por WhatsApp.</strong> Depende del metal que escojas — oro 10k, 14k, 18k o <strong>plata Ley 950</strong> — y del tamaño de la piedra. Te pasamos el precio del día en el momento.</p>
+        <p class="aviso-precio__p aviso-precio__p--regalo"><strong>En oro, las copias en plata van incluidas.</strong> Sin costo extra.</p>
       </div>
     </div>
     <div class="grid" id="grado-grid"></div>
@@ -1086,8 +1122,8 @@ document.documentElement.classList.add("js");
       <h2 class="section__title" id="registro-t">Catálogo</h2>
       <p class="section__lede">Escoge una categoría. Lo que no tiene foto va con su ficha completa.</p>
       <div class="aviso-precio">
-        <p class="aviso-precio__p"><strong>Precios en oro 10k.</strong> Cámbialo a 14k, 18k o
-          plata al personalizar.</p>
+        <p class="aviso-precio__p"><strong>El precio se da por WhatsApp.</strong> Escoge metal y medida
+          al personalizar, y te pasamos el precio del día.</p>
       </div>
     </div>
     <div class="cats" role="tablist" aria-label="Categorías del catálogo"></div>
@@ -1100,6 +1136,28 @@ document.documentElement.classList.add("js");
 </section>
 
 <!-- Tu talla -->
+<!-- Qué significan las medidas. Lo pidió el dueño y es la duda que más frena:
+     el cliente ve "6x8" y no sabe si es grande o chico. Las piedras van
+     dibujadas A ESCALA ENTRE ELLAS, que es lo único que necesita para decidir.
+     Se generan desde MEDIDAS en catalogo.js: añadir una medida allí la hace
+     aparecer aquí sola. -->
+<section class="section medidas" id="medidas" aria-labelledby="medidas-t">
+  <div class="wrap">
+    <div class="section__head">
+      <span class="punzon section__eyebrow">Antes de escoger</span>
+      <h2 class="section__title" id="medidas-t">¿Qué significa 6x8?</h2>
+      <p class="medidas__intro">Son <strong>milímetros</strong>: ancho por largo. En un anillo o un zarcillo es el tamaño de la piedra; en una cadena, el del eslabón. <strong>Aquí las tienes dibujadas a escala</strong>, del tamaño que se ven unas al lado de otras.</p>
+    </div>
+    <div class="medidas__tira" id="medidasTira"></div>
+    <p class="medidas__nota">
+      La medida manda sobre el precio: <strong>a más piedra, más oro alrededor</strong>. Una 10x12 pesa y cuesta bastante más que una 4x3 del mismo modelo. Si dudas entre dos, escribe y te decimos cuál se lleva la gente de tu carrera.
+    </p>
+    <div class="medidas__regla punzon">
+      <span>1&nbsp;cm</span><i id="reglaMm"></i><span>a esta escala</span>
+    </div>
+  </div>
+</section>
+
 <section class="section talla" id="talla" aria-labelledby="talla-t">
   <div class="wrap">
     <div class="section__head reveal">
@@ -1775,11 +1833,11 @@ function destellarGrid(){
 let INDICE = [];
 function tarjeta(p, i){
   const s = p.piedra ? CARRERA[p.piedra] : null;
+  /* La tarjeta carga la MINIATURA (400px, ~29 KB); la de 800px se deja para
+     el modal. Con seis tarjetas en pantalla eso es 173 KB en vez de 680 KB,
+     que en un teléfono venezolano son varios segundos de diferencia. */
   const media = p.img
-    ? `<img src="assets/img/${esc(p.img)}" alt="${esc(p.alt)}" loading="lazy">`
-    /* La ficha repite el nombre por diseño; se oculta al lector de pantalla
-       para no anunciar dos veces el mismo producto. El nombre real vive en
-       el cuerpo de la tarjeta, que sí es un encabezado. */
+    ? `<img src="assets/img/${esc(mini(p.img))}" alt="${esc(p.alt)}" loading="lazy" decoding="async" width="400" height="400">`
     : `<div class="card__ficha" aria-hidden="true">
          <span class="card__ficha-name">${esc(p.n)}</span>
          <div class="card__ficha-specs punzon">
@@ -1787,24 +1845,38 @@ function tarjeta(p, i){
            <span class="card__ficha-pend">Foto en camino</span>
          </div>
        </div>`;
+  /* Un solo sello por pieza: si es única, eso manda sobre todo lo demás. */
+  const sello = p.unica ? '<span class="card__sello card__sello--unica">Pieza única</span>'
+              : p.stock ? '<span class="card__sello card__sello--stock">Stock limitado</span>'
+              : p.nuevo ? '<span class="card__nuevo">Recién llegado</span>'
+              : "Plata 950 · Oro 10k–18k";
   return `
   <button class="card" type="button" data-i="${i}" style="${s?`--c:${s.c}`:""}">
     <div class="card__media">
       ${s ? `<span class="card__thread"></span>` : ""}${media}
     </div>
     <div class="card__body">
-      <span class="punzon card__seal">${p.nuevo ? '<span class="card__nuevo">Recién llegado</span>' : "Plata 950 · Oro 10k–18k"}</span>
-      <h3 class="card__name">${p.n}</h3>
-      ${s ? `<span class="punzon card__career">${s.carrera}</span>` : ""}
+      <span class="punzon card__seal">${sello}</span>
+      <h3 class="card__name">${esc(p.n)}</h3>
+      ${s ? `<span class="punzon card__career">${esc(s.carrera)}</span>` : ""}
+      ${p.medida ? `<span class="punzon card__medida">Piedra ${esc(p.medida)} mm</span>` : ""}
       <div class="card__foot">
         <span class="card__precio-caja">
-          <span class="dato card__price">desde&nbsp;${fmt(precioDesde(p))}</span>
-          <span class="punzon card__moneda">en oro 10k</span>
+          ${p.consultar
+            ? `<span class="dato card__price card__price--consultar">Consultar</span>
+               <span class="punzon card__moneda">precio del día</span>`
+            : `<span class="dato card__price">desde&nbsp;${fmt(precioDesde(p))}</span>
+               <span class="punzon card__moneda">en oro 10k</span>`}
         </span>
         <span class="punzon card__more">Personalizar</span>
       </div>
     </div>
   </button>`;
+}
+/* La miniatura vive junto a la foto grande: piezas/x.jpg -> piezas/mini/x.jpg */
+function mini(ruta){
+  const i = ruta.lastIndexOf("/");
+  return i < 0 ? "mini/" + ruta : ruta.slice(0, i) + "/mini/" + ruta.slice(i+1);
 }
 /* INDICE se reconstruye en cada pintado. Antes se hacía push sin limpiar nunca:
    tras 10 cambios de pestaña el array pasaba de 14 a 54 entradas y seguía creciendo. */
@@ -1870,7 +1942,12 @@ const NOVEDADES = "Recién llegados";
 function piezasNuevas(){
   return [...GRADO, ...Object.values(REGISTRO).flat()].filter(p => p.nuevo);
 }
-function piezasDe(cat){ return cat === NOVEDADES ? piezasNuevas() : REGISTRO[cat]; }
+/* Devuelve SIEMPRE un array: una categoría que no existe es un catálogo
+   vacío, no un fallo que tumbe la página. */
+function piezasDe(cat){
+  if(cat === NOVEDADES) return piezasNuevas();
+  return Array.isArray(REGISTRO[cat]) ? REGISTRO[cat] : [];
+}
 const cats = (piezasNuevas().length ? [NOVEDADES] : []).concat(Object.keys(REGISTRO));
 let catActiva = cats[0];
 /* Rejilla en vez de carril horizontal: con 7 categorías, deslizar de lado
@@ -1994,7 +2071,14 @@ function actualizarPrecio(){
     `<strong>Las copias en plata van incluidas.</strong> Al encargarlo en
      ${esc(MATERIALES.find(m=>m.id===sel.material).label.toLowerCase())} te llevas también
      tus copias en plata Ley 950, sin costo adicional.`;
-  $("#modalPrecio").textContent = fmt(t);
+  /* Mientras la pieza no tenga peso confirmado se dice "Consultar" en vez de
+     inventar una cifra. Un precio equivocado en joyería no es un detalle. */
+  if(actual && actual.consultar){
+    $("#modalPrecio").textContent = "Consultar";
+    $("#modalMaterial").textContent = "precio del día por WhatsApp";
+  }else{
+    $("#modalPrecio").textContent = fmt(t);
+  }
   $("#modalWa").href = waLink(mensaje(actual, sel, t));
 }
 function resumen(sel){
@@ -2033,7 +2117,9 @@ function abrirModal(p){
   const esOro = sel.material !== "950";
   $("#modalMedia").className = "modal__media" + (esOro ? " modal__media--oro" : "");
   $("#modalMedia").innerHTML = p.img
-    ? `<img src="assets/img/${p.img}" alt="${p.alt}">`
+    /* esc() en src y alt: sin esto, un alt con comillas escrito en
+       catalogo.js inyecta atributos vivos en el DOM. Comprobado. */
+    ? `<img src="assets/img/${esc(p.img)}" alt="${esc(p.alt)}">`
     : `<div class="modal__ficha" aria-hidden="true"><span class="modal__ficha-name">${esc(p.n)}</span>
        <span class="punzon" style="color:var(--ink-2)">Foto en camino</span></div>`;
   precioAnterior = null;
@@ -2077,7 +2163,7 @@ function bloquearFondo(on){
   /* El nav se deja accesible cuando el índice está abierto: su botón vive ahí
      y tiene que poder recibir el foco para cerrarlo. */
   const indiceAbierto = $("#indice").classList.contains("is-open");
-  $$("header.nav, main, footer.footer, .wabar").forEach(el=>{
+  $$("header.nav, main, footer.footer, .wafab").forEach(el=>{
     const saltar = indiceAbierto && el.matches("header.nav");
     if(on && !saltar) el.setAttribute("inert",""); else el.removeAttribute("inert");
   });
@@ -2144,9 +2230,15 @@ indice.addEventListener("click", e=>{
   const destino = a.getAttribute("href").slice(1);
   const cat = a.dataset.cat;
   cerrarIndice();
-  if(cat){                                  // selecciona la pestaña del Registro
+  /* Se comprueba que la categoría EXISTA. Los enlaces del índice traen el
+     nombre quemado en el markup; si se renombra una categoría en catalogo.js,
+     piezasDe() devolvía undefined, reventaba en .slice y el catálogo dejaba
+     de repintarse — se quedaba con las piezas anteriores bajo otro titular.
+     Y el selector era ".tab", clase que no existe: la buena es ".cat". */
+  if(cat && cats.includes(cat)){
     catActiva = cat;
-    $$(".tab").forEach(b=>b.setAttribute("aria-selected", String(b.dataset.cat===cat)));
+    visiblesCatalogo = TANDA;
+    $$(".cat").forEach(b=>b.setAttribute("aria-selected", String(b.dataset.cat===cat)));
     pintarRegistro();
   }
   const el = document.getElementById(destino);
@@ -2395,6 +2487,7 @@ function guardarPedido(){
   try{ sessionStorage.setItem(GUARDADO, JSON.stringify(carrito)); }catch{ /* modo privado */ }
 }
 $("#modalAdd").addEventListener("click", ()=>{
+  if(!actual) return;      // el botón vive dentro del modal: sin pieza no hay nada que agregar
   const totalPieza = calcular(actual, sel);
   medirAgrega(actual, totalPieza);
   carrito.push({n:actual.n, spec:resumen(sel), total:totalPieza});
@@ -2436,6 +2529,27 @@ function cerrarPedido(){
 $("#pedidoBtn").addEventListener("click", abrirPedido);
 $("#pedidoClose").addEventListener("click", cerrarPedido);
 $("#pedido").addEventListener("click", e=>{ if(e.target===$("#pedido")) cerrarPedido(); });
+
+/* ---------- Medidas a escala ----------
+   El factor px/mm es arbitrario a propósito: no se puede dibujar un milímetro
+   real en pantalla porque cada teléfono tiene su densidad y no hay forma
+   fiable de conocerla. Lo que SÍ es fiable, y es lo que resuelve la duda, es
+   la proporción entre las medidas. */
+const PX_MM = 7.5;
+(function pintarMedidas(){
+  const tira = $("#medidasTira");
+  if(!tira || typeof MEDIDAS === "undefined") return;
+  tira.innerHTML = MEDIDAS.map(m=>{
+    const [a,l] = m.mm;
+    return `<div class="medida">
+      <span class="medida__forma" style="width:${a*PX_MM}px;height:${l*PX_MM}px"></span>
+      <span class="punzon medida__id">${esc(m.id)}&nbsp;mm</span>
+      <span class="punzon medida__nombre">${esc(m.nombre)}</span>
+    </div>`;
+  }).join("");
+  const r = $("#reglaMm");
+  if(r) r.style.width = (PX_MM*10) + "px";
+})();
 
 /* ---------- Arranque ---------- */
 pintarGrado(); pintarRegistro(); pintarPedido();
@@ -2535,12 +2649,6 @@ const MENSAJES = {
 };
 $$("[data-wa]").forEach(a => a.href = waLink(MENSAJES[a.dataset.wa]));
 
-const wabar = $("#wabar");
-let lastY = scrollY;
-addEventListener("scroll", ()=>{
-  wabar.classList.toggle("is-hidden", scrollY > lastY && scrollY > 240);
-  lastY = scrollY;
-}, {passive:true});
 </script>
 
 <!-- ============================================================
