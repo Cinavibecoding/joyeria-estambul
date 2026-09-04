@@ -1892,10 +1892,16 @@ function tarjeta(p, i){
            <span class="card__ficha-pend">Foto en camino</span>
          </div>
        </div>`;
-  /* Un solo sello por pieza: si es única, eso manda sobre todo lo demás. */
+  /* Un solo sello por pieza, por orden de importancia. "Plata 950 · Oro
+     10k–18k" se caía a dos líneas y además era lo mismo en las 153 piezas:
+     no distinguía nada. El estilo sí — es lo que separa a la clienta que
+     quiere el anillo de siempre de la que quiere lo de ahora. */
+  const estilo = p.estilo && typeof ESTILOS !== "undefined"
+    ? (ESTILOS.find(e=>e.id===p.estilo)||{}).nombre : null;
   const sello = p.unica ? '<span class="card__sello card__sello--unica">Pieza única</span>'
               : p.stock ? '<span class="card__sello card__sello--stock">Stock limitado</span>'
               : p.nuevo ? '<span class="card__nuevo">Recién llegado</span>'
+              : estilo  ? esc(estilo.replace(/s$/,""))          // "Clásicos" -> "Clásico"
               : "Plata 950 · Oro 10k–18k";
   return `
   <button class="card" type="button" data-i="${i}" style="${s?`--c:${s.c}`:""}">

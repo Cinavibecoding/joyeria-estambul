@@ -173,11 +173,20 @@ limpia desde que existe el banco.
 - **Peso de la página.** Cada tarjeta carga una miniatura de 29 KB en vez de la
   foto de 800 px, así que la primera pantalla son 173 KB en vez de 680 KB. Para
   un teléfono en Venezuela eso son varios segundos.
-- **23 piezas** no tienen piedra que detectar (bandas lisas, cadenas, pulseras) y
-  usan el encuadre de respaldo. Algunas quedaron menos centradas: `grado-013`,
-  `grado-021`, `grado-022`, `grado-042`, `grado-045`, `grado-110`, `grado-112`,
-  `grado-120`, `grado-141`, `grado-142`, `grado-144`, `anillo-084`, `anillo-092`,
-  `anillo-097`. Si me dices cuáles te molestan, las recorto a mano.
+- **Encuadres que no me convencen.** Repasé las 153 una por una en hoja de
+  contactos. Estas seis son las que arreglaría a mano si me dices que sí:
+
+  | Pieza | Qué le pasa |
+  |---|---|
+  | `grado-133`, `grado-135`, `grado-136`, `grado-138` | Recorte demasiado cerrado. No es culpa del algoritmo: esas fotos se tomaron tan de cerca que el anillo no cabe entero en un cuadrado. Como *macro* quedan preciosas, pero como portada de catálogo se ven cortadas. **La solución de verdad es volver a fotografiarlas un poco más lejos.** |
+  | `grado-143`, `grado-147` | El anillo sale pequeño y de canto. Son piezas con una sola toma útil. |
+
+  Aparte, **23 piezas** no tienen piedra que detectar (bandas lisas, cadenas,
+  pulseras) y usan el encuadre de respaldo: `grado-013`, `grado-021`,
+  `grado-022`, `grado-042`, `grado-045`, `grado-110`, `grado-112`, `grado-120`,
+  `grado-141`, `grado-142`, `grado-144`, `anillo-084`, `anillo-092`,
+  `anillo-097` y las cadenas y zarcillos. Esas quedaron aceptables, pero menos
+  centradas que las que tienen gema.
 - **`IMG_8777.PNG`** era una captura de pantalla de la galería del teléfono, no un
   producto. Descartada.
 - **`IMG_9173` y `IMG_9174`** salieron vacías: son fotos del expositor sin pieza.
