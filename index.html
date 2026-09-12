@@ -1992,6 +1992,8 @@ function calcular(p, sel){
   if(sel.color === "blanco") total += EXTRA.rodio;
   /* El grabado va incluido: no suma al precio. */
   if(sel.piedraOpc) total += EXTRA.engaste;
+  /* Piedrería: piedras chicas alrededor del engaste (~$3 c/u). */
+  if(p.piedreria) total += p.piedreria * EXTRA.piedra_chica;
   return Math.round(total);
 }
 /* Precio de tarjeta: oro 10k, que es la entrada real en oro. Antes se calculaba
@@ -2004,7 +2006,7 @@ function calcular(p, sel){
 const MATERIAL_BASE = "950";
 function precioDesde(p){
   return calcular(p, {
-    material: MATERIAL_BASE,
+    material: p.metalBase || MATERIAL_BASE,
     medida: p.medida || "6x8",
     tejido: p.tejido || (p.tipo==="cadena" ? "marino" : null),
     talla: ["grado","anillo","aro","matrimonio","compromiso"].includes(p.tipo) ? 7 : null,
@@ -2206,7 +2208,7 @@ function tarjeta(p, i){
       <div class="card__foot">
         <span class="card__precio-caja">
           <span class="dato card__price">desde&nbsp;${fmt(precioDesde(p))}</span>
-          <span class="punzon card__moneda">en plata Ley 950</span>
+          <span class="punzon card__moneda">en ${p.metalBase ? (MATERIALES.find(m=>m.id===p.metalBase)||{}).label||"Oro 10k" : "plata Ley 950"}</span>
         </span>
         <span class="punzon card__more">Personalizar</span>
       </div>
@@ -2713,7 +2715,7 @@ function mensaje(p, sel, total){
 function abrirModal(p){
   actual = p;
   sel = {
-    material: MATERIAL_BASE,
+    material: p.metalBase || MATERIAL_BASE,
     color: "amarillo",
     acabado: "pulido",
     grabado: "",

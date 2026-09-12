@@ -29,7 +29,7 @@ const SPOT = { oro24_g: ORO_ONZA/31.1035, plata999_g: PLATA_ONZA/31.1035, fecha:
    2. MANO DE OBRA Y EXTRAS
    ------------------------------------------------------------ */
 const OBRA  = { oro:45, plata:10 };            // dólares por gramo trabajado
-const EXTRA = { rodio:20, engaste:25 };
+const EXTRA = { rodio:20, engaste:25, piedra_chica:3 };
 
 /* ------------------------------------------------------------
    3. MEDIDAS
@@ -455,11 +455,11 @@ const REGISTRO = {
      mas:["piezas/gal/cadena-003-2.jpg", "piezas/gal/cadena-003-3.jpg"], img:"piezas/cadena-003.jpg", alt:"Cadena tipo Gucci 6x8, foto del taller"},
     {n:"Cadena tipo Gucci 6x8 en plata", tipo:"cadena", g:11.0, medida:"6x8", tejido:"gucci", consultar:true,
      mas:["piezas/gal/cadena-004-2.jpg", "piezas/gal/cadena-004-3.jpg"], img:"piezas/cadena-004.jpg", alt:"Cadena tipo Gucci 6x8 en plata, foto del taller"},
-    {n:"Cadena de oro con dije de las Tres Gracias", tipo:"cadena", g:11.0, unica:true, stock:true, consultar:true,
+    {n:"Cadena de oro con dije de las Tres Gracias", tipo:"cadena", g:11.0, unica:true, stock:true, metalBase:"10k", consultar:true,
      mas:["piezas/gal/cadena-005-2.jpg", "piezas/gal/cadena-005-3.jpg"], img:"piezas/cadena-005.jpg", alt:"Cadena de oro con dije de las Tres Gracias, pieza única, foto del taller"},
-    {n:"Cadena con dije y medalla", tipo:"cadena", g:11.0, stock:true, consultar:true,
-     mas:["piezas/gal/cadena-009-2.jpg"], img:"piezas/cadena-009.jpg", alt:"Cadena con dije y medalla, stock limitado, foto del taller"},
-    {n:"Cadena fina de oro", tipo:"cadena", g:11.0, stock:true, consultar:true,
+    {n:"Cadena con dije y medalla", tipo:"cadena", g:11.0, stock:true, metalBase:"10k", consultar:true,
+     mas:["piezas/gal/cadena-009-2.jpg"], img:"piezas/cadena-009.jpg", alt:"Cadena con dije y medalla en oro, stock limitado, foto del taller"},
+    {n:"Cadena fina de oro", tipo:"cadena", g:11.0, stock:true, metalBase:"10k", consultar:true,
      mas:["piezas/gal/cadena-010-2.jpg", "piezas/gal/cadena-010-3.jpg"], img:"piezas/cadena-010.jpg", alt:"Cadena fina de oro, stock limitado, foto del taller"},
     {n:"Cadena eslabón liso oro 18k", tipo:"cadena", g:11.0, medida:"6x8", tejido:"liso", consultar:true,
      mas:["piezas/gal/pieza-154-2.jpg", "piezas/gal/pieza-154-3.jpg"], img:"piezas/pieza-154.jpg", alt:"Cadena eslabón liso en oro 18k, foto del taller"},
@@ -614,8 +614,8 @@ const REGISTRO = {
      mas:["piezas/gal/pieza-204-2.jpg"], img:"piezas/pieza-204.jpg", alt:"Anillo de compromiso halo oval con banda de piedras"},
     {n:"Halo Redondo", tipo:"compromiso", g:3.5, consultar:true,
      mas:["piezas/gal/pieza-205-2.jpg","piezas/gal/pieza-205-3.jpg"], img:"piezas/pieza-205.jpg", alt:"Anillo de compromiso con halo redondo de piedras"},
-    {n:"Anillo Zafiro con Halo", tipo:"compromiso", g:4.0, unica:true, consultar:true,
-     mas:["piezas/gal/pieza-208-2.jpg","piezas/gal/pieza-208-3.jpg"], img:"piezas/pieza-208.jpg", alt:"Anillo con zafiro azul y halo de piedras blancas, pieza unica"},
+    {n:"Anillo Zafiro con Halo", tipo:"compromiso", g:4.0, piedreria:14, consultar:true,
+     mas:["piezas/gal/pieza-208-2.jpg","piezas/gal/pieza-208-3.jpg"], img:"piezas/pieza-208.jpg", alt:"Anillo con zafiro azul y halo de piedras blancas"},
   ],
   "Dijes":[
   ],
