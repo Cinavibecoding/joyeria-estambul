@@ -436,6 +436,8 @@ const GRADO = [
    mas:["piezas/gal/anillo-108-2.jpg", "piezas/gal/anillo-108-3.jpg"], img:"piezas/anillo-108.jpg", alt:"Anillo de Grado Granate 39, foto del taller"},
   {n:"Anillo de Grado Granate 40", tipo:"grado", g:6.5, medida:"6x8", estilo:"clasico", piedra:"rojo", consultar:true,
    mas:["piezas/gal/anillo-109-2.jpg", "piezas/gal/anillo-109-3.jpg"], img:"piezas/anillo-109.jpg", alt:"Anillo de Grado Granate 40, foto del taller"},
+  {n:"Anillo de Grado Zafiro con Halo", tipo:"grado", g:4.0, medida:"6x4", estilo:"clasico", piedra:"azul", consultar:true,
+   mas:["piezas/gal/pieza-208-2.jpg","piezas/gal/pieza-208-3.jpg"], img:"piezas/pieza-208.jpg", alt:"Anillo de Grado Zafiro con halo de piedras blancas, foto del taller"},
 ];
 
 const REGISTRO = {
@@ -614,8 +616,6 @@ const REGISTRO = {
      mas:["piezas/gal/pieza-204-2.jpg"], img:"piezas/pieza-204.jpg", alt:"Anillo de compromiso halo oval con banda de piedras"},
     {n:"Halo Redondo", tipo:"compromiso", g:3.5, consultar:true,
      mas:["piezas/gal/pieza-205-2.jpg","piezas/gal/pieza-205-3.jpg"], img:"piezas/pieza-205.jpg", alt:"Anillo de compromiso con halo redondo de piedras"},
-    {n:"Anillo Zafiro con Halo", tipo:"compromiso", g:4.0, piedreria:14, consultar:true,
-     mas:["piezas/gal/pieza-208-2.jpg","piezas/gal/pieza-208-3.jpg"], img:"piezas/pieza-208.jpg", alt:"Anillo con zafiro azul y halo de piedras blancas"},
   ],
   "Dijes":[
   ],
