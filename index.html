@@ -6,12 +6,28 @@
 <title>Joyería Estambul — Caracas · Oro 10k, 14k, 18k y plata Ley 950</title>
 <meta name="description" content="Joyería Estambul. Caracas. Anillos de grado, aros de boda, cadenas y piezas a la medida en oro 10k, 14k, 18k y plata Ley 950. También taller de orfebrería para joyerías.">
 <meta name="theme-color" content="#F9F7F2">
-<!-- Favicon tipográfico en línea: la "L" sobre piedra de toque. Provisional
-     hasta que exista el sello nuevo — los assets viejos son el monograma "CL"
-     de Casa de Ley y ya no corresponden a Joyería Estambul. -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23161D1C'/%3E%3Ctext x='32' y='47' font-family='Georgia,serif' font-size='42' fill='%23F7F9F7' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
+<meta name="color-scheme" content="light">
+<!-- Open Graph — para que WhatsApp e Instagram muestren preview al compartir -->
+<meta property="og:title" content="Joyería Estambul — Caracas">
+<meta property="og:description" content="Anillos de grado, aros de boda, cadenas y piezas a la medida en oro y plata. Taller propio en el Centro de Caracas.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_VE">
+<!-- HOSTINGER: cuando tengas el dominio, descomenta estas 6 líneas y pon tu dominio real:
+     <link rel="canonical" href="https://joyeriaestambul.com/">
+     <meta property="og:url" content="https://joyeriaestambul.com">
+     <meta property="og:image" content="https://joyeriaestambul.com/assets/img/og-preview.jpg">
+     <meta property="og:image:width" content="1200">
+     <meta property="og:image:height" content="630">
+-->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Joyería Estambul — Caracas">
+<meta name="twitter:description" content="Anillos de grado, aros de boda, cadenas y piezas a la medida en oro y plata. Taller propio.">
+<!-- Favicon tipográfico: "E" de Estambul sobre verde vitrina -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23161D1C'/%3E%3Ctext x='32' y='47' font-family='Georgia,serif' font-size='42' fill='%23F7F9F7' text-anchor='middle'%3EE%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="assets/fuentes/cormorant-garamond-300-500.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fuentes/jost-300-400.woff2" as="font" type="font/woff2" crossorigin>
+<!-- Precargar la imagen del hero para que aparezca instantáneamente -->
+<link rel="preload" href="assets/img/hero-cadena-oro-marino.jpg?v=3" as="image">
 <link rel="stylesheet" href="assets/fuentes.css">
 <style>
 /* ============================================================
@@ -38,11 +54,12 @@
   /* Espectro — exclusivo de Anillos de Grado.
      Los colores no son libres: la convención venezolana viene de Salamanca
      por vía colonial y es la que usan las universidades. Fuente en DESIGN.md.
-     El fucsia va bien separado del rosa turmalina a propósito: uno es
-     Odontología y el otro Diseño, y de cerca se confundían. */
+     Colores confirmados por la dueña (8 sep 2026). Se eliminó fucsia
+     (no se usa) y se añadieron naranja, acerina y champán. */
   --e-azul:#20458C; --e-amarillo:#8A6410; --e-rojo:#9E2233;
-  --e-morado:#5B3A87; --e-fucsia:#B0106F; --e-celeste:#2E6E9E;
-  --e-rosa:#A83A62; --e-blanco:#8E968E;
+  --e-morado:#5B3A87; --e-naranja:#B8620A; --e-celeste:#4A9EC7;
+  --e-blanco:#8E968E; --e-verde:#2E7D4F;
+  --e-acerina:#6B8E50; --e-champan:#9B8350; --e-negro:#2C2C2C;
 
   --t-oro:#EDE7DA; --t-plata:#E7E9E4;
 
@@ -56,7 +73,7 @@
   --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem;
   --s5:1.5rem; --s6:2rem; --s7:3rem; --s8:4rem; --s9:6rem;
 
-  --wrap:1140px; --radius:3px;
+  --wrap:1140px; --radius:10px;
   --ease:cubic-bezier(.22,.61,.36,1);
 }
 *,*::before,*::after{box-sizing:border-box}
@@ -81,22 +98,12 @@ button{font:inherit;color:inherit}
 .skip:focus{left:var(--s4);top:var(--s4)}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-/* ---------- 1 · Utility ---------- */
-.utility{background:var(--toque);color:var(--panel)}
-.utility__row{display:flex;gap:var(--s5);align-items:center;justify-content:center;padding-block:var(--s3);flex-wrap:wrap}
-.utility__item{opacity:.82;white-space:nowrap}
-.utility__sep{opacity:.35}
-@media(max-width:560px){
-  .utility__row{gap:var(--s3)}
-  .utility__item--sec,.utility__sep{display:none}
-}
-
 /* ---------- 2 · Nav ---------- */
 .nav{
   position:sticky;top:0;z-index:50;
-  background:color-mix(in srgb,var(--field) 88%,transparent);
+  background:var(--field);
+  -webkit-backdrop-filter:saturate(1.4) blur(10px);
   backdrop-filter:saturate(1.4) blur(10px);
-  border-bottom:1px solid var(--line);
 }
 .nav__row{display:flex;align-items:center;gap:var(--s5);padding-block:var(--s3);min-width:0}
 /* En 375px la fila medía 447px y empujaba TODO el documento: aparecía una
@@ -152,12 +159,12 @@ button{font:inherit;color:inherit}
 
 /* ---------- Índice (panel lateral) ---------- */
 .indice{
-  position:fixed;inset:0;z-index:85;display:flex;
+  position:fixed;top:0;right:0;bottom:0;left:0;inset:0;z-index:85;display:flex;
   visibility:hidden;pointer-events:none;
 }
 .indice.is-open{visibility:visible;pointer-events:auto}
 .indice__velo{
-  position:absolute;inset:0;background:rgba(22,29,28,.5);
+  position:absolute;top:0;right:0;bottom:0;left:0;inset:0;background:rgba(22,29,28,.5);
   opacity:0;transition:opacity .32s var(--ease);
 }
 .indice.is-open .indice__velo{opacity:1}
@@ -181,6 +188,8 @@ button{font:inherit;color:inherit}
   transition:color .2s var(--ease),padding-left .2s var(--ease);
 }
 .indice__link:hover{color:var(--lacre);padding-left:var(--s2)}
+.indice__link--dest{color:var(--lacre);font-weight:600}
+.indice__link--dest span:last-child{color:var(--lacre);opacity:.6}
 .indice__link span:last-child{color:var(--ink-2);font-size:.75rem}
 
 /* Los tres mensajes que no deben perderse: fabricación a pedido, oro como
@@ -199,18 +208,21 @@ button{font:inherit;color:inherit}
 /* Bloque B2B: mismo peso visual, tratamiento distinto. Es una derivada real
    del negocio, no puede quedar escondida — pero tampoco puede opacar la
    tienda, que es el grueso de clientes. */
-.indice__taller{
-  background:var(--toque);color:var(--panel);
-  border-radius:var(--radius);padding:var(--s5);
+/* Enlace destacado para talleres dentro del FAQ del índice */
+.indice__destacado--taller{
+  background:var(--panel);border-color:var(--line) !important;
 }
-.indice__taller .indice__titulo{color:var(--panel);opacity:.6}
-.indice__taller .indice__dt{color:var(--panel)}
-.indice__taller .indice__dd{color:var(--panel);opacity:.75}
-.indice__taller .indice__destacado{
-  background:transparent;border:0;border-left:2px solid var(--panel);
-  border-radius:0;padding:0 0 0 var(--s4);margin-bottom:var(--s4);
+.indice__destacado--taller .indice__dt{color:var(--toque)}
+.indice__destacado--taller .indice__dd{color:var(--ink-2);opacity:.8}
+.indice__destacado--taller:hover{border-color:var(--toque) !important}
+/* Link de Bluecast en la lista del catálogo */
+.indice__link--taller{
+  background:var(--panel);color:var(--toque) !important;
+  border:1.5px solid var(--line);
+  border-radius:var(--radius);padding-inline:var(--s3);
+  margin-top:var(--s2);
 }
-.indice__taller .indice__destacado:hover{border-color:var(--lacre)}
+.indice__link--taller:hover{background:var(--toque);color:var(--panel) !important;border-color:var(--toque)}
 
 /* Contador de pedido */
 .pedido-btn{
@@ -251,18 +263,20 @@ button{font:inherit;color:inherit}
    ocupaba el 126% de la pantalla, la foto sola el 64%, y NINGÚN botón
    entraba sin hacer scroll. La recomendación es 50-70% y que el CTA se vea.
    Ahora: foto a sangre, mensaje encima, y todo dentro de la primera pantalla. */
+/* Hero con esquinas redondeadas estilo iPhone — sin aristas agresivas */
 .hero{
   position:relative;isolation:isolate;
   min-height:min(82vh,720px);
   display:flex;align-items:flex-end;
   padding-block:var(--s7) var(--s6);
   overflow:hidden;
+  border-radius:clamp(16px,3vw,28px);
 }
-.hero__foto{position:absolute;inset:0;z-index:-2}
+.hero__foto{position:absolute;top:0;right:0;bottom:0;left:0;inset:0;z-index:-2}
 .hero__foto img{width:100%;height:100%;object-fit:cover;object-position:center 42%}
 /* Velo: sin él el texto blanco no llega al contraste mínimo sobre la foto. */
 .hero__velo{
-  position:absolute;inset:0;z-index:-1;
+  position:absolute;top:0;right:0;bottom:0;left:0;inset:0;z-index:-1;
   background:linear-gradient(to top,
     rgba(15,20,19,.92) 0%, rgba(15,20,19,.78) 38%,
     rgba(15,20,19,.42) 68%, rgba(15,20,19,.22) 100%);
@@ -280,6 +294,13 @@ button{font:inherit;color:inherit}
 .hero__cta .btn{flex:1 1 auto;min-width:0}
 .btn--claro{background:var(--panel);color:var(--toque)}
 .btn--claro:hover{background:#fff;transform:translateY(-1px)}
+/* Botón "Escribir" del hero: sutil destaque sin romper la estética */
+.btn--wa-hero{font-weight:600;font-style:italic;letter-spacing:.02em}
+/* Enlace diseño propio — entre hero y espectro */
+.cta-diseno{padding:var(--s3) 0;text-align:center}
+.cta-diseno__texto{margin:0;font-size:.9375rem;line-height:1.4;color:var(--ink-2)}
+.cta-diseno__texto a{color:var(--lacre);font-weight:600;font-style:italic;text-decoration:none;transition:opacity .2s var(--ease)}
+.cta-diseno__texto a:hover{opacity:.75}
 .hero__pruebas{
   list-style:none;margin:0;padding:0;
   display:flex;gap:var(--s4);flex-wrap:wrap;
@@ -334,15 +355,21 @@ button{font:inherit;color:inherit}
   text-transform:uppercase;letter-spacing:.06em;line-height:1.3;color:var(--ink-2);
   overflow-wrap:anywhere;transition:color .2s var(--ease);
 }
-.seg:hover .seg__chip,.seg:focus-visible .seg__chip{height:52px}
-.seg:hover .seg__label,.seg:focus-visible .seg__label{color:var(--ink)}
+/* El hover sólo en dispositivos con puntero fino: en móvil :hover se queda
+   pegado al último botón tocado y el chip no vuelve a su tamaño normal. */
+@media(hover:hover){
+  .seg:hover .seg__chip{height:52px}
+  .seg:hover .seg__label{color:var(--ink)}
+}
+.seg:focus-visible .seg__chip{height:52px}
+.seg:focus-visible .seg__label{color:var(--ink)}
 .seg[aria-pressed="true"] .seg__chip{height:52px;box-shadow:inset 0 0 0 2px var(--ink)}
 .seg[aria-pressed="true"] .seg__label{color:var(--ink);font-weight:500}
 @media(max-width:640px){
   .espectro__bar{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4) var(--s2)}
   .seg__caja{height:56px}
   .seg__chip{height:44px}
-  .seg__label{font-size:.5625rem;letter-spacing:.04em}
+  .seg__label{font-size:.625rem;letter-spacing:.04em}
 }
 /* Panel de la piedra escogida. Resuelve dos cosas medidas en uso: que el
    cliente quiere saber qué significa su color, y que al pulsar un color no era
@@ -353,13 +380,16 @@ button{font:inherit;color:inherit}
    0fr a 1fr anima una altura que no se conoce de antemano sin fijar un
    max-height a ojo. Va JUSTO debajo de los colores, no al final de la
    sección: al tocar un color se ve nacer el panel ahí mismo. */
+/* El panel vive DENTRO del grid de colores para poder colocarse justo
+   debajo de la fila del color tocado. Ocupa el ancho completo. */
 .piedra{
+  grid-column:1/-1;
   display:grid;grid-template-rows:0fr;opacity:0;
   transition:grid-template-rows .42s var(--ease), opacity .3s var(--ease),
              margin .42s var(--ease);
   margin:0;
 }
-.piedra.is-on{grid-template-rows:1fr;opacity:1;margin:0 0 var(--s5)}
+.piedra.is-on{grid-template-rows:1fr;opacity:1;margin:0 0 var(--s2)}
 .piedra__wrap{overflow:hidden;min-height:0}
 .piedra__card{
   display:grid;gap:var(--s4);align-items:start;grid-template-columns:auto 1fr;
@@ -411,7 +441,7 @@ button{font:inherit;color:inherit}
 .espectro__libre strong{color:var(--ink);font-weight:600}
 
 /* ---------- 5 · Secciones ---------- */
-.section{padding-block:var(--s8)}
+.section{padding-block:var(--s7)}
 /* Los enlaces del índice apuntan a estas secciones; sin este margen el nav
    fijo tapa el titular al llegar. */
 section[id],#talla,#comprar{scroll-margin-top:80px}
@@ -420,19 +450,20 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .section__head{margin-bottom:var(--s5)}
 .section__eyebrow{color:var(--ink-2);display:block;margin-bottom:var(--s3)}
 .section__title{font-family:var(--display);font-size:clamp(2rem,5.5vw,3.4rem);line-height:1;letter-spacing:-.015em;margin:0 0 var(--s3)}
+.section__title--destacado{color:var(--lacre)}
 .section__lede{color:var(--ink-2);max-width:52ch;margin:0}
 /* Aviso de en qué metal está calculado el precio. Va antes del grid: un precio
    de cuatro cifras sin contexto espanta a quien no sabe que está viendo oro. */
+/* Aviso de precios. Tono discreto: comunica sin gritar.
+   Antes llevaba border-left rojo; ahora es texto suelto con ícono. */
 .aviso-precio{
-  margin-top:var(--s5);padding:var(--s4) var(--s5);
-  background:var(--panel);border:1px solid var(--line);
-  border-left:3px solid var(--lacre);border-radius:var(--radius);
-  display:flex;flex-direction:column;gap:var(--s3);max-width:64ch;
+  margin-top:var(--s4);max-width:64ch;
+  display:flex;flex-direction:column;gap:var(--s2);
 }
-.aviso-precio__p{margin:0;color:var(--ink-2);font-size:.9375rem;line-height:1.6}
-.aviso-precio__p strong{color:var(--ink);font-weight:600}
+.aviso-precio__p{margin:0;color:var(--ink-2);font-size:.875rem;line-height:1.6}
+.aviso-precio__p strong{color:var(--ink);font-weight:500}
 .aviso-precio__p--regalo{
-  padding-top:var(--s3);border-top:1px solid var(--line-soft);
+  color:var(--lacre);font-weight:500;
 }
 
 .grid{display:grid;gap:var(--s4);grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -452,6 +483,7 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 /* 3/4 vertical: es la proporción con la que se tomaron las fotos. Con
    aspect-ratio:1 la tarjeta volvía a recortar y el anillo se veía acostado. */
 .card__media{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--t-plata)}
+@supports not (aspect-ratio:3/4){.card__media{padding-top:133.33%;height:0}}
 .card__media--oro{background:var(--t-oro)}
 /* object-position al centro: la pieza ya viene centrada del recorte, y el
    30% de antes la subía y le cortaba la base. */
@@ -493,7 +525,7 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .card__precio-caja{display:flex;flex-direction:column;gap:.15rem}
 .card__price{font-size:1rem}
 /* Sin esto, un precio de cuatro cifras asusta sin que se sepa que es oro. */
-.card__moneda{color:var(--ink-2);font-size:.5625rem;letter-spacing:.1em}
+.card__moneda{color:var(--ink-2);font-size:.6875rem;letter-spacing:.08em}
 .card__more{color:var(--ink-2);transition:color .2s var(--ease)}
 .card:hover .card__more{color:var(--lacre)}
 
@@ -516,6 +548,7 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
   margin-top:var(--s6);
 }
 .vermas[hidden]{display:none}
+.vermas__fila{display:flex;gap:var(--s3);flex-wrap:wrap;justify-content:center}
 .vermas__btn{
   background:transparent;border:1px solid var(--ink);border-radius:var(--radius);
   padding:.85rem 1.6rem;min-height:44px;cursor:pointer;
@@ -523,33 +556,14 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
   transition:background .2s var(--ease),color .2s var(--ease);
 }
 .vermas__btn:hover{background:var(--toque);color:var(--panel)}
-.vermas__cuenta{color:var(--ink-2);margin:0}
-
-/* ---------- 6 · Registro ---------- */
-.registro{background:var(--panel);border-block:1px solid var(--line)}
-/* Selector de categoría. Antes era un carril horizontal: en móvil sólo se
-   veían tres de siete y había que adivinar que se deslizaba. Ahora se ven
-   todas de una, con la cantidad de piezas de cada una. */
-.cats{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:var(--s2);margin-bottom:var(--s6);
-}
-@media(min-width:640px){.cats{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3)}}
-@media(min-width:1000px){.cats{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.cat{
-  display:flex;align-items:center;justify-content:space-between;gap:var(--s2);
-  background:var(--field);border:1px solid var(--line);border-radius:var(--radius);
-  padding:var(--s4);min-height:56px;cursor:pointer;text-align:left;
+.vermas__todos{
+  background:transparent;border:1px solid var(--line);border-radius:var(--radius);
+  padding:.85rem 1.6rem;min-height:44px;cursor:pointer;
+  font-size:.9375rem;color:var(--ink-2);
   transition:background .2s var(--ease),color .2s var(--ease),border-color .2s var(--ease);
 }
-.cat:hover{border-color:var(--ink)}
-.cat__n{font-weight:600;font-size:.9375rem;line-height:1.2}
-.cat__c{
-  font-family:var(--mono);font-size:.6875rem;color:var(--ink-2);font-variant-numeric:tabular-nums;
-  background:var(--panel);border-radius:99px;padding:.2rem .5rem;flex:0 0 auto;
-}
-.cat[aria-selected="true"]{background:var(--toque);border-color:var(--toque);color:var(--panel)}
-.cat[aria-selected="true"] .cat__c{background:rgba(247,249,247,.2);color:var(--panel)}
+.vermas__todos:hover{border-color:var(--ink);color:var(--ink)}
+.vermas__cuenta{color:var(--ink-2);margin:0}
 
 /* ---------- Valor refugio ---------- */
 .refugio{background:var(--panel);border-block:1px solid var(--line)}
@@ -707,12 +721,6 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 }
 .comprar__nota{margin:0;color:var(--ink-2);font-size:.9375rem;line-height:1.6}
 .comprar__nota strong{color:var(--ink)}
-.comprar__link{
-  margin-top:auto;color:var(--lacre);font-weight:500;font-size:.9375rem;text-decoration:none;
-  display:inline-flex;align-items:center;min-height:44px;
-}
-.comprar__link:hover{text-decoration:underline;text-underline-offset:3px}
-
 /* Tienda física: sustituye a la confianza que daría una pasarela de pago.
    Hay un local real, con dirección, donde además se fabrica. */
 .tienda{
@@ -728,75 +736,84 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .tienda__mapa{border:1px solid var(--line-soft);border-radius:var(--radius);overflow:hidden}
 .tienda__mapa svg{width:100%;height:auto;display:block}
 
-/* ---------- 7 · Taller ---------- */
-.taller{background:var(--toque);color:var(--panel);padding-block:var(--s8)}
+/* ---------- 7 · Taller (dentro del FAQ) ---------- */
 .taller__grid{display:grid;gap:var(--s6)}
 @media(min-width:800px){.taller__grid{grid-template-columns:1fr 1fr;gap:var(--s8)}}
-.taller__title{font-family:var(--display);font-size:clamp(1.9rem,4.5vw,2.9rem);line-height:1.02;margin:0 0 var(--s4)}
-.taller__eyebrow{opacity:.6;display:block;margin-bottom:var(--s4)}
-.taller__text{opacity:.8;margin:0 0 var(--s5);max-width:46ch}
-.taller__b2b{border-top:1px solid rgba(247,249,247,.18);padding-top:var(--s4);opacity:.66;margin:var(--s5) 0 0;line-height:2.2}
-.taller__b2b a{color:var(--panel);display:inline-block;padding-block:var(--s2)}
 .taller__list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
 .taller__item{display:flex;justify-content:space-between;gap:var(--s4);align-items:baseline;padding-block:var(--s4);border-bottom:1px solid rgba(247,249,247,.14)}
 .taller__item:first-child{border-top:1px solid rgba(247,249,247,.14)}
 .taller__item-name{font-weight:500}
 .taller__item-price{opacity:.7}
 
-/* ---------- B2B ---------- */
-.b2b{background:var(--panel);border-block:1px solid var(--line)}
-.b2b__cab{margin-bottom:var(--s6);max-width:60ch}
-.b2b__grid{display:grid;gap:var(--s5)}
-@media(min-width:800px){.b2b__grid{grid-template-columns:1fr 1fr;gap:var(--s6)}}
-.b2b__aval{
-  border:1px solid var(--line);border-radius:var(--radius);
-  padding:var(--s5);background:var(--field);
-  display:flex;flex-direction:column;gap:var(--s3);align-items:flex-start;
-}
-.b2b__label{color:var(--ink-2)}
-.b2b__avaltxt{margin:0;color:var(--ink-2);line-height:1.65}
-.b2b__aval strong{color:var(--ink);font-weight:600}
-/* ---------- Bluecast ----------
-   Bloque oscuro, como el taller: dice "esto es la puerta de servicio" sin
-   necesidad de decirlo. Va después del B2B para que ninguna de las dos
-   secciones de taller se cruce delante del catálogo de graduandas. */
-.bluecast{background:var(--toque);color:var(--panel)}
-.bluecast .section__title{color:var(--panel)}
-.bluecast .section__eyebrow{color:var(--panel);opacity:.6}
-.bluecast .section__lede{color:var(--panel);opacity:.82}
-.bluecast .section__lede strong{opacity:1;font-weight:600}
-.bluecast__grid{display:grid;gap:var(--s5)}
-@media(min-width:760px){.bluecast__grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s6)}}
-.bluecast__caja{
-  border-top:1px solid rgba(247,249,247,.22);padding-top:var(--s4);
-  display:flex;flex-direction:column;gap:var(--s3);
-}
-.bluecast__label{color:var(--panel);opacity:.6}
-.bluecast__txt{margin:0;color:var(--panel);opacity:.82;line-height:1.65}
-.bluecast__txt strong{opacity:1;font-weight:600}
-.bluecast__pie{
-  margin-top:var(--s7);padding-top:var(--s5);
-  border-top:1px solid rgba(247,249,247,.22);
-  display:flex;align-items:center;justify-content:space-between;
-  gap:var(--s5);flex-wrap:wrap;
-}
-.bluecast__cta-t{
-  font-family:var(--display);font-size:clamp(1.25rem,2.6vw,1.6rem);
-  line-height:1.15;margin:0 0 var(--s2);color:var(--panel);
-}
-.bluecast__cta-n{margin:0;color:var(--panel);opacity:.66;font-size:.875rem;line-height:1.6;max-width:46ch}
-/* En el bloque oscuro el botón claro es el que más contrasta. */
-.bluecast .btn--primary{background:var(--panel);color:var(--toque)}
-.bluecast .btn--primary:hover{background:#fff}
+/* ---------- B2B (espacio reservado por si se reutiliza) ---------- */
 
-/* Con Bluecast fuera de la rejilla, el aval de GoldToday se queda solo. */
-@media(min-width:800px){.b2b__grid--uno{grid-template-columns:1fr}}
-
-.b2b__cierre{
-  margin-top:var(--s6);padding-top:var(--s5);border-top:1px solid var(--line);
-  display:flex;align-items:center;justify-content:space-between;gap:var(--s4);flex-wrap:wrap;
+/* ---------- FAQ · Acordeón ----------
+   Las secciones informativas (talla, medidas, ubicación, métodos de pago, ahorro,
+   diseño 3D) se colapsan en un acordeón para no alargar la página. Cada pregunta
+   se despliega con un <details> nativo: funciona sin JS, accesible de serie. */
+/* ---------- Sección Personalización ---------- */
+.personaliza__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s4)}
+@media(max-width:640px){.personaliza__grid{grid-template-columns:1fr;gap:var(--s3)}}
+.personaliza__card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:var(--s4);display:flex;flex-direction:column;gap:var(--s2);
 }
-.b2b__cierretxt{margin:0;font-family:var(--display);font-size:clamp(1.25rem,2.6vw,1.6rem)}
+.personaliza__icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:2rem;height:2rem;border-radius:50%;
+  background:var(--oro);color:var(--ground);
+  font-weight:700;font-size:.875rem;flex-shrink:0;
+}
+.personaliza__paso{font-family:var(--display);font-size:1.1rem;margin:0;line-height:1.2}
+.personaliza__desc{color:var(--ink-2);font-size:.9375rem;line-height:1.5;margin:0}
+
+.faq .section__head{margin-bottom:var(--s5)}
+.faq__lista{display:flex;flex-direction:column;gap:0}
+.faq__item{border-top:1px solid var(--line)}
+.faq__item:last-child{border-bottom:1px solid var(--line)}
+.faq__q{
+  list-style:none;cursor:pointer;font-family:var(--display);
+  font-size:clamp(1.1rem,2.6vw,1.45rem);line-height:1.2;
+  padding:var(--s5) 0;display:flex;align-items:center;justify-content:space-between;gap:var(--s4);
+  -webkit-user-select:none;user-select:none;
+}
+.faq__q::-webkit-details-marker{display:none}
+.faq__q::after{
+  content:"+";font-family:var(--mono);font-size:1.3rem;color:var(--ink-2);
+  flex:0 0 auto;transition:transform .25s var(--ease);
+}
+.faq__item[open] .faq__q::after{content:"−"}
+.faq__q:hover{color:var(--lacre)}
+/* Animación fluida del acordeón: grid-template-rows 0fr→1fr.
+   El wrapper .faq__a-wrap colapsa la fila; .faq__a lleva overflow:hidden
+   y min-height:0 para que el contenido se comprima suavemente. */
+.faq__a-wrap{
+  display:grid;grid-template-rows:0fr;
+  transition:grid-template-rows .38s var(--ease);
+}
+.faq__item[open] .faq__a-wrap{grid-template-rows:1fr}
+.faq__a{overflow:hidden;min-height:0;padding-bottom:0}
+.faq__item[open] .faq__a{padding-bottom:var(--s6)}
+/* Ítem destacado para talleres — fondo oscuro, letra clara */
+.faq__item--taller{
+  background:var(--toque);border-color:rgba(247,249,247,.18);
+  padding-inline:var(--s5);margin-inline:calc(-1 * var(--s5));
+  border-radius:var(--radius);
+}
+.faq__item--taller .faq__q{color:var(--panel)}
+.faq__item--taller .faq__q::after{color:var(--panel);opacity:.5}
+.faq__item--taller .faq__q:hover{color:#fff}
+.faq__item--taller .faq__a{color:var(--panel)}
+.faq__item--taller .faq__a strong{font-weight:600}
+.faq__item--taller .btn--primary{background:var(--panel);color:var(--toque)}
+.faq__item--taller .btn--primary:hover{background:#fff}
+
+/* Reutilizar estilos existentes dentro del acordeón */
+.faq .talla__grid{margin:0}
+.faq .comprar__grid{margin-bottom:0}
+.faq .refugio__grid{margin:0}
+.faq .tienda{margin-top:var(--s5)}
+.faq .medidas__tira{margin-top:var(--s4)}
 
 /* ---------- 8 · Footer ---------- */
 .footer{padding-block:var(--s8) var(--s6)}
@@ -830,8 +847,8 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
    MODAL — personalización de la pieza
    ============================================================ */
 .modal{
-  position:fixed;inset:0;z-index:80;display:none;
-  background:rgba(22,29,28,.55);backdrop-filter:blur(3px);
+  position:fixed;top:0;right:0;bottom:0;left:0;inset:0;z-index:80;display:none;
+  background:rgba(22,29,28,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
   padding:var(--s4);overflow-y:auto;
 }
 .modal.is-open{display:flex;align-items:flex-start;justify-content:center}
@@ -858,7 +875,7 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .modal__close{
   position:absolute;top:var(--s3);right:var(--s3);z-index:5;
   background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:50%;
-  width:40px;height:40px;cursor:pointer;font-size:1rem;line-height:1;
+  width:44px;height:44px;cursor:pointer;font-size:1rem;line-height:1;
   display:flex;align-items:center;justify-content:center;
   box-shadow:0 2px 10px -4px rgba(22,29,28,.5);
 }
@@ -866,15 +883,8 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 /* El aviso de las copias: bajo el nombre, en pequeño, sin caja ni borde.
    Antes era un bloque con fondo dentro del pie flotante y tapaba las
    opciones, que es lo que el cliente ha venido a tocar. */
-.modal__regalo{
-  margin:var(--s2) 0 0;padding:0;background:none;border:0;
-  font-size:.8125rem;line-height:1.45;color:var(--ink-2);
-}
-.modal__regalo strong{color:var(--ink);font-weight:600}
-.modal__regalo[hidden]{display:none}
 /* La foto se puede ampliar: cursor de lupa para que se note. */
 #modalFoto{cursor:zoom-in}
-.modal__close:hover{border-color:var(--ink)}
 
 .campo{display:flex;flex-direction:column;gap:var(--s2)}
 .campo__label{color:var(--ink-2)}
@@ -983,6 +993,22 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .estilo__d{font-size:.75rem;line-height:1.3;color:var(--ink-2)}
 .estilo[aria-pressed="true"] .estilo__d{color:var(--panel);opacity:.7}
 
+/* Mini-chips de color junto a los estilos — atajo rápido sin subir al espectro */
+.color-chips{display:flex;gap:.35rem;flex-wrap:wrap;align-items:center;margin-bottom:var(--s4)}
+.color-chip{
+  width:32px;height:32px;border-radius:50%;border:2px solid transparent;
+  cursor:pointer;background:var(--c);transition:border-color .15s,transform .15s;
+  position:relative;
+}
+.color-chip:hover{transform:scale(1.2)}
+.color-chip[aria-pressed="true"]{border-color:var(--ink);transform:scale(1.25)}
+.color-chip__label{
+  position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);
+  background:var(--toque);color:var(--panel);font-size:.65rem;padding:2px 6px;
+  border-radius:3px;white-space:nowrap;pointer-events:none;opacity:0;
+  transition:opacity .15s;font-family:var(--mono);
+}
+.color-chip:hover .color-chip__label{opacity:1}
 
 /* ============================================================
    FONDO DE LAS FOTOS — tres variantes para comparar
@@ -1034,10 +1060,6 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 /* La institución grabada. Va en lacre porque es el dato que hace que una
    graduanda pare el scroll: no busca un anillo bonito, busca EL de su casa. */
 .card__inst{color:var(--lacre);font-weight:600}
-/* "Consultar" no es una cifra: se le quita el apretado de las tabulares para
-   que no se lea como si lo fuera. */
-.card__price--consultar{font-variant-numeric:normal;letter-spacing:.02em}
-
 /* ---------- Qué significan las medidas ----------
    La duda que más frena: "4x3" no le dice nada a nadie. Se resuelve enseñando
    las piedras DIBUJADAS A ESCALA, unas al lado de otras. El cliente no
@@ -1070,7 +1092,7 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 
 /* ---------- Visor de fotos ---------- */
 .visor{
-  position:fixed;inset:0;z-index:95;display:none;
+  position:fixed;top:0;right:0;bottom:0;left:0;inset:0;z-index:95;display:none;
   background:rgba(10,14,12,.96);
   flex-direction:column;align-items:center;justify-content:center;
 }
@@ -1113,7 +1135,7 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
    no reciben eventos, el clic en el velo sigue llegando a #pedido y el
    cierre al pulsar fuera funciona igual. */
 .pedido{
-  position:fixed;inset:0;z-index:90;display:flex;justify-content:flex-end;
+  position:fixed;top:0;right:0;bottom:0;left:0;inset:0;z-index:90;display:flex;justify-content:flex-end;
   visibility:hidden;pointer-events:none;
   overflow:hidden;   /* el panel se aparca fuera del borde: sin esto asoma */
   /* La visibilidad espera a que termine el deslizamiento. Sin este retardo el
@@ -1121,8 +1143,8 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
   transition:visibility 0s .38s;
 }
 .pedido::before{
-  content:"";position:absolute;inset:0;
-  background:rgba(22,29,28,.55);backdrop-filter:blur(3px);
+  content:"";position:absolute;top:0;right:0;bottom:0;left:0;inset:0;
+  background:rgba(22,29,28,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
   opacity:0;transition:opacity .32s var(--ease);
 }
 .pedido.is-open{visibility:visible;pointer-events:auto;transition:visibility 0s}
@@ -1159,7 +1181,66 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
   .seg,.reveal{opacity:1;transform:none}
   .card__media::after{display:none}
 }
+/* ---------- Print ---------- */
+@media print{
+  .nav,.wafab,.modal,.pedido,.indice,.visor,.color-chips,.espectro__aviso,
+  .vermas,.menu-btn,.nav__end{display:none !important}
+  body{font-size:11pt;color:#000;background:#fff}
+  .hero{min-height:auto;border-radius:0;page-break-after:always}
+  .hero__velo{background:none}
+  .hero__contenido{color:#000}
+  .card{break-inside:avoid;box-shadow:none;border:1px solid #ccc}
+  .section{padding-block:1em}
+  a{text-decoration:none;color:inherit}
+  .faq__a-wrap{grid-template-rows:1fr !important}
+  .faq__a{overflow:visible !important;padding-bottom:1em !important}
+  .faq__item{break-inside:avoid}
+}
 </style>
+<!-- Datos estructurados — Google muestra la ficha de negocio en resultados -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "JewelryStore",
+  "name": "Joyería Estambul",
+  "legalName": "Inversiones Lakshmy 3000, C.A.",
+  "description": "Anillos de grado, aros de boda, cadenas y piezas a la medida en oro 10k, 14k, 18k y plata Ley 950. Taller propio con modelado 3D antes de fundir.",
+  "url": "https://joyeriaestambul.com",
+  "telephone": "+58-424-276-5908",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Minicentro París, frente a la Asamblea Nacional",
+    "addressLocality": "Caracas",
+    "addressRegion": "Distrito Capital",
+    "addressCountry": "VE"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 10.507,
+    "longitude": -66.914
+  },
+  "priceRange": "$$",
+  "currenciesAccepted": "USD, VES",
+  "paymentAccepted": "Efectivo, transferencia, pago móvil",
+  "areaServed": {
+    "@type": "Country",
+    "name": "Venezuela"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Catálogo de piezas",
+    "itemListElement": [
+      {"@type": "OfferCatalog", "name": "Anillos de Grado"},
+      {"@type": "OfferCatalog", "name": "Cadenas y Esclavas"},
+      {"@type": "OfferCatalog", "name": "Aros de Boda"},
+      {"@type": "OfferCatalog", "name": "Zarcillos"},
+      {"@type": "OfferCatalog", "name": "Pulseras"},
+      {"@type": "OfferCatalog", "name": "Dijes"}
+    ]
+  },
+  "sameAs": []
+}
+</script>
 <script>
 /* Marca que hay JavaScript ANTES de pintar. El ocultado de .reveal cuelga de
    esta clase, así que si el script no corre, el contenido se ve igual.
@@ -1183,8 +1264,8 @@ document.documentElement.classList.add("js");
     </a>
     <div class="nav__links">
       <a class="nav__link" href="#grado">Anillos de Grado</a>
-      <a class="nav__link" href="#registro">Catálogo</a>
-      <a class="nav__link" href="#taller">A tu medida</a>
+      <a class="nav__link" href="#catalogo">Catálogo</a>
+      <a class="nav__link" href="#faq">Preguntas frecuentes</a>
     </div>
     <div class="nav__end">
       <button class="pedido-btn punzon" id="pedidoBtn" type="button" hidden aria-label="Ver mi pedido">
@@ -1218,34 +1299,39 @@ document.documentElement.classList.add("js");
     <p class="hero__metal punzon">Oro 10k · 14k · 18k · Plata Ley 950</p>
     <div class="hero__cta">
       <a class="btn btn--primary" href="#grado">Ver anillos de grado</a>
-      <a class="btn btn--claro" data-wa="tienda" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Escribir</a>
+      <a class="btn btn--claro btn--wa-hero" data-wa="tienda" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Escribir</a>
     </div>
     <ul class="hero__pruebas">
       <li><strong>14 días</strong> máximo</li>
       <li><strong>Taller propio</strong> en Caracas</li>
-      <li><strong>Envíos</strong> a todo el país</li>
+      <li><strong>Envíos</strong> a todo el país · <a href="tel:+584242765908" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35)">0424-276-5908</a></li>
     </ul>
   </div>
 </section>
+
+<!-- Enlace diseño propio -->
+<div class="cta-diseno">
+  <p class="cta-diseno__texto">Ya sabes lo que quieres? <a href="#personaliza">Te lo fabricamos</a></p>
+</div>
 
 <section class="espectro" id="espectro" aria-labelledby="espectro-t">
   <div class="wrap">
     <div class="espectro__head">
       <h2 class="espectro__title" id="espectro-t">El color dice la carrera</h2>
-      <p class="espectro__note">La piedra dice lo que estudiaste. Escoge un color y mira los modelos.</p>
+      <p class="espectro__note">Cada color agrupa varias carreras. <strong>Toca uno y mira cuáles.</strong></p>
       <p class="espectro__carreras">
-        Cada color agrupa varias carreras: <strong>toca uno y te decimos cuáles</strong>.
-        ¿No ves la tuya? <a data-wa="carrera" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Escríbenos</a>
-        y la ubicamos contigo — hacemos anillos para cualquier carrera o TSU.
+        <strong>¿No ves la tuya?</strong> <a data-wa="carrera" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer"><strong>Escríbenos</strong></a>
+        — hacemos anillos para cualquier carrera o TSU.
       </p>
     </div>
-    <p class="espectro__aviso"><strong>Cada color agrupa varias carreras.</strong> Toca el tuyo y te decimos cuáles.</p>
-    <div class="espectro__bar" role="group" aria-label="Filtrar anillos de grado por carrera"></div>
-    <div class="piedra" id="piedraInfo" aria-live="polite"></div>
+    <p class="espectro__aviso"><strong>Toca un color</strong> para ver las carreras que agrupa.</p>
+    <div class="espectro__bar" role="group" aria-label="Filtrar anillos de grado por carrera">
+      <div class="piedra" id="piedraInfo" aria-live="polite"></div>
+    </div>
     <div class="espectro__pie">
       
       <p class="espectro__libre">
-        <strong>La piedra no amarra el modelo.</strong> Cualquier color va en cualquier anillo.
+        <strong>Todos los colores van en todos los modelos.</strong> Escoge primero el anillo que te gusta y después le ponemos la piedra de tu carrera.
       </p>
     </div>
   </div>
@@ -1255,11 +1341,12 @@ document.documentElement.classList.add("js");
   <div class="wrap">
     <div class="section__head reveal">
       <span class="punzon section__eyebrow">01 — La categoría de la casa</span>
-      <h2 class="section__title" id="grado-t">Anillos de Grado</h2>
+      <h2 class="section__title section__title--destacado" id="grado-t">Anillos de Grado</h2>
       <p class="section__lede">Diez modelos. Ábrelos y escoge quilate, talla, piedra y grabado.</p>
       <div class="aviso-precio">
-        <p class="aviso-precio__p"><strong>Los precios que ves son en plata Ley 950</strong>, que es el punto de partida. Al abrir una pieza puedes cambiarla a <strong>oro 10k, 14k o 18k</strong> y el precio se recalcula solo.</p>
-        <p class="aviso-precio__p aviso-precio__p--regalo"><strong>En oro, las copias en plata van incluidas.</strong> Sin costo extra.</p>
+        <p class="aviso-precio__p">Precio base de referencia en <strong>plata Ley 950</strong>. El precio final depende de la medida de la piedra, si lleva piedreria (tipo joya) y el material. El precio puede ser menor o mayor segun tu personalizacion. <a href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer"><strong>Escribe por WhatsApp</strong></a> para la cotizacion exacta de tu pieza.</p>
+        <p class="aviso-precio__p">Todos los laterales del anillo son personalizables: carrera, universidad, ano, nombre. Pregunta por WhatsApp.</p>
+        <p class="aviso-precio__p aviso-precio__p--regalo">En oro, las copias en plata van incluidas.</p>
       </div>
     </div>
     <!-- Clásicos y modernos. Es lo primero que separa a una clienta de otra:
@@ -1267,335 +1354,339 @@ document.documentElement.classList.add("js");
          ahora. Arranca en "Todos" a propósito, porque la clasificación de
          cada pieza todavía está por confirmar. -->
     <div class="estilos" id="estilos" role="group" aria-label="Estilo del anillo"></div>
+    <div class="color-chips" id="colorChips" role="group" aria-label="Filtrar por color de piedra"></div>
     <div class="grid" id="grado-grid"></div>
     <div class="vermas" id="grado-vermas" hidden>
-      <button class="vermas__btn" type="button" data-mas="grado"></button>
+      <div class="vermas__fila">
+        <button class="vermas__btn" type="button" data-mas="grado"></button>
+        <button class="vermas__todos" type="button" data-todos="grado">Ver todos</button>
+      </div>
       <p class="vermas__cuenta punzon" id="grado-cuenta"></p>
     </div>
     <div id="grado-resto"></div>
   </div>
 </section>
 
-<section class="section registro" id="registro" aria-labelledby="registro-t">
+<!-- Cada categoría del catálogo se pinta como su propia sección, sin pestañas.
+     El JS genera el contenido al arrancar. -->
+<div id="catalogo"></div>
+
+<!-- ============================================================
+     PERSONALIZACIÓN — diseño propio, redes, IA
+     ============================================================ -->
+<section class="section personaliza" id="personaliza" aria-labelledby="personaliza-t">
   <div class="wrap">
     <div class="section__head reveal">
-      <span class="punzon section__eyebrow">02 — Todo lo que hacemos</span>
-      <h2 class="section__title" id="registro-t">Catálogo</h2>
-      <p class="section__lede">Escoge una categoría. Lo que no tiene foto va con su ficha completa.</p>
-      <div class="aviso-precio">
-        <p class="aviso-precio__p"><strong>En plata Ley 950.</strong> Cámbialo a oro 10k, 14k o 18k
-          al personalizar y el precio se ajusta.</p>
+      <h2 class="section__title" id="personaliza-t">Tu diseño, hecho realidad</h2>
+      <p class="section__lede" style="max-width:38em">
+        Si tienes una imagen de la joya que quieres &mdash; de redes sociales, de una revista,
+        o incluso generada con inteligencia artificial &mdash; nosotros la fabricamos en metal real.
+      </p>
+    </div>
+    <div class="personaliza__grid reveal">
+      <div class="personaliza__card">
+        <span class="personaliza__icon">1</span>
+        <h3 class="personaliza__paso">Envía tu imagen</h3>
+        <p class="personaliza__desc">Una foto de Instagram, Pinterest, un render 3D, un boceto a mano o un diseño generado con IA. Todo vale.</p>
+      </div>
+      <div class="personaliza__card">
+        <span class="personaliza__icon">2</span>
+        <h3 class="personaliza__paso">Te damos presupuesto</h3>
+        <p class="personaliza__desc">Analizamos la pieza contigo por WhatsApp: material, medida, piedras, acabado. Sin compromiso.</p>
+      </div>
+      <div class="personaliza__card">
+        <span class="personaliza__icon">3</span>
+        <h3 class="personaliza__paso">La fabricamos</h3>
+        <p class="personaliza__desc">Modelado 3D, impresión en resina, fundición y acabado artesanal. La pieza es tuya.</p>
       </div>
     </div>
-    <div class="cats" role="tablist" aria-label="Categorías del catálogo"></div>
-    <div class="grid" id="registro-grid" role="tabpanel"></div>
-    <div class="vermas" id="registro-vermas" hidden>
-      <button class="vermas__btn" type="button" data-mas="registro"></button>
-      <p class="vermas__cuenta punzon" id="registro-cuenta"></p>
+    <div class="personaliza__cta reveal" style="text-align:center;margin-top:var(--s5)">
+      <a class="btn btn--primary" data-wa="personaliza" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Enviar mi diseño por WhatsApp</a>
     </div>
   </div>
 </section>
 
-<!-- Tu talla -->
-<!-- Qué significan las medidas. Lo pidió el dueño y es la duda que más frena:
-     el cliente ve "6x8" y no sabe si es grande o chico. Las piedras van
-     dibujadas A ESCALA ENTRE ELLAS, que es lo único que necesita para decidir.
-     Se generan desde MEDIDAS en catalogo.js: añadir una medida allí la hace
-     aparecer aquí sola. -->
-<section class="section medidas" id="medidas" aria-labelledby="medidas-t">
+<!-- ============================================================
+     PREGUNTAS FRECUENTES — acordeón
+     Antes cada bloque informativo era una sección a lo largo de la
+     página. El scroll era interminable. Ahora van colapsados: se
+     abren sólo si interesan.
+     ============================================================ -->
+<section class="section faq" id="faq" aria-labelledby="faq-t">
   <div class="wrap">
     <div class="section__head">
-      <span class="punzon section__eyebrow">Antes de escoger</span>
-      <h2 class="section__title" id="medidas-t">¿Qué significa 6x8?</h2>
-      <p class="medidas__intro">Son <strong>milímetros</strong>: ancho por largo. En un anillo o un zarcillo es el tamaño de la piedra; en una cadena, el del eslabón. <strong>Aquí las tienes dibujadas a escala</strong>, del tamaño que se ven unas al lado de otras.</p>
-    </div>
-    <div class="medidas__tira" id="medidasTira"></div>
-    <p class="medidas__nota">
-      La medida manda sobre el precio: <strong>a más piedra, más oro alrededor</strong>. Una 10x12 pesa y cuesta bastante más que una 4x3 del mismo modelo. Si dudas entre dos, escribe y te decimos cuál se lleva la gente de tu carrera.
-    </p>
-    <div class="medidas__regla punzon">
-      <span>1&nbsp;cm</span><i id="reglaMm"></i><span>a esta escala</span>
-    </div>
-  </div>
-</section>
-
-<section class="section talla" id="talla" aria-labelledby="talla-t">
-  <div class="wrap">
-    <div class="section__head reveal">
-      <span class="punzon section__eyebrow">03 — Antes de encargar</span>
-      <h2 class="section__title" id="talla-t">Saber tu talla es más fácil de lo que parece</h2>
-      <p class="section__lede">Dos formas de averiguarla en un minuto. Si le pegas al lado, lo arreglamos.</p>
+      <h2 class="section__title" id="faq-t">Preguntas frecuentes</h2>
     </div>
 
-    <div class="talla__grid">
-      <div class="talla__tool">
-        <div class="talla__modos" role="tablist" aria-label="Cómo quieres medir">
-          <button class="talla__modo" type="button" role="tab" data-modo="anillo" aria-selected="true">
-            Tengo un anillo que me queda bien
-          </button>
-          <button class="talla__modo" type="button" role="tab" data-modo="dedo" aria-selected="false">
-            Voy a medirme el dedo
-          </button>
+    <div class="faq__lista">
+
+      <!-- 1. Talleres y Bluecast — primera porque Victor quiere que los talleres lo vean directo -->
+      <details class="faq__item faq__item--taller" id="faq-taller-b2b">
+        <summary class="faq__q">¿Eres un taller o joyería?</summary>
+        <div class="faq__a-wrap"><div class="faq__a">
+          <p style="margin:0 0 var(--s5);font-size:1.05rem;line-height:1.6">
+            <strong>Fabricamos para otras joyerías.</strong> Fundición, engaste, terminado y modelado 3D. Tú pones la marca; nosotros la pieza. Ves el proceso, el gramaje y la merma.
+          </p>
+
+          <div style="margin-bottom:var(--s6)">
+            <a class="btn btn--primary" data-wa="taller" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Escribir al taller</a>
+          </div>
+
+          <!-- Bluecast -->
+          <div style="border-top:1px solid rgba(247,249,247,.18);padding-top:var(--s5);margin-top:var(--s4)">
+            <h3 style="font-family:var(--display);font-size:clamp(1.15rem,2.4vw,1.4rem);margin:0 0 var(--s3)">Resina Bluecast, traída de Europa</h3>
+            <p style="margin:0 0 var(--s4);opacity:.82;line-height:1.6">Somos <strong>proveedor autorizado para Venezuela</strong>. Si imprimes tus modelos en 3D y los mandas a fundir, la resina te la traemos nosotros.</p>
+
+            <!-- Fotos de las resinas Bluecast -->
+            <div id="bluecast-foto" style="
+              display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);
+              margin-bottom:var(--s5);
+            ">
+              <div style="border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;background:var(--t-plata);cursor:pointer" data-bc-img="piezas/pieza-209.jpg">
+                <img src="assets/img/piezas/pieza-209.jpg" alt="Resina Bluecast X ONE V2, 500g, importada de Europa"
+                     loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div style="border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;background:var(--t-plata);cursor:pointer" data-bc-img="piezas/pieza-210.jpg">
+                <img src="assets/img/piezas/pieza-210.jpg" alt="Resina Bluecast X-WAX, importada de Europa"
+                     loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
+              </div>
+            </div>
+
+            <div style="margin-bottom:var(--s4);opacity:.82;line-height:1.6">
+              <p style="margin:0 0 var(--s3)">Es resina de <strong>fundición</strong>: imprimes el modelo en 3D, se quema en el revestimiento y sale la pieza en metal. Lo que antes tallabas a mano, lo imprimes.</p>
+              <p style="margin:0">Importada <strong>directo de Europa</strong>, no comprada aquí y revendida. Para joyerías y talleres que ya imprimen en 3D, o que están montando el equipo.</p>
+            </div>
+
+            <p style="margin:0 0 var(--s3);opacity:.66;font-size:.875rem">El precio se mueve con el cambio y con cada importación: por eso no lo publicamos.</p>
+            <a class="btn btn--primary" data-wa="bluecast" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Consultar por Bluecast</a>
+          </div>
         </div>
+        </div>
+      </details>
 
-        <div class="talla__instruccion" id="tallaInstruccion"></div>
-
-        <div class="talla__medida">
-          <label class="punzon campo__label" for="tallaInput" id="tallaLabel"></label>
-          <div class="talla__fila">
-            <input type="range" id="tallaRango" min="14" max="24" step="0.1" value="17.3" aria-label="Ajustar la medida en milímetros">
-            <div class="talla__num">
-              <input type="number" id="tallaInput" min="10" max="80" step="0.1" value="17.3" inputmode="decimal">
-              <span class="punzon">mm</span>
+      <!-- 2. Talla — la objeción nº1 -->
+      <details class="faq__item" id="faq-talla">
+        <summary class="faq__q">¿Cuál es mi talla?</summary>
+        <div class="faq__a-wrap"><div class="faq__a">
+          <p style="color:var(--ink-2);margin:0 0 var(--s4)">Dos formas de averiguarla en un minuto. Si le pegas al lado, lo arreglamos.</p>
+          <div class="talla__grid">
+            <div class="talla__tool">
+              <div class="talla__modos" role="tablist" aria-label="Cómo quieres medir">
+                <button class="talla__modo" type="button" role="tab" data-modo="anillo" aria-selected="true">
+                  Tengo un anillo que me queda bien
+                </button>
+                <button class="talla__modo" type="button" role="tab" data-modo="dedo" aria-selected="false">
+                  Voy a medirme el dedo
+                </button>
+              </div>
+              <div class="talla__instruccion" id="tallaInstruccion"></div>
+              <div class="talla__medida">
+                <label class="punzon campo__label" for="tallaInput" id="tallaLabel"></label>
+                <div class="talla__fila">
+                  <input type="range" id="tallaRango" min="14" max="24" step="0.1" value="17.3" aria-label="Ajustar la medida en milímetros">
+                  <div class="talla__num">
+                    <input type="number" id="tallaInput" min="10" max="80" step="0.1" value="17.3" inputmode="decimal">
+                    <span class="punzon">mm</span>
+                  </div>
+                </div>
+              </div>
+              <div class="talla__resultado" id="tallaResultado" aria-live="polite"></div>
+            </div>
+            <div class="talla__lado">
+              <div class="talla__promesa">
+                <h3 class="talla__promesa-t">¿Y si le pego al lado?</h3>
+                <p class="talla__promesa-p"><strong>La agrandamos sin costo.</strong> Pídelo justo antes que grande: agrandar es fácil.</p>
+                <p class="talla__promesa-p">¿Dudas? Pásate por la tienda y te medimos gratis.</p>
+                <a class="btn btn--dark" data-wa="talla" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Preguntar por mi talla</a>
+              </div>
+              <details class="talla__tabla-caja">
+                <summary class="punzon">Ver la tabla completa de tallas</summary>
+                <div class="talla__tabla-scroll">
+                  <table class="talla__tabla" id="tablaTallas">
+                    <caption class="vh">Equivalencia entre talla, diámetro interno y circunferencia</caption>
+                    <thead>
+                      <tr><th scope="col">Talla</th><th scope="col">Diámetro</th><th scope="col">Circunferencia</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </details>
             </div>
           </div>
         </div>
-
-        <div class="talla__resultado" id="tallaResultado" aria-live="polite"></div>
-      </div>
-
-      <div class="talla__lado">
-        <div class="talla__promesa">
-          <h3 class="talla__promesa-t">¿Y si le pego al lado?</h3>
-          <p class="talla__promesa-p"><strong>Lo agrandamos sin costo.</strong> Pídelo justo antes que grande: agrandar es fácil.</p>
-          <p class="talla__promesa-p">¿Dudas? Pásate por la tienda y te medimos gratis.</p>
-          <a class="btn btn--dark" data-wa="talla" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Preguntar por mi talla</a>
         </div>
+      </details>
 
-        <details class="talla__tabla-caja">
-          <summary class="punzon">Ver la tabla completa de tallas</summary>
-          <div class="talla__tabla-scroll">
-            <table class="talla__tabla" id="tablaTallas">
-              <caption class="vh">Equivalencia entre talla, diámetro interno y circunferencia</caption>
-              <thead>
-                <tr><th scope="col">Talla</th><th scope="col">Diámetro</th><th scope="col">Circunferencia</th></tr>
-              </thead>
-              <tbody></tbody>
-            </table>
+      <!-- 2. Medidas — ¿Qué significa 6x8? -->
+      <details class="faq__item" id="faq-medidas">
+        <summary class="faq__q">¿Qué significa 6x8?</summary>
+        <div class="faq__a-wrap"><div class="faq__a">
+          <p class="medidas__intro">Son <strong>milímetros</strong>: ancho por largo. En un anillo de grado o un zarcillo, es el tamaño de la piedra. En una cadena o pulsera, es el tamaño del eslabón. <strong>Aquí las tienes dibujadas a escala</strong>, del tamaño que se ven unas al lado de otras.</p>
+          <div class="medidas__tira" id="medidasTira"></div>
+          <div style="margin:var(--s4) 0;line-height:1.7;opacity:.85;font-size:.9375rem">
+            <p style="margin:0 0 var(--s3)"><strong>4x3 mm</strong> &mdash; La mas pequena. Ideal para cadenas finas y zarcillos discretos.</p>
+            <p style="margin:0 0 var(--s3)"><strong>6x4 mm</strong> &mdash; Tamano compacto. Funciona en cadenas, zarcillos y anillos.</p>
+            <p style="margin:0 0 var(--s3)"><strong>6x8 mm</strong> &mdash; La Clasica. La mas pedida en anillos de grado. Buen equilibrio entre presencia y precio.</p>
+            <p style="margin:0 0 var(--s3)"><strong>10x8 mm</strong> &mdash; Piedra grande, mas presencia. Para quienes quieren que se note.</p>
+            <p style="margin:0"><strong>10x12 mm</strong> &mdash; La mas grande. Impacto total. Mayor peso en oro y mayor precio.</p>
           </div>
-        </details>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Cómo comprar -->
-<section class="section comprar" id="comprar" aria-labelledby="comprar-t">
-  <div class="wrap">
-    <div class="section__head reveal">
-      <span class="punzon section__eyebrow">04 — Lo práctico</span>
-      <h2 class="section__title" id="comprar-t">Cómo comprar</h2>
-      <p class="section__lede">Cómo pagas, cuánto tarda, cómo te llega y dónde estamos.</p>
-    </div>
-
-    <div class="comprar__grid">
-      <article class="comprar__caja">
-        <h3 class="comprar__t">Cómo pagas</h3>
-        <ul class="comprar__lista">
-          <li>Pago móvil</li>
-          <li>Transferencia bancaria</li>
-          <li>Zelle</li>
-          <li>Efectivo</li>
-          <li>Binance</li>
-        </ul>
-        <p class="comprar__nota">Te pasamos los datos al confirmar la pieza.</p>
-      </article>
-
-      <article class="comprar__caja">
-        <h3 class="comprar__t">Cuánto tarda</h3>
-        <p class="comprar__cifra"><span>14</span> días máximo</p>
-        <p class="comprar__nota">Un anillo de grado hecho desde cero, con tu talla y tu grabado.</p>
-        <p class="comprar__nota"><strong>¿La necesitas antes?</strong> Escríbenos y vemos qué se puede hacer.</p>
-      </article>
-
-      <article class="comprar__caja">
-        <h3 class="comprar__t">Cómo te llega</h3>
-        <p class="comprar__cifra"><span>Todo</span> el país</p>
-        <p class="comprar__nota">A cualquier ciudad de Venezuela. Lo coordinamos por WhatsApp.</p>
-        <p class="comprar__nota">¿En Caracas? Retírala en la tienda y te la pruebas.</p>
-      </article>
-
-      <article class="comprar__caja comprar__caja--garantia">
-        <h3 class="comprar__t">Si no te queda</h3>
-        <p class="comprar__nota"><strong>La agrandamos sin costo.</strong> Es parte del trabajo, no un problema.</p>
-        <p class="comprar__nota">Pídela justa antes que grande: achicar cuesta más.</p>
-        <a class="comprar__link" href="#talla">Calcular mi talla &#8594;</a>
-      </article>
-    </div>
-
-    <div class="tienda">
-      <div class="tienda__texto">
-        <span class="punzon tienda__eyebrow">Ven a vernos</span>
-        <h3 class="tienda__t">Minicentro Par&#237;s</h3>
-        <p class="tienda__dir">Justo al frente de la Asamblea Nacional, a dos cuadras de la Plaza Bol&#237;var.<br>Centro de Caracas.</p>
-        <p class="tienda__nota">Ven a probarte tallas, ver las piezas de cerca o retirar la tuya. Sin cita.</p>
-        <a class="btn btn--primary" data-wa="visita" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Escribir antes de venir</a>
-      </div>
-      <div class="tienda__mapa" role="img" aria-label="Plano de ubicación: Minicentro París está en la acera norte de la Avenida Este 2, justo enfrente de la Asamblea Nacional. La Plaza Bolívar queda dos cuadras al este.">
-        <svg viewBox="0 0 300 250" fill="none">
-          <rect width="300" height="250" fill="var(--field)"/>
-
-          <!-- manzanas -->
-          <rect x="14" y="14" width="118" height="86" rx="2" fill="var(--toque)" opacity=".05"/>
-          <rect x="150" y="14" width="136" height="86" rx="2" fill="var(--toque)" opacity=".05"/>
-          <rect x="14" y="150" width="118" height="86" rx="2" fill="var(--toque)" opacity=".05"/>
-          <rect x="150" y="150" width="136" height="86" rx="2" fill="var(--toque)" opacity=".05"/>
-
-          <!-- Av Este 2: la calle que separa el local de la Asamblea -->
-          <rect x="0" y="106" width="300" height="38" fill="var(--line)" opacity=".55"/>
-          <text x="150" y="130" font-family="DM Mono, monospace" font-size="9.5" letter-spacing="1.4"
-                fill="var(--ink-2)" text-anchor="middle">AV. ESTE 2</text>
-
-          <!-- calle vertical -->
-          <rect x="132" y="0" width="18" height="106" fill="var(--line)" opacity=".4"/>
-          <rect x="132" y="144" width="18" height="106" fill="var(--line)" opacity=".4"/>
-
-          <!-- Plaza Bolívar, al este -->
-          <rect x="196" y="26" width="78" height="62" rx="3" fill="var(--e-verde)" opacity=".14"/>
-          <text x="235" y="53" font-family="DM Mono, monospace" font-size="8" fill="var(--ink-2)" text-anchor="middle">PLAZA</text>
-          <text x="235" y="65" font-family="DM Mono, monospace" font-size="8" fill="var(--ink-2)" text-anchor="middle">BOL&#205;VAR</text>
-
-          <!-- Asamblea Nacional, enfrente y al sur -->
-          <rect x="26" y="166" width="96" height="56" rx="2" fill="var(--toque)" opacity=".16"/>
-          <text x="74" y="190" font-family="DM Mono, monospace" font-size="8" fill="var(--ink-2)" text-anchor="middle">ASAMBLEA</text>
-          <text x="74" y="202" font-family="DM Mono, monospace" font-size="8" fill="var(--ink-2)" text-anchor="middle">NACIONAL</text>
-
-          <!-- el local -->
-          <rect x="40" y="52" width="66" height="40" rx="2" fill="var(--lacre)" opacity=".14"/>
-          <circle cx="73" cy="72" r="8" fill="var(--lacre)"/>
-          <circle cx="73" cy="72" r="15" stroke="var(--lacre)" stroke-width="1.5" opacity=".4"/>
-          <text x="73" y="38" font-family="DM Mono, monospace" font-size="8.5" font-weight="500"
-                fill="var(--ink)" text-anchor="middle">MINICENTRO PAR&#205;S</text>
-
-          <!-- "justo enfrente": la flecha cruza la avenida -->
-          <path d="M73 88 L73 160" stroke="var(--lacre)" stroke-width="1.5" stroke-dasharray="4 4" opacity=".75"/>
-          <path d="M69 154 L73 161 L77 154" stroke="var(--lacre)" stroke-width="1.5" fill="none" opacity=".75"/>
-          <text x="82" y="128" font-family="DM Mono, monospace" font-size="7.5"
-                fill="var(--lacre)">ENFRENTE</text>
-        </svg>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Valor refugio -->
-<section class="section refugio" id="refugio" aria-labelledby="refugio-t">
-  <div class="wrap">
-    <div class="refugio__grid">
-      <div>
-        <span class="punzon section__eyebrow">05 — Lo que nadie te cuenta de una joya</span>
-        <h2 class="section__title" id="refugio-t">Se ve bonita. <br>Además, es ahorro.</h2>
-        <p class="refugio__lede">Una joya de oro es dos cosas a la vez: la usas y la heredas. Mientras tanto, sigue siendo oro.</p>
-        <p class="refugio__lede">El dólar guardado compra menos cada año. El oro no lo emite nadie: no hay banco que imprima más.</p>
-        <div class="refugio__cifras">
-          <div class="cifra">
-            <span class="cifra__valor dato">−47%</span>
-            <span class="cifra__label punzon">Poder de compra que perdió el dólar desde el año 2000</span>
-          </div>
-          <div class="cifra">
-            <span class="cifra__valor dato">×15,6</span>
-            <span class="cifra__label punzon">Lo que subió la onza de oro en ese mismo período</span>
+          <p class="medidas__nota">
+            La medida manda sobre el precio: <strong>a mas piedra, mas oro alrededor</strong>. Una 10x12 pesa y cuesta bastante mas que una 4x3 del mismo modelo. Si dudas entre dos, escribe y te decimos cual se lleva la gente de tu carrera.
+          </p>
+          <div class="medidas__regla punzon">
+            <span>1&nbsp;cm</span><i id="reglaMm"></i><span>a esta escala</span>
           </div>
         </div>
-      </div>
-      <figure class="refugio__fig">
-        <figcaption class="refugio__figtitle">
-          <span class="punzon">Precio de la onza de oro · promedio anual en dólares</span>
-        </figcaption>
-        <div class="refugio__chart" id="chartOro"></div>
-        <table class="refugio__tabla" id="tablaOro">
-          <caption class="vh">Precio promedio anual de la onza de oro en dólares</caption>
-          <thead><tr><th scope="col">Año</th><th scope="col">USD / onza</th></tr></thead>
-          <tbody></tbody>
-        </table>
-        <button class="refugio__vertabla punzon" type="button" id="verTabla" aria-expanded="false" aria-controls="tablaOro">Ver los datos en tabla</button>
-      </figure>
-    </div>
-    <p class="refugio__aviso">Precio internacional del oro (promedio anual) e inflación del dólar según el índice de EE. UU. <strong>El rendimiento pasado no garantiza el futuro.</strong> El oro sube y baja. No es asesoría financiera: vendemos joyas.</p>
-  </div>
-</section>
+        </div>
+      </details>
 
-<section class="taller" id="taller" aria-labelledby="taller-t">
-  <div class="wrap taller__grid">
-    <div>
-      <span class="punzon taller__eyebrow">06 — Fuera de catálogo</span>
-      <h2 class="taller__title" id="taller-t">¿La viste en una foto? La hacemos.</h2>
-      <p class="taller__text">Mándanos la foto y te cotizamos. La modelamos en 3D para que la apruebes antes de fundir. Se hace una sola vez.</p>
-      <a class="btn btn--primary" data-wa="medida" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Mandar la foto y cotizar</a>
-    </div>
-    <ul class="taller__list">
-      <li class="taller__item"><span class="taller__item-name">Diseño y modelado 3D</span><span class="dato taller__item-price">desde&nbsp;$45</span></li>
-      <li class="taller__item"><span class="taller__item-name">Cambio de talla</span><span class="dato taller__item-price">desde&nbsp;$18</span></li>
-      <li class="taller__item"><span class="taller__item-name">Grabado en pieza que ya tienes</span><span class="dato taller__item-price">desde&nbsp;$12</span></li>
-      <li class="taller__item"><span class="taller__item-name">Engaste de piedra</span><span class="dato taller__item-price">desde&nbsp;$25</span></li>
-      <li class="taller__item"><span class="taller__item-name">Baño de rodio</span><span class="dato taller__item-price">desde&nbsp;$20</span></li>
-    </ul>
-  </div>
-</section>
+      <!-- 3. Diseño 3D / a la medida -->
+      <details class="faq__item" id="faq-taller">
+        <summary class="faq__q">¿Hacen piezas a la medida?</summary>
+        <div class="faq__a-wrap"><div class="faq__a">
+          <div class="taller__grid" style="padding:0">
+            <div>
+              <p style="margin:0 0 var(--s4);color:var(--ink-2)">Mándanos la foto y te cotizamos. La modelamos en 3D para que la apruebes antes de fundir. Se hace una sola vez.</p>
+              <a class="btn btn--primary" data-wa="medida" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Mandar la foto y cotizar</a>
+            </div>
+            <ul class="taller__list" style="border:1px solid var(--line);border-radius:var(--radius);padding:var(--s4)">
+              <li class="taller__item"><span class="taller__item-name">Diseño y modelado 3D</span><span class="dato taller__item-price">desde&nbsp;$45</span></li>
+              <li class="taller__item"><span class="taller__item-name">Cambio de talla</span><span class="dato taller__item-price">desde&nbsp;$18</span></li>
+              <li class="taller__item"><span class="taller__item-name">Grabado en pieza que ya tienes</span><span class="dato taller__item-price">desde&nbsp;$12</span></li>
+              <li class="taller__item"><span class="taller__item-name">Engaste de piedra</span><span class="dato taller__item-price">desde&nbsp;$25</span></li>
+              <li class="taller__item"><span class="taller__item-name">Baño de rodio</span><span class="dato taller__item-price">desde&nbsp;$20</span></li>
+            </ul>
+          </div>
+        </div>
+        </div>
+      </details>
 
-<!-- B2B: la derivada de orfebrería. Sección propia para que una joyería la
-     encuentre sin buscar, pero después del catálogo para no desplazar al
-     cliente general, que es el grueso. -->
-<section class="section b2b" id="b2b" aria-labelledby="b2b-t">
-  <div class="wrap">
-    <div class="b2b__cab">
-      <span class="punzon section__eyebrow">07 — Para joyerías y talleres</span>
-      <h2 class="section__title" id="b2b-t">Tu taller, sin montar un taller.</h2>
-      <p class="section__lede">Fundición, engaste, terminado y 3D para otras joyerías. Tú pones la marca; nosotros la pieza. Ves el proceso, el gramaje y la merma.</p>
-    </div>
+      <!-- 4. Ubicación -->
+      <details class="faq__item" id="faq-ubicacion">
+        <summary class="faq__q">¿Dónde queda la tienda?</summary>
+        <div class="faq__a-wrap"><div class="faq__a">
+          <div class="tienda">
+            <div class="tienda__texto">
+              <span class="punzon tienda__eyebrow">Ven a vernos</span>
+              <h3 class="tienda__t">Minicentro París</h3>
+              <p class="tienda__dir">Justo al frente de la Asamblea Nacional, a dos cuadras de la Plaza Bolívar.<br>Centro de Caracas.</p>
+              <p class="tienda__nota">Ven a probarte tallas, ver las piezas de cerca o retirar la tuya. Sin cita.</p>
+              <a class="btn btn--primary" data-wa="visita" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Escribir antes de venir</a>
+            </div>
+            <div class="tienda__mapa" role="img" aria-label="Plano de ubicación: Minicentro París está en la acera norte de la Avenida Este 2, justo enfrente de la Asamblea Nacional. La Plaza Bolívar queda dos cuadras al este.">
+              <svg viewBox="0 0 300 250" fill="none">
+                <rect width="300" height="250" fill="var(--field)"/>
+                <rect x="14" y="14" width="118" height="86" rx="2" fill="var(--toque)" opacity=".05"/>
+                <rect x="150" y="14" width="136" height="86" rx="2" fill="var(--toque)" opacity=".05"/>
+                <rect x="14" y="150" width="118" height="86" rx="2" fill="var(--toque)" opacity=".05"/>
+                <rect x="150" y="150" width="136" height="86" rx="2" fill="var(--toque)" opacity=".05"/>
+                <rect x="0" y="106" width="300" height="38" fill="var(--line)" opacity=".55"/>
+                <text x="150" y="130" font-family="DM Mono, monospace" font-size="9.5" letter-spacing="1.4"
+                      fill="var(--ink-2)" text-anchor="middle">AV. ESTE 2</text>
+                <rect x="132" y="0" width="18" height="106" fill="var(--line)" opacity=".4"/>
+                <rect x="132" y="144" width="18" height="106" fill="var(--line)" opacity=".4"/>
+                <rect x="196" y="26" width="78" height="62" rx="3" fill="var(--e-verde)" opacity=".14"/>
+                <text x="235" y="53" font-family="DM Mono, monospace" font-size="8" fill="var(--ink-2)" text-anchor="middle">PLAZA</text>
+                <text x="235" y="65" font-family="DM Mono, monospace" font-size="8" fill="var(--ink-2)" text-anchor="middle">BOLÍVAR</text>
+                <rect x="26" y="166" width="96" height="56" rx="2" fill="var(--toque)" opacity=".16"/>
+                <text x="74" y="190" font-family="DM Mono, monospace" font-size="8" fill="var(--ink-2)" text-anchor="middle">ASAMBLEA</text>
+                <text x="74" y="202" font-family="DM Mono, monospace" font-size="8" fill="var(--ink-2)" text-anchor="middle">NACIONAL</text>
+                <rect x="40" y="52" width="66" height="40" rx="2" fill="var(--lacre)" opacity=".14"/>
+                <circle cx="73" cy="72" r="8" fill="var(--lacre)"/>
+                <circle cx="73" cy="72" r="15" stroke="var(--lacre)" stroke-width="1.5" opacity=".4"/>
+                <text x="73" y="38" font-family="DM Mono, monospace" font-size="8.5" font-weight="500"
+                      fill="var(--ink)" text-anchor="middle">MINICENTRO PARÍS</text>
+                <path d="M73 88 L73 160" stroke="var(--lacre)" stroke-width="1.5" stroke-dasharray="4 4" opacity=".75"/>
+                <path d="M69 154 L73 161 L77 154" stroke="var(--lacre)" stroke-width="1.5" fill="none" opacity=".75"/>
+                <text x="82" y="128" font-family="DM Mono, monospace" font-size="7.5"
+                      fill="var(--lacre)">ENFRENTE</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+        </div>
+      </details>
 
-    <div class="b2b__grid b2b__grid--uno">
-      <div class="b2b__aval">
-        <span class="punzon b2b__label">Quién nos respalda</span>
-        <p class="b2b__avaltxt">Fabricamos para <strong>GoldToday</strong>: <strong>Sambil Chacao</strong> y <strong>C.C. Cerro Verde</strong>. Pregúntales por nosotros.</p>
-      </div>
-    </div>
+      <!-- 5. Métodos de pago y envío -->
+      <details class="faq__item" id="faq-comprar">
+        <summary class="faq__q">¿Cómo pago, cuánto tarda y cómo llega?</summary>
+        <div class="faq__a-wrap"><div class="faq__a">
+          <div class="comprar__grid">
+            <article class="comprar__caja">
+              <h3 class="comprar__t">Cómo pagas</h3>
+              <ul class="comprar__lista">
+                <li>Pago móvil</li>
+                <li>Transferencia bancaria</li>
+                <li>Zelle</li>
+                <li>Efectivo</li>
+                <li>Binance</li>
+              </ul>
+              <p class="comprar__nota">Te pasamos los datos al confirmar la pieza.</p>
+            </article>
+            <article class="comprar__caja">
+              <h3 class="comprar__t">Cuánto tarda</h3>
+              <p class="comprar__cifra"><span>14</span> días máximo</p>
+              <p class="comprar__nota">Un anillo de grado hecho desde cero, con tu talla y tu grabado.</p>
+              <p class="comprar__nota"><strong>¿La necesitas antes?</strong> Escríbenos y vemos qué se puede hacer.</p>
+            </article>
+            <article class="comprar__caja">
+              <h3 class="comprar__t">Cómo te llega</h3>
+              <p class="comprar__cifra"><span>Todo</span> el país</p>
+              <p class="comprar__nota">A cualquier ciudad de Venezuela. Lo coordinamos por WhatsApp.</p>
+              <p class="comprar__nota">¿En Caracas? Retírala en la tienda y te la pruebas.</p>
+            </article>
+            <article class="comprar__caja comprar__caja--garantia">
+              <h3 class="comprar__t">Si no te queda</h3>
+              <p class="comprar__nota"><strong>La agrandamos sin costo.</strong> Es parte del trabajo, no un problema.</p>
+              <p class="comprar__nota">Pídela justa antes que grande: achicar cuesta más.</p>
+            </article>
+          </div>
+        </div>
+        </div>
+      </details>
 
-    <div class="b2b__cierre">
-      <p class="b2b__cierretxt">¿Tienes una joyería y necesitas quien fabrique?</p>
-      <a class="btn btn--primary" data-wa="taller" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Escribir al taller</a>
+      <!-- 6. Oro como ahorro -->
+      <details class="faq__item" id="faq-ahorro">
+        <summary class="faq__q">¿El oro es buen ahorro?</summary>
+        <div class="faq__a-wrap"><div class="faq__a">
+          <div class="refugio__grid">
+            <div>
+              <p class="refugio__lede">Una joya de oro es dos cosas a la vez: la usas y la heredas. Mientras tanto, sigue siendo oro.</p>
+              <p class="refugio__lede">El dólar guardado compra menos cada año. El oro no lo emite nadie: no hay banco que imprima más.</p>
+              <div class="refugio__cifras">
+                <div class="cifra">
+                  <span class="cifra__valor dato">−47%</span>
+                  <span class="cifra__label punzon">Poder de compra que perdió el dólar desde el año 2000</span>
+                </div>
+                <div class="cifra">
+                  <span class="cifra__valor dato">×15,6</span>
+                  <span class="cifra__label punzon">Lo que subió la onza de oro en ese mismo período</span>
+                </div>
+              </div>
+            </div>
+            <figure class="refugio__fig">
+              <figcaption class="refugio__figtitle">
+                <span class="punzon">Precio de la onza de oro · promedio anual en dólares</span>
+              </figcaption>
+              <div class="refugio__chart" id="chartOro"></div>
+              <table class="refugio__tabla" id="tablaOro">
+                <caption class="vh">Precio promedio anual de la onza de oro en dólares</caption>
+                <thead><tr><th scope="col">Año</th><th scope="col">USD / onza</th></tr></thead>
+                <tbody></tbody>
+              </table>
+              <button class="refugio__vertabla punzon" type="button" id="verTabla" aria-expanded="false" aria-controls="tablaOro">Ver los datos en tabla</button>
+            </figure>
+          </div>
+          <p class="refugio__aviso">Precio internacional del oro (promedio anual) e inflación del dólar según el índice de EE. UU. <strong>El rendimiento pasado no garantiza el futuro.</strong> El oro sube y baja. No es asesoría financiera: vendemos joyas.</p>
+        </div>
+        </div>
+      </details>
+
     </div>
   </div>
 </section>
 
 </main>
-
-<!-- Insumos. Es la otra pata del B2B y hasta ahora vivia como una tarjeta
-     dentro de la rejilla, del tamano de una nota al pie. Va despues del B2B
-     y no antes: el grueso del negocio son las graduandas, y el taller no
-     puede taparlas. -->
-<section class="section bluecast" id="bluecast" aria-labelledby="bluecast-t">
-  <div class="wrap">
-    <div class="section__head">
-      <span class="punzon section__eyebrow">08 — Insumos para talleres</span>
-      <h2 class="section__title" id="bluecast-t">Resina Bluecast,<br>traida de Europa.</h2>
-      <p class="section__lede">Somos <strong>proveedor autorizado para Venezuela</strong>. Si imprimes tus modelos en 3D y los mandas a fundir, la resina te la traemos nosotros.</p>
-    </div>
-
-    <div class="bluecast__grid">
-      <div class="bluecast__caja">
-        <span class="punzon bluecast__label">Para qué sirve</span>
-        <p class="bluecast__txt">Es resina de <strong>fundición</strong>: imprimes el modelo, se quema en el revestimiento y sale la pieza en metal. Lo que antes tallabas a mano, lo imprimes.</p>
-      </div>
-      <div class="bluecast__caja">
-        <span class="punzon bluecast__label">De dónde viene</span>
-        <p class="bluecast__txt">Importada <strong>directo de Europa</strong>, no comprada aquí y revendida. Por eso el precio es el que es y hay respaldo de la marca.</p>
-      </div>
-      <div class="bluecast__caja">
-        <span class="punzon bluecast__label">Para quién</span>
-        <p class="bluecast__txt">Joyerías y talleres que ya imprimen en 3D, o que están montando el equipo y quieren empezar con la resina correcta.</p>
-      </div>
-    </div>
-
-    <div class="bluecast__pie">
-      <div>
-        <p class="bluecast__cta-t">Disponibilidad y precio del día, por WhatsApp.</p>
-        <p class="bluecast__cta-n">El precio se mueve con el cambio y con cada importación: por eso no lo publicamos.</p>
-      </div>
-      <a class="btn btn--primary" data-wa="bluecast" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Consultar por Bluecast</a>
-    </div>
-  </div>
-</section>
 
 <footer class="footer">
   <div class="wrap">
@@ -1620,6 +1711,7 @@ document.documentElement.classList.add("js");
     <p class="footer__aviso">Precios en dólares como referencia. Se paga en bolívares a la tasa BCV del día y toda venta se factura en bolívares. Los montos son aproximados y varían con el precio del metal. Metal actualizado: <span class="dato" id="fechaSpot"></span>.</p>
     <div class="footer__legal punzon">
       <span>Inversiones Lakshmy 3000, C.A. · RIF J-40677790-0</span>
+      <span><a href="tel:+584242765908" style="color:inherit;text-decoration:none">0424-276-5908</a></span>
       <!-- PENDIENTE: el usuario de la cuenta nueva. La vieja (@inv.laksmy) ya no
            corresponde a la marca; se deja el nombre sin arroba hasta tenerlo. -->
       <span>Instagram · Joyería Estambul</span>
@@ -1628,7 +1720,7 @@ document.documentElement.classList.add("js");
 </footer>
 
 <a class="wafab" id="wafab" data-wa="tienda" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer"
-   aria-label="Escribir por WhatsApp" target="_blank" rel="noopener noreferrer">
+   aria-label="Escribir por WhatsApp">
   <svg viewBox="0 0 24 24" aria-hidden="true" width="26" height="26">
     <path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.54.06-.25-.13-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.84-.2-.49-.4-.42-.55-.43h-.47c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.62 4.15 3.67.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.12-.22-.19-.47-.31Z"/>
   </svg>
@@ -1658,48 +1750,38 @@ document.documentElement.classList.add("js");
       <button class="modal__close" id="indiceClose" type="button" aria-label="Cerrar índice">✕</button>
     </div>
 
-    <div class="indice__grupo">
+    <!-- El JS reconstruye este bloque con las cantidades reales -->
+    <div class="indice__grupo" id="indiceCatalogo">
       <span class="punzon indice__titulo">Nuestro catálogo</span>
-      <a class="indice__link" href="#grado" data-cat="">Anillos de Grado <span>10</span></a>
-      <a class="indice__link" href="#registro" data-cat="Anillos">Anillos <span>4</span></a>
-      <a class="indice__link" href="#registro" data-cat="Aros de Boda">Aros de Boda <span>4</span></a>
-      <a class="indice__link" href="#registro" data-cat="Cadenas y Esclavas">Cadenas y Esclavas <span>4</span></a>
-      <a class="indice__link" href="#registro" data-cat="Pulseras">Pulseras <span>4</span></a>
-      <a class="indice__link" href="#registro" data-cat="Zarcillos">Zarcillos <span>4</span></a>
-      <a class="indice__link" href="#registro" data-cat="Dijes">Dijes <span>4</span></a>
+      <a class="indice__link" href="#grado">Anillos de Grado</a>
     </div>
 
     <div>
-      <span class="punzon indice__titulo">Por qué aquí</span>
-      <a class="indice__destacado" href="#taller">
-        <span class="indice__dt">¿Lo viste en internet? Lo fabricamos</span>
-        <span class="indice__dd">Mándanos la foto y te cotizamos. Sale una sola vez, para ti.</span>
+      <span class="punzon indice__titulo">Preguntas frecuentes</span>
+      <a class="indice__destacado indice__destacado--taller" href="#faq-taller-b2b" data-faq="faq-taller-b2b">
+        <span class="indice__dt">¿Eres un taller o joyería?</span>
+        <span class="indice__dd">Fabricación para terceros y Resina Bluecast.</span>
       </a>
-      <a class="indice__destacado" href="#talla">
+      <a class="indice__destacado" href="#faq-talla" data-faq="faq-talla">
         <span class="indice__dt">¿Cuál es mi talla?</span>
-        <span class="indice__dd">Calcúlala en un minuto con una regla o una tira de papel. Si queda apretada, la agrandamos gratis.</span>
+        <span class="indice__dd">Calcúlala en un minuto con una regla o una tira de papel.</span>
       </a>
-      <a class="indice__destacado" href="#comprar">
-        <span class="indice__dt">Cómo pagar, cuánto tarda y dónde estamos</span>
-        <span class="indice__dd">Pago móvil, Zelle, Binance y más. Envíos a todo el país. Tienda en el centro de Caracas.</span>
+      <a class="indice__destacado" href="#faq-taller" data-faq="faq-taller">
+        <span class="indice__dt">¿Hacen piezas a la medida?</span>
+        <span class="indice__dd">Mándanos la foto y te cotizamos. Diseño 3D incluido.</span>
       </a>
-      <a class="indice__destacado" href="#refugio">
-        <span class="indice__dt">El oro es valor refugio</span>
+      <a class="indice__destacado" href="#faq-ubicacion" data-faq="faq-ubicacion">
+        <span class="indice__dt">¿Dónde queda la tienda?</span>
+        <span class="indice__dd">Minicentro París, centro de Caracas. Sin cita.</span>
+      </a>
+      <a class="indice__destacado" href="#faq-comprar" data-faq="faq-comprar">
+        <span class="indice__dt">¿Cómo pago, cuánto tarda y cómo llega?</span>
+        <span class="indice__dd">Pago móvil, Zelle, Binance y más. Envíos a todo el país.</span>
+      </a>
+      <a class="indice__destacado" href="#faq-ahorro" data-faq="faq-ahorro">
+        <span class="indice__dt">¿El oro es buen ahorro?</span>
         <span class="indice__dd">Se usa, se hereda, y mientras tanto sigue siendo oro.</span>
       </a>
-    </div>
-
-    <div class="indice__taller">
-      <span class="punzon indice__titulo">Para joyerías y talleres</span>
-      <a class="indice__destacado" href="#b2b">
-        <span class="indice__dt">Fabricación orfebre para terceros</span>
-        <span class="indice__dd">Fundición, engaste y terminado. Trabajamos para GoldToday (Sambil Chacao y C.C. Cerro Verde).</span>
-      </a>
-      <a class="indice__destacado" href="#bluecast">
-        <span class="indice__dt">Resina Bluecast — proveedor oficial</span>
-        <span class="indice__dd">Distribuidor autorizado para Venezuela. Importada directo de Europa.</span>
-      </a>
-      <a class="btn btn--primary btn--block" data-wa="taller" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Escribir al taller</a>
     </div>
 
     <a class="btn btn--ghost btn--block" data-wa="tienda" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Escribir a la tienda</a>
@@ -1720,6 +1802,7 @@ document.documentElement.classList.add("js");
         <div>
           <span class="punzon modal__eyebrow" id="modalSeal"></span>
           <h2 class="modal__title" id="modalTitle"></h2>
+          <p id="modalDisclaimer" style="margin:var(--s1) 0 0;font-size:.75rem;color:var(--ink-2);opacity:.7">Precio base de referencia · cotizacion exacta por WhatsApp</p>
           <p class="modal__regalo" id="modalRegalo" hidden></p>
         </div>
       </div>
@@ -1758,7 +1841,7 @@ document.documentElement.classList.add("js");
   </div>
 </div>
 
-<script src="catalogo.js"></script>
+<script src="catalogo.js?v=2"></script>
 <script>
 /* ============================================================
    MOTOR DE PRECIO — interno. La interfaz sólo muestra el resultado:
@@ -1773,22 +1856,6 @@ const WA = "584242765908";
    se puede copiar y pegar, y sirve igual en cualquier dispositivo. */
 const waLink = texto => "https://wa.me/" + WA + (texto ? "?text=" + encodeURIComponent(texto) : "");
 
-/* Pero wa.me es un REDIRECTOR: salta a api.whatsapp.com y de ahí a la app.
-   Ese salto intermedio es lo que se bloquea dentro de iframes, navegadores de
-   Instagram/Facebook y algunas redes — y el usuario ve "la API de WhatsApp
-   está bloqueada". Al abrir por JS se va directo al destino final y el salto
-   desaparece. */
-const esMovil = () =>
-  /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent)
-  || (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent)); // iPad moderno
-
-function urlWhatsApp(texto, movil){
-  movil = movil === undefined ? esMovil() : movil;
-  const t = texto ? "&text=" + encodeURIComponent(texto) : "";
-  return movil
-    ? "whatsapp://send?phone=" + WA + t          // abre la app, sin pasar por la web
-    : "https://web.whatsapp.com/send?phone=" + WA + t;  // sin página intermedia
-}
 
 
 const LEY  = { "10k":10/24, "14k":14/24, "18k":18/24, "950":0.95 };
@@ -1821,28 +1888,37 @@ const TALLAS = Array.from({length:12},(_,i)=>i+4);   // 4 a 15
    la dueña y se ampliaron con las carreras y TSU más cursados en Venezuela. */
 const ESPECTRO = [
   {id:"azul", piedra:"Azul zafiro", carrera:"Ingenierías", c:"var(--e-azul)",
-   carreras:["Ingeniería civil, mecánica y eléctrica","Informática y sistemas · TSU","Arquitectura y topografía","Geología e ingeniería industrial"],
+   carreras:["Ingenierías (excepto Agronomía)","Informática y sistemas · TSU","Criminalística"],
    sig:"El azul es el color del cálculo y la cabeza fría. Se le asocia desde siempre con la precisión y con quien resuelve un problema antes de que se note que existía."},
-  {id:"amarillo", piedra:"Amarillo citrino", carrera:"Salud", c:"var(--e-amarillo)",
-   carreras:["Medicina","Bioanálisis","Enfermería · TSU","Nutrición y Dietética"],
+  {id:"amarillo", piedra:"Amarillo citrino", carrera:"Medicina", c:"var(--e-amarillo)",
+   carreras:["Medicina","Bioanálisis","Enfermería · TSU"],
    sig:"El amarillo es el color de Medicina desde que existen las facultades. Es luz: alumbrarle el camino a alguien que llegó a oscuras."},
   {id:"rojo", piedra:"Rojo granate", carrera:"Derecho · Administración", c:"var(--e-rojo)",
    carreras:["Derecho","Ciencias Políticas y Estudios Internacionales","Contaduría Pública","Administración comercial e industrial · TSU"],
    sig:"El rojo es convicción. Es el color de quien sostiene una posición y la defiende de frente, y el de quien responde por las cuentas de otros."},
-  {id:"morado", piedra:"Morado amatista", carrera:"Farmacia", c:"var(--e-morado)",
-   carreras:["Farmacia","Química farmacéutica"],
-   sig:"El morado fue durante siglos el color de lo reservado y difícil de conseguir. Le quedó a Farmacia, que es el oficio de saber exactamente cuánto de cada cosa."},
-  {id:"fucsia", piedra:"Fucsia", carrera:"Odontología", c:"var(--e-fucsia)",
+  {id:"naranja", piedra:"Naranja", carrera:"Farmacia", c:"var(--e-naranja)",
+   carreras:["Farmacia"],
+   sig:"El naranja es exclusivo de Farmacia. Es el color del laboratorio y de quien prepara con exactitud lo que otro necesita para sanar."},
+  {id:"morado", piedra:"Morado amatista", carrera:"Odontología", c:"var(--e-morado)",
    carreras:["Odontología"],
-   sig:"El fucsia es el color propio de Odontología en el traje académico. No se comparte con ninguna otra carrera: es de ellos solos."},
-  {id:"celeste", piedra:"Azul celeste", carrera:"Educación · Letras", c:"var(--e-celeste)",
-   carreras:["Educación y Pedagogía","Letras y Filosofía","Historia","Artes y Música"],
-   sig:"El celeste agrupa a quienes trabajan con lo que no se toca: enseñar, escribir, pensar y componer. En el traje académico van todas bajo el mismo color."},
-  {id:"rosa", piedra:"Rosa turmalina", carrera:"Diseño · Comunicación", c:"var(--e-rosa)",
-   carreras:["Diseño gráfico e industrial","Comunicación Social","Publicidad y Mercadeo"],
-   sig:"El rosa es sensibilidad y detalle. El color de quien nota lo que los demás pasan por alto y le dedica tiempo a que quede bien."},
+   sig:"El morado fue durante siglos el color de lo reservado y difícil de conseguir. Es el sello de Odontología: una carrera que exige precisión y pulso firme."},
+  {id:"celeste", piedra:"Aguamarina", carrera:"Arquitectura · Diseño", c:"var(--e-celeste)",
+   carreras:["Psicología","Arquitectura","Ciencias Fiscales","Investigación Penal","Diseño gráfico e industrial"],
+   sig:"El celeste agrupa carreras que conectan con las personas y con los espacios. Desde la mente humana hasta la línea del edificio, todo cabe en este azul claro."},
+  {id:"verde", piedra:"Verde esmeralda", carrera:"Educación", c:"var(--e-verde)",
+   carreras:["Educación (profesorado)","Agronomía"],
+   sig:"El verde es el color de quien enseña, siembra y cultiva: el maestro y el agrónomo comparten la misma vocación de hacer crecer."},
+  {id:"acerina", piedra:"Acerina", carrera:"Lic. Educación", c:"var(--e-acerina)",
+   carreras:["Educación (licenciatura)","Psicología"],
+   sig:"La acerina marca la diferencia entre el profesorado y la licenciatura en Educación. Un tono propio para quienes ven la enseñanza desde la investigación."},
+  {id:"champan", piedra:"Champán", carrera:"Química", c:"var(--e-champan)",
+   carreras:["Química","Ingeniería Química"],
+   sig:"El champán es el color de la Química pura: el laboratorio, la fórmula y la reacción exacta. Ni azul de ingeniería ni amarillo de salud, sino su propio tono."},
+  {id:"negro", piedra:"Negro ónix", carrera:"Diseño urbano", c:"var(--e-negro)",
+   carreras:["Diseño urbano","Tendencia masculina"],
+   sig:"El negro ónix simboliza la fuerza y la protección. Es la tendencia favorita para hombres y diseños urbanos."},
   {id:"blanco", piedra:"Blanco cuarzo", carrera:"Cualquiera", c:"var(--e-blanco)",
-   carreras:["Psicología","Ciencias básicas: Biología, Física, Química","Cualquier carrera o TSU que no veas arriba"],
+   carreras:["Ciencias básicas: Biología, Física","Cualquier carrera o TSU que no veas arriba"],
    sig:"El blanco sirve para todas. Si tu carrera no está en la lista, esta es tu piedra — o escríbenos y la ubicamos contigo."}
 ];
 
@@ -1859,15 +1935,17 @@ const CARRERA = Object.fromEntries(ESPECTRO.map(s=>[s.id,s]));
 /* `piedraOpc` = la piedra no amarra el modelo: se le puede poner a cualquier
    anillo o dije, no sólo a los de grado. Incluye la opción "Sin piedra". */
 const CAMPOS = {
-  grado:    ["material","color","talla","piedra","grabado"],
-  anillo:   ["material","color","talla","piedraOpc","acabado","grabado"],
-  aro:      ["material","color","talla","piedraOpc","acabado","grabado"],
-  cadena:   ["material","color","largo","acabado"],
-  pulsera:  ["material","color","largoP","acabado","grabado"],
-  zarcillo: ["material","color","acabado"],
-  dije:     ["material","color","piedraOpc","grabado"]
+  grado:      ["material","color","talla","piedra","carrera","grabado"],
+  anillo:     ["material","color","talla","piedraOpc","acabado","grabado"],
+  aro:        ["material","color","talla","grabado"],
+  matrimonio: ["material","color","talla","grabado"],
+  compromiso: ["material","color","talla"],
+  cadena:     ["material","color","tejido","medida","largo","acabado"],
+  pulsera:    ["material","color","largoP","acabado","grabado"],
+  zarcillo:   ["material","color","medida","acabado"],
+  dije:       ["material","color","piedraOpc","grabado"]
 };
-const LARGOS  = [45,50,60,70];   // cadenas, cm
+const LARGOS  = [45,50,55,60];   // cadenas, cm — desde 45 en adelante
 const LARGOSP = [17,18,19,20];   // pulseras, cm
 
 /* ---------- Cálculo ---------- */
@@ -1879,13 +1957,41 @@ function pesoAjustado(p, sel){
   return g;   // en aros y zarcillos el peso base ya corresponde al par
 }
 function calcular(p, sel){
+  /* ── Piezas con precio fijo o variantes ── */
+  if(p.variantes && sel.variante){
+    const v = p.variantes.find(x=>x.id===sel.variante);
+    if(v) return v.precio;
+  }
+  if(p.precio_fijo) return p.precio_fijo;
+
   const mat = MATERIALES.find(m=>m.id===sel.material) || MATERIALES[0];
+
+  /* ── Anillos de grado: precio fijo por medida ──
+     Se venden por pieza, no por gramo: el molde ya existe y la hechura
+     se cobra fija. El precio base está en plata (PRECIOS_GRADO).
+     Para oro se calcula: precio_plata − metal_plata + metal_oro.       */
+  if(p.tipo === "grado" && typeof PRECIOS_GRADO !== "undefined"){
+    const med = sel.medida || p.medida || "6x8";
+    const est = p.estilo || "clasico";
+    const tabla = PRECIOS_GRADO[est] || PRECIOS_GRADO.clasico;
+    const base = tabla[med] || tabla["6x8"];
+    if(mat.metal === "plata") return Math.round(base);
+    /* En oro: sustituir el costo del metal plata por el del oro al quilate. */
+    const gEst = p.g || 6.5;
+    const metalPlata = gEst * 0.95 * SPOT.plata999_g;
+    const metalOro   = gEst * LEY[mat.id] * SPOT.oro24_g;
+    let total = base - metalPlata + metalOro;
+    if(sel.color === "blanco") total += EXTRA.rodio;
+    return Math.round(total);
+  }
+
+  /* ── Todo lo demás: cálculo por peso ── */
   const g   = pesoAjustado(p, sel);
   const spot = mat.metal==="oro" ? SPOT.oro24_g : SPOT.plata999_g;
   let total = g * LEY[mat.id] * spot + g * OBRA[mat.metal];
   if(sel.color === "blanco") total += EXTRA.rodio;
   /* El grabado va incluido: no suma al precio. */
-  if(p.tipo === "grado" || sel.piedraOpc) total += EXTRA.engaste;
+  if(sel.piedraOpc) total += EXTRA.engaste;
   return Math.round(total);
 }
 /* Precio de tarjeta: oro 10k, que es la entrada real en oro. Antes se calculaba
@@ -1899,9 +2005,12 @@ const MATERIAL_BASE = "950";
 function precioDesde(p){
   return calcular(p, {
     material: MATERIAL_BASE,
-    talla: ["grado","anillo","aro"].includes(p.tipo) ? 7 : null,
+    medida: p.medida || "6x8",
+    tejido: p.tejido || (p.tipo==="cadena" ? "marino" : null),
+    talla: ["grado","anillo","aro","matrimonio","compromiso"].includes(p.tipo) ? 7 : null,
     largo: p.tipo==="cadena" ? 45 : null,
-    largoP: p.tipo==="pulsera" ? 18 : null
+    largoP: p.tipo==="pulsera" ? 18 : null,
+    variante: p.variantes ? p.variantes[0].id : null
   });
 }
 const fmt = n => "$" + n.toLocaleString("es-VE");
@@ -1920,22 +2029,25 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 /* Desplazamiento propio en vez de scrollIntoView: éste no descuenta la altura
    del nav fijo (la sección quedaba medio tapada) y su modo suave no siempre
    se ejecuta. Con scrollTo el resultado es el mismo en todos lados. */
-function irA(sel){
+function irA(sel, instantaneo){
   const el = typeof sel === "string" ? document.querySelector(sel) : sel;
   if(!el) return;
   const nav = document.querySelector(".nav");
   const alto = nav ? nav.getBoundingClientRect().height : 0;
   const y = Math.max(0, el.getBoundingClientRect().top + window.scrollY - alto - 8);
+  /* instantaneo = true cuando viene del índice: en teléfonos lentos
+     el scroll suave recorre toda la página y se queda pegado.
+     El salto directo es mejor UX en móvil. */
+  if(instantaneo || reduce){
+    window.scrollTo(0, y);
+    return;
+  }
   const desde = window.scrollY;
-  window.scrollTo({top: y, behavior: reduce ? "auto" : "smooth"});
-  /* El desplazamiento suave lo mueve requestAnimationFrame, y el navegador lo
-     estrangula si la pestaña no está en primer plano: se queda quieto sin
-     avisar. Si a los 120 ms no arrancó, se salta directo. El cliente llega
-     siempre; lo único que se pierde es la animación. */
+  window.scrollTo({top: y, behavior: "smooth"});
   setTimeout(()=>{
     if(Math.abs(window.scrollY - desde) < 2 && Math.abs(y - desde) > 4)
       window.scrollTo(0, y);
-  }, 120);
+  }, 300);
 }
 
 /* ---------- El Espectro ---------- */
@@ -1984,6 +2096,19 @@ barra.addEventListener("click", e=>{
   visiblesGrado = TANDA;
   $$(".seg",barra).forEach(s=>s.setAttribute("aria-pressed", String(s.dataset.piedra===piedraActiva)));
   pintarInfoPiedra();
+  /* Recolocar el panel debajo de la fila del color tocado. Así la
+     graduanda ve la info ahí mismo, sin tener que bajar a buscarla. */
+  if(piedraActiva){
+    const segs = $$(".seg", barra);
+    const idx  = segs.indexOf(b);
+    /* Cuántas columnas tiene el grid en este momento: 4 en escritorio, 2 en móvil.
+       El valor computado es siempre "Npx Npx …", separado por espacios. */
+    const cols = getComputedStyle(barra).gridTemplateColumns.split(" ").length;
+    const fin  = Math.min(segs.length - 1, Math.floor(idx / cols) * cols + cols - 1);
+    segs[fin].after(info);
+  } else {
+    barra.append(info);
+  }
   pintarGrado();
   if(piedraActiva) medirPiedra(piedraActiva);
   if(piedraActiva) destellarGrid();
@@ -2005,6 +2130,34 @@ document.addEventListener("click", e=>{
     pintarInfoPiedra(); pintarGrado();
   }
 });
+/* ---------- Mini-chips de color junto a Clásicos/Modernos ----------
+   Atajo para filtrar por piedra sin subir al espectro. Sincronizan su
+   estado con la barra grande: al tocar uno aquí, arriba también cambia. */
+(function pintarColorChips(){
+  const cont = $("#colorChips"); if(!cont) return;
+  cont.innerHTML = '<span class="punzon" style="font-size:.75rem;color:var(--ink-2);margin-right:.25rem">Color:</span>' +
+    '<button class="color-chip" type="button" data-piedra="" aria-pressed="true" style="--c:transparent;border:1px dashed var(--ink-2)" aria-label="Todos los colores"><span class="color-chip__label">Todos</span></button>' +
+    ESPECTRO.map(s=>`<button class="color-chip" type="button" data-piedra="${s.id}"
+      aria-pressed="false" style="--c:${s.c}" aria-label="${esc(s.carrera)}">
+      <span class="color-chip__label">${esc(s.carrera)}</span>
+    </button>`).join("");
+  cont.addEventListener("click", ev=>{
+    const b = ev.target.closest(".color-chip"); if(!b) return;
+    const id = b.dataset.piedra;
+    piedraActiva = (id && piedraActiva === id) ? null : (id || null);
+    visiblesGrado = TANDA;
+    /* Sincronizar con la barra grande del espectro */
+    $$(".seg",barra).forEach(s=>s.setAttribute("aria-pressed", String(s.dataset.piedra===piedraActiva)));
+    pintarInfoPiedra(); pintarGrado();
+    /* Actualizar pressed state de los chips */
+    $$(".color-chip",cont).forEach(c=>{
+      const cid = c.dataset.piedra;
+      c.setAttribute("aria-pressed", String(cid ? cid===piedraActiva : !piedraActiva));
+    });
+    if(piedraActiva){ destellarGrid(); medirPiedra(piedraActiva); }
+  });
+})();
+
 function destellarGrid(){
   const g = $("#grado-grid");
   g.classList.remove("is-filtrado");
@@ -2047,7 +2200,7 @@ function tarjeta(p, i){
     <div class="card__body">
       <span class="punzon card__seal">${sello}</span>
       <h3 class="card__name">${esc(p.n)}</h3>
-      ${s ? `<span class="punzon card__career">${esc(s.carrera)}</span>` : ""}
+      ${"" /* carreras quitadas de las tarjetas por decisión de Victor */}
       ${p.institucion ? `<span class="punzon card__inst">${esc(p.institucion)}</span>` : ""}
       ${p.medida ? `<span class="punzon card__medida">Piedra ${esc(p.medida)} mm</span>` : ""}
       <div class="card__foot">
@@ -2065,16 +2218,16 @@ function mini(ruta){
   const i = ruta.lastIndexOf("/");
   return i < 0 ? "mini/" + ruta : ruta.slice(0, i) + "/mini/" + ruta.slice(i+1);
 }
-/* INDICE se reconstruye en cada pintado. Antes se hacía push sin limpiar nunca:
-   tras 10 cambios de pestaña el array pasaba de 14 a 54 entradas y seguía creciendo. */
+/* INDICE incluye todas las piezas del catálogo: grado + todas las categorías.
+   Se reconstruye cuando cambia la composición del catálogo visible. */
 function reconstruirIndice(){
-  /* GRADO entero siempre: al filtrar por color el resto sigue en pantalla
-     más abajo, así que todos necesitan índice válido. */
-  INDICE = GRADO.concat(piezasDe(catActiva));
+  INDICE = GRADO.concat(Object.values(REGISTRO).flat());
 }
 /* Cuántas piezas se muestran de entrada y cuántas suma cada pulsación. */
 const TANDA = 6;
+const CAT_INICIAL = 6;
 let visiblesGrado = TANDA, visiblesCatalogo = TANDA;
+let visiblesPorCat = {}; /* slug → cantidad visible */
 
 function pintarVerMas(zona, mostradas, total){
   const caja = $("#"+zona+"-vermas");
@@ -2087,9 +2240,26 @@ function pintarVerMas(zona, mostradas, total){
   }
 }
 document.addEventListener("click", e=>{
+  /* "Ver todos" — carga todo de una */
+  const todos = e.target.closest(".vermas__todos");
+  if(todos){
+    if(todos.dataset.todos === "grado"){ visiblesGrado = 9999; pintarGrado(); }
+    else if(todos.dataset.cat){ visiblesPorCat[todos.dataset.cat] = 9999; pintarCatalogo(); }
+    else { visiblesCatalogo = 9999; pintarCatalogo(); }
+    medir("ver_todos", {zona: todos.dataset.todos || todos.dataset.cat});
+    return;
+  }
+  const bcat = e.target.closest(".vermas__btn-cat");
+  if(bcat){
+    const slug = bcat.dataset.cat;
+    visiblesPorCat[slug] = (visiblesPorCat[slug] || CAT_INICIAL) + TANDA;
+    pintarCatalogo();
+    medir("ver_mas", {zona: slug});
+    return;
+  }
   const b = e.target.closest(".vermas__btn"); if(!b) return;
   if(b.dataset.mas === "grado"){ visiblesGrado += TANDA; pintarGrado(); }
-  else { visiblesCatalogo += TANDA; pintarRegistro(); }
+  else { visiblesCatalogo += TANDA; pintarCatalogo(); }
   medir("ver_mas", {zona: b.dataset.mas});
 });
 
@@ -2118,10 +2288,12 @@ document.addEventListener("click", e=>{
   function reset(){ zoom=1; x=0; y=0; pintar(); }
 
   function abrir(tomas, i){
+    const nombre = actual ? (actual.nombre||actual.id||"") : "";
     tiras.innerHTML = tomas.length>1 ? tomas.map((t,j)=>
       `<button type="button" data-t="${esc(t)}" class="${j===i?"is-on":""}"
-               aria-label="Toma ${j+1}"><img src="assets/img/${esc(t)}" alt=""></button>`).join("") : "";
+               aria-label="Toma ${j+1}"><img src="assets/img/${esc(t)}" alt="${esc(nombre)}, toma ${j+1}"></button>`).join("") : "";
     foto.src = "assets/img/" + tomas[i];
+    foto.alt = nombre;
     reset(); v.classList.add("is-open"); bloquearFondo(true); $("#visorCerrar").focus();
   }
   function cerrar(){ v.classList.remove("is-open"); reset();
@@ -2133,6 +2305,13 @@ document.addEventListener("click", e=>{
       const tomas=[actual.img].concat(Array.isArray(actual.mas)?actual.mas:[]);
       const i=Math.max(0, tomas.findIndex(t=>e.target.src.endsWith(t)));
       abrir(tomas, i);
+    }
+    /* Fotos de BlueCast: abrir en visor con zoom */
+    const bc = e.target.closest("[data-bc-img]");
+    if(bc){
+      const todas = Array.from(document.querySelectorAll("[data-bc-img]")).map(el=>el.dataset.bcImg);
+      const idx = todas.indexOf(bc.dataset.bcImg);
+      abrir(todas, Math.max(0, idx));
     }
   });
   $("#visorCerrar").addEventListener("click", cerrar);
@@ -2168,25 +2347,45 @@ document.addEventListener("click", e=>{
 
 /* ---------- Estilo: clásicos y modernos ----------
    Otro eje de filtro, independiente del color de la piedra. Se pueden
-   combinar: "Salud" + "Modernos" deja los amarillos con circonitas. */
+   combinar: "Salud" + "Modernos" deja los amarillos con circonitas.
+   El filtro tipo_joya es ortogonal: se activa con un toggle y funciona
+   sobre clasico, moderno o ambos. */
 let estiloActivo = null;
+let tipoJoyaActivo = false;
 (function pintarEstilos(){
   const c = $("#estilos");
   if(!c || typeof ESTILOS === "undefined") return;
-  c.innerHTML = ESTILOS.map(e=>{
-    const n = GRADO.filter(g=>g.estilo===e.id).length;
-    /* Sólo nombre y cuenta. La descripción ("más fino, con circonitas")
-       ocupaba dos líneas por botón y empujaba los anillos fuera de la
-       primera pantalla, que es donde se decide si alguien sigue o se va. */
+  /* Botones de estilo */
+  let html = ESTILOS.map(e=>{
+    const n = GRADO.filter(g=>g.disponible!==false && g.estilo===e.id).length;
     return `<button class="estilo" type="button" data-estilo="${esc(e.id)}" aria-pressed="false">
       <span class="estilo__n">${esc(e.nombre)} · ${n}</span>
     </button>`;
   }).join("");
+  /* Toggle tipo joya */
+  const nJoya = GRADO.filter(g=>g.disponible!==false && g.tipo_joya).length;
+  if(nJoya > 0){
+    html += `<button class="estilo estilo--joya" type="button" data-tipo-joya aria-pressed="false">
+      <span class="estilo__n">Tipo Joya · ${nJoya}</span>
+    </button>`;
+  }
+  c.innerHTML = html;
   c.addEventListener("click", ev=>{
+    /* Toggle tipo joya */
+    const bj = ev.target.closest("[data-tipo-joya]");
+    if(bj){
+      tipoJoyaActivo = !tipoJoyaActivo;
+      bj.setAttribute("aria-pressed", String(tipoJoyaActivo));
+      visiblesGrado = TANDA;
+      pintarGrado();
+      if(tipoJoyaActivo) destellarGrid();
+      return;
+    }
+    /* Botones de estilo */
     const b = ev.target.closest(".estilo"); if(!b) return;
     estiloActivo = estiloActivo === b.dataset.estilo ? null : b.dataset.estilo;
     visiblesGrado = TANDA;
-    $$(".estilo", c).forEach(x=>x.setAttribute("aria-pressed", String(x.dataset.estilo===estiloActivo)));
+    $$(".estilo:not([data-tipo-joya])", c).forEach(x=>x.setAttribute("aria-pressed", String(x.dataset.estilo===estiloActivo)));
     pintarGrado();
     if(estiloActivo) destellarGrid();
   });
@@ -2194,10 +2393,21 @@ let estiloActivo = null;
 
 function pintarGrado(){
   reconstruirIndice();
-  /* Los dos filtros se aplican en cadena: piedra y estilo. */
-  let filtrados = piedraActiva ? GRADO.filter(g=>g.piedra===piedraActiva) : GRADO;
+  /* Los filtros se aplican en cadena: disponible → piedra → estilo.
+     Una pieza con disponible:false se oculta de todo el catálogo. */
+  const disponibles = GRADO.filter(g=>g.disponible !== false);
+  let filtrados = piedraActiva ? disponibles.filter(g=>g.piedra===piedraActiva) : disponibles;
   if(estiloActivo) filtrados = filtrados.filter(g=>g.estilo===estiloActivo);
-  const resto     = piedraActiva ? GRADO.filter(g=>g.piedra!==piedraActiva) : [];
+  if(tipoJoyaActivo) filtrados = filtrados.filter(g=>g.tipo_joya);
+  /* Orden por defecto: tipo_joya primero, luego moderno, luego clásico.
+     Así los anillos finos/estéticos (los que más se venden) aparecen arriba. */
+  filtrados.sort((a,b)=>{
+    const pa = (a.tipo_joya?0:1), pb = (b.tipo_joya?0:1);
+    if(pa!==pb) return pa-pb;
+    const ea = a.estilo==="moderno"?0:1, eb = b.estilo==="moderno"?0:1;
+    return ea-eb;
+  });
+  const resto     = piedraActiva ? disponibles.filter(g=>g.piedra!==piedraActiva) : [];
   /* Con filtro de color caben todos (son pocos); sin filtro va por tandas. */
   const aMostrar = piedraActiva ? filtrados : filtrados.slice(0, visiblesGrado);
   $("#grado-grid").innerHTML = aMostrar.map(p=>tarjeta(p, INDICE.indexOf(p))).join("");
@@ -2221,64 +2431,122 @@ function pintarGrado(){
         <button class="vermas__btn" type="button" id="verTodasAbajo">Ver los ${resto.length} modelos</button>
         <p class="vermas__cuenta punzon">Sin filtro de color</p>
       </div>` : ""}`;
-  if($("#registro-grid").innerHTML) pintarRegistro();
+  if($("#catalogo").innerHTML) pintarCatalogo();
 }
 /* "Recién llegados" es una pestaña virtual: junta las piezas marcadas con
    nuevo:true de todas las categorías. Si no hay ninguna, no aparece.
    Así basta con poner nuevo:true en catalogo.js para publicar una novedad. */
-const NOVEDADES = "Recién llegados";
-function piezasNuevas(){
-  return [...GRADO, ...Object.values(REGISTRO).flat()].filter(p => p.nuevo);
-}
 /* Devuelve SIEMPRE un array: una categoría que no existe es un catálogo
    vacío, no un fallo que tumbe la página. */
 function piezasDe(cat){
-  if(cat === NOVEDADES) return piezasNuevas();
-  return Array.isArray(REGISTRO[cat]) ? REGISTRO[cat] : [];
+  const arr = Array.isArray(REGISTRO[cat]) ? REGISTRO[cat] : [];
+  return arr.filter(p => p.disponible !== false);
 }
-const cats = (piezasNuevas().length ? [NOVEDADES] : []).concat(Object.keys(REGISTRO));
-let catActiva = cats[0];
-/* Rejilla en vez de carril horizontal: con 7 categorías, deslizar de lado
-   escondía la mitad. Aquí se ven todas de una, con su cuenta de piezas. */
-$(".cats").innerHTML = cats.map(c=>`
-  <button class="cat" role="tab" type="button" data-cat="${c}" aria-selected="${c===catActiva}">
-    <span class="cat__n">${esc(c)}</span>
-    <span class="cat__c">${piezasDe(c).length}</span>
-  </button>`).join("");
-$(".cats").addEventListener("click", e=>{
-  const t = e.target.closest(".cat"); if(!t) return;
-  catActiva = t.dataset.cat;
-  visiblesCatalogo = TANDA;
-  $$(".cat").forEach(b=>b.setAttribute("aria-selected", String(b.dataset.cat===catActiva)));
-  /* Se apunta a las piezas, no al titular: al tocar una categoría el resultado
-     queda bajo el pliegue y parecía que no había pasado nada. */
-  irA("#registro-grid");
-  pintarRegistro();
-});
-function pintarRegistro(){
+
+/* Cada categoría con piezas se pinta como su propia sección dentro de
+   #catalogo. Sin pestañas: el usuario hace scroll y las ve todas. */
+function pintarCatalogo(){
   reconstruirIndice();
-  const todas = piezasDe(catActiva);
-  const aMostrar = todas.slice(0, visiblesCatalogo);
-  $("#registro-grid").innerHTML = aMostrar.map(p=>tarjeta(p, INDICE.indexOf(p))).join("");
-  pintarVerMas("registro", aMostrar.length, todas.length);
+  const contenedor = $("#catalogo");
+  const categorias = Object.keys(REGISTRO).filter(c => piezasDe(c).length > 0);
+  /* "Recién llegados" encima de todo si hay piezas con nuevo:true */
+  const nuevas = [...GRADO, ...Object.values(REGISTRO).flat()].filter(p => p.nuevo && p.disponible !== false);
+
+  let html = "";
+  if(nuevas.length){
+    html += `<section class="section" id="cat-nuevos">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <h2 class="section__title">Recién llegados</h2>
+        </div>
+        <div class="grid">${nuevas.map(p=>tarjeta(p, INDICE.indexOf(p))).join("")}</div>
+      </div></section>`;
+  }
+  for(const cat of categorias){
+    const piezas = piezasDe(cat);
+    const slug = cat.toLowerCase().replace(/\s+/g,"-").replace(/[^a-z0-9-]/g,"");
+    const limite = visiblesPorCat[slug] || CAT_INICIAL;
+    const visibles = piezas.slice(0, limite);
+    const faltan = piezas.length - visibles.length;
+    html += `<section class="section" id="cat-${esc(slug)}">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <h2 class="section__title">${esc(cat)}</h2>
+          <div class="aviso-precio">
+            <p class="aviso-precio__p">Precios en <strong>plata Ley 950</strong>. Abre la pieza para verla en oro.</p>
+          </div>
+        </div>
+        <div class="grid">${visibles.map(p=>tarjeta(p, INDICE.indexOf(p))).join("")}</div>
+        ${faltan > 0 ? `<div class="vermas" style="text-align:center;padding:var(--s5) 0">
+          <button class="btn btn--ghost vermas__btn-cat" data-cat="${esc(slug)}" type="button">Ver ${Math.min(faltan, TANDA)} mas</button>
+          <span class="punzon" style="display:block;margin-top:var(--s2);opacity:.5">${visibles.length} de ${piezas.length}</span>
+        </div>` : ""}
+      </div></section>`;
+  }
+
+  /* Sección transversal: Stock Limitado / Piezas Únicas */
+  const stockPiezas = [...GRADO, ...Object.values(REGISTRO).flat()].filter(p => (p.stock || p.unica) && p.disponible !== false);
+  if(stockPiezas.length){
+    html += `<section class="section" id="cat-stock-limitado">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <h2 class="section__title section__title--destacado">Stock Limitado</h2>
+          <div class="aviso-precio">
+            <p class="aviso-precio__p">Piezas listas para entregar. Disponibilidad sujeta a existencia.</p>
+          </div>
+        </div>
+        <div class="grid">${stockPiezas.map(p=>tarjeta(p, INDICE.indexOf(p))).join("")}</div>
+      </div></section>`;
+  }
+
+  contenedor.innerHTML = html;
+
+  /* Actualizar enlaces del índice lateral con las cantidades reales */
+  const indiceCat = $("#indiceCatalogo");
+  if(indiceCat){
+    let linksHtml = '<span class="punzon indice__titulo">Nuestro catálogo</span>';
+    linksHtml += `<a class="indice__link indice__link--dest" href="#grado">Anillos de Grado <span>${GRADO.length}</span></a>`;
+    if(nuevas.length)
+      linksHtml += `<a class="indice__link" href="#cat-nuevos">Recién llegados <span>${nuevas.length}</span></a>`;
+    for(const cat of categorias){
+      const slug = cat.toLowerCase().replace(/\s+/g,"-").replace(/[^a-z0-9-]/g,"");
+      linksHtml += `<a class="indice__link" href="#cat-${esc(slug)}">${esc(cat)} <span>${piezasDe(cat).length}</span></a>`;
+    }
+    /* Stock limitado / piezas únicas */
+    const stockPiezas = [...GRADO, ...Object.values(REGISTRO).flat()].filter(p => (p.stock || p.unica) && p.disponible !== false);
+    if(stockPiezas.length)
+      linksHtml += `<a class="indice__link indice__link--dest" href="#cat-stock-limitado">Stock Limitado <span>${stockPiezas.length}</span></a>`;
+    /* Los aros de matrimonio, compromiso y matrimonio con piedras
+       ahora aparecen automáticamente como categorías de REGISTRO */
+    /* Bluecast como último ítem del catálogo — es un producto B2B */
+    linksHtml += `<a class="indice__link indice__link--taller" href="#faq-taller-b2b" data-faq="faq-taller-b2b">Resina Bluecast</a>`;
+    indiceCat.innerHTML = linksHtml;
+  }
+
+  /* Re-observar los .reveal que acaban de crearse dinámicamente */
+  if(window.__revealIO){
+    contenedor.querySelectorAll(".reveal:not(.is-in)").forEach(el=>{
+      window.__revealIO.observe(el);
+    });
+  }
 }
 /* El enlace vivía dentro del modal, que es una capa fija: al pulsarlo no
    pasaba nada visible porque el modal seguía tapando la página. */
 document.addEventListener("click", e=>{
   if(e.target.closest(".campo__enlace")){
     e.preventDefault();
-    /* Al cerrar, el modal devuelve el foco a la tarjeta que lo abrió — y eso
-       arrastra la página de vuelta arriba, anulando el desplazamiento. Se
-       anula esa devolución sólo aquí: el destino es la calculadora. */
+    const enlace = e.target.closest(".campo__enlace");
+    const destino = enlace.getAttribute("href").slice(1);
     /* Al cerrar, el modal devuelve el foco a la tarjeta que lo abrió — y eso
        arrastra la página de vuelta arriba. Se anula sólo aquí. */
     ultimoFoco = null;
     cerrarModal();
-    /* Sin requestAnimationFrame: no se ejecuta si la pestaña está en segundo
-       plano, y esto responde a un clic del cliente. Desbloquear el fondo es
-       síncrono, así que se puede desplazar de inmediato. */
-    irA("#talla");
-    setTimeout(()=>$("#tallaInput").focus({preventScroll:true}), 0);
+    /* Si el destino es un FAQ, abrirlo antes de desplazar */
+    const det = document.getElementById(destino);
+    if(det && det.tagName === "DETAILS" && !det.open) det.open = true;
+    irA("#" + destino);
+    if(destino === "faq-talla")
+      setTimeout(()=>$("#tallaInput").focus({preventScroll:true}), 0);
     medir("abre_calculadora_talla", {desde:"modal"});
     return;
   }
@@ -2311,14 +2579,53 @@ function campoSelect(label, key, valores, sufijo, ayuda){
   </div>`;
 }
 function pintarCampos(){
-  const campos = CAMPOS[actual.tipo] || ["material"];
+  /* Piezas de stock limitado o únicas: personalización restringida.
+     Solo se permite elegir talla (si aplica) y grabado. El material,
+     color, piedra y medida vienen fijos de fábrica. */
+  const esStock = actual.stock || actual.unica;
+  const camposFull = CAMPOS[actual.tipo] || ["material"];
+  const campos = esStock
+    ? camposFull.filter(c => ["talla","grabado"].includes(c))
+    : actual.variantes
+    ? camposFull.filter(c => !["material","color","acabado"].includes(c))
+    : camposFull;
   let html = "";
+  /* Variantes: selector de estilo con precio directo */
+  if(actual.variantes){
+    html += campoOpciones("Estilo","variante",
+      actual.variantes.map(v=>({id:v.id, label:v.label+" — $"+v.precio})),
+      "Selecciona el estilo que prefieres.");
+  }
+  if(esStock){
+    html += `<div class="campo">
+      <p class="campo__ayuda" style="margin:0;color:var(--ink-2)">
+        ${actual.unica ? "Pieza única — tal como la ves." : "Stock limitado — la pieza viene lista."}
+        ${campos.length ? "Solo puedes elegir:" : "No tiene personalización."}
+      </p>
+    </div>`;
+  }
   for(const c of campos){
-    if(c==="material") html += campoOpciones("Material y ley","material",MATERIALES);
+    if(c==="material"){
+      /* Cadenas solo se fabrican en Oro 18k o Plata Ley 950 */
+      const matFilt = actual.tipo==="cadena" ? MATERIALES.filter(m=>m.id==="950"||m.id==="18k") : MATERIALES;
+      html += campoOpciones("Material y ley","material",matFilt,
+        actual.tipo==="cadena" ? "Las cadenas solo se fabrican en oro 18k o plata Ley 950." : "");
+    }
     if(c==="color" && sel.material!=="950")
       html += campoOpciones("Color del oro","color",COLORES, sel.color==="blanco" ? "El oro blanco lleva baño de rodio." : "");
-    if(c==="talla")   html += campoSelect("Talla","talla",TALLAS,"", '<a href="#talla" class="campo__enlace">Calcula tu talla aquí</a>. Si queda apretada, la agrandamos gratis.');
-    if(c==="largo")   html += campoSelect("Largo","largo",LARGOS," cm");
+    if(c==="medida"){
+      /* 4x3 NO existe para anillos de grado — en todo lo demás sí aplica */
+      const medFilt = actual.tipo==="grado" ? MEDIDAS.filter(m=>m.id!=="4x3") : MEDIDAS;
+      html += campoOpciones("Tamaño de piedra","medida",
+                          medFilt.map(m=>({id:m.id, label:m.nombre+" · "+m.id})),
+                          "La más pedida es la Clásica (6×8 mm). El precio sube con la medida. <a href=\"#faq-medidas\" class=\"campo__enlace\">Ver las medidas a escala</a>");
+    }
+    if(c==="tejido" && typeof TEJIDOS!=="undefined")
+      html += campoOpciones("Tipo de tejido","tejido",
+        TEJIDOS.map(t=>({id:t.id, label:t.nombre})),
+        "El tejido es cómo se entrelazan los eslabones.");
+    if(c==="talla")   html += campoSelect("Talla","talla",TALLAS,"", '<a href="#faq-talla" class="campo__enlace">Calcula tu talla aquí</a>. Si queda apretada, la agrandamos gratis.');
+    if(c==="largo")   html += campoSelect("Largo","largo",LARGOS," cm","Todas las cadenas se fabrican desde 45 cm en adelante.");
     if(c==="largoP")  html += campoSelect("Largo","largoP",LARGOSP," cm");
     if(c==="acabado") html += campoOpciones("Acabado","acabado",ACABADOS);
     if(c==="piedra")  html += campoOpciones("Piedra y carrera","piedra",
@@ -2327,6 +2634,13 @@ function pintarCampos(){
     if(c==="piedraOpc") html += campoOpciones("Piedra","piedraOpc",
                           [{id:"", label:"Sin piedra"}].concat(ESPECTRO.map(s=>({id:s.id,label:s.piedra,c:s.c}))),
                           "Opcional. Cualquier piedra va en esta pieza.");
+    if(c==="carrera") html += `<div class="campo">
+        <label class="punzon campo__label" for="f-carrera">Tu carrera</label>
+        <input type="text" id="f-carrera" data-key="carrera" maxlength="60"
+               placeholder="Ej: Ingeniería Informática, Abogado, Medicina..."
+               value="${esc(sel.carrera||"")}">
+        <p class="campo__ayuda">Para saber el color de piedra que te corresponde.</p>
+      </div>`;
     if(c==="grabado") html += `<div class="campo">
         <label class="punzon campo__label" for="f-grabado">Grabado interno · gratis</label>
         <input type="text" id="f-grabado" data-key="grabado" maxlength="28"
@@ -2367,21 +2681,34 @@ function actualizarPrecio(){
 }
 function resumen(sel){
   const mat = MATERIALES.find(m=>m.id===sel.material);
-  const bits = [mat ? mat.label : ""];
-  if(sel.color && sel.material!=="950") bits.push("oro "+sel.color);
+  const bits = [];
+  const esVariante = sel.variante && actual && actual.variantes;
+  if(esVariante){
+    const v = actual.variantes.find(x=>x.id===sel.variante);
+    if(v) bits.push(v.label);
+  } else {
+    bits.push(mat ? mat.label : "");
+    if(sel.color && sel.material!=="950") bits.push("oro "+sel.color);
+    if(sel.acabado) bits.push(ACABADOS.find(a=>a.id===sel.acabado).label.toLowerCase());
+  }
+  if(sel.tejido && typeof TEJIDOS!=="undefined"){
+    const t = TEJIDOS.find(x=>x.id===sel.tejido);
+    if(t) bits.push(t.nombre.toLowerCase());
+  }
+  if(sel.medida && !esVariante) bits.push("piedra "+sel.medida+" mm");
   if(sel.talla)  bits.push("talla "+sel.talla);
   if(sel.largo)  bits.push(sel.largo+" cm");
   if(sel.largoP) bits.push(sel.largoP+" cm");
-  if(sel.piedra) bits.push(CARRERA[sel.piedra].piedra+" ("+CARRERA[sel.piedra].carrera+")");
-  if(sel.piedraOpc) bits.push("con piedra "+CARRERA[sel.piedraOpc].piedra.toLowerCase());
-  if(sel.acabado) bits.push(ACABADOS.find(a=>a.id===sel.acabado).label.toLowerCase());
+  if(sel.piedra && CARRERA[sel.piedra] && !esVariante) bits.push(CARRERA[sel.piedra].piedra+" ("+CARRERA[sel.piedra].carrera+")");
+  if(sel.carrera && sel.carrera.trim()) bits.push("carrera: "+sel.carrera.trim());
+  if(sel.piedraOpc && CARRERA[sel.piedraOpc]) bits.push("con piedra "+CARRERA[sel.piedraOpc].piedra.toLowerCase());
   if(sel.grabado && sel.grabado.trim()) bits.push('grabado "'+sel.grabado.trim()+'"');
   return bits.filter(Boolean).join(" · ");
 }
 function mensaje(p, sel, total){
   const regalo = p.tipo === "grado" && sel.material !== "950"
     ? "\n(Incluye las copias en plata)" : "";
-  return `Hola, me interesa el ${p.n}.\n${resumen(sel)}\nAproximado: ${fmt(total)}${regalo}`;
+  return `Hola, quisiera cotizar el ${p.n}.\n${resumen(sel)}\nPrecio aproximado en la pagina: ${fmt(total)}${regalo}\nMe gustaria confirmar el precio exacto.`;
 }
 function abrirModal(p){
   actual = p;
@@ -2390,11 +2717,15 @@ function abrirModal(p){
     color: "amarillo",
     acabado: "pulido",
     grabado: "",
+    carrera: "",
     piedra: p.piedra || null,
     piedraOpc: "",
-    talla: ["grado","anillo","aro"].includes(p.tipo) ? 7 : null,
+    medida: p.medida || "6x8",
+    tejido: p.tejido || (p.tipo==="cadena" ? "marino" : null),
+    talla: ["grado","anillo","aro","matrimonio","compromiso"].includes(p.tipo) ? 7 : null,
     largo: p.tipo==="cadena" ? 45 : null,
-    largoP: p.tipo==="pulsera" ? 18 : null
+    largoP: p.tipo==="pulsera" ? 18 : null,
+    variante: p.variantes ? p.variantes[0].id : null
   };
   $("#modalTitle").textContent = p.n;
   $("#modalSeal").textContent = p.institucion ? p.institucion
@@ -2412,7 +2743,7 @@ function abrirModal(p){
        ${tomas.length>1 ? `<div class="galeria">${tomas.map((t,i)=>
          `<button class="galeria__b${i?"":" is-on"}" type="button" data-toma="${esc(t)}"
                   aria-label="Ver toma ${i+1} de ${tomas.length}">
-            <img src="assets/img/${esc(t)}" alt="" loading="lazy">
+            <img src="assets/img/${esc(t)}" alt="" loading="lazy" width="52" height="52">
           </button>`).join("")}</div>` : ""}`
     : `<div class="modal__ficha" aria-hidden="true"><span class="modal__ficha-name">${esc(p.n)}</span>
        <span class="punzon" style="color:var(--ink-2)">Foto en camino</span></div>`;
@@ -2492,13 +2823,13 @@ $("#modalCampos").addEventListener("change", e=>{
 });
 $("#modalCampos").addEventListener("input", e=>{
   if(e.target.id==="f-grabado"){ sel.grabado = e.target.value; actualizarPrecio(); }
+  if(e.target.id==="f-carrera"){ sel.carrera = e.target.value; actualizarPrecio(); }
 });
 
 /* ---------- Índice ----------
-   Panel lateral con todo el mapa del sitio: las categorías de producto para
-   quien viene a comprar, y el bloque de taller para la joyería que viene a
-   buscar quién le fabrique. Un enlace de categoría además selecciona su
-   pestaña en el Registro antes de bajar, para que no haya que buscarla. */
+   Panel lateral con todo el mapa del sitio: las categorías de producto y el
+   bloque de taller/FAQ. Cada enlace de categoría apunta directamente a su
+   sección (ya no hay pestañas). Los enlaces de FAQ abren el <details>. */
 const indice = $("#indice"), menuBtn = $("#menuBtn");
 function abrirIndice(){
   indice.classList.add("is-open");
@@ -2522,22 +2853,17 @@ indice.addEventListener("click", e=>{
   if(!a) return;
   e.preventDefault();
   const destino = a.getAttribute("href").slice(1);
-  const cat = a.dataset.cat;
   cerrarIndice();
-  /* Se comprueba que la categoría EXISTA. Los enlaces del índice traen el
-     nombre quemado en el markup; si se renombra una categoría en catalogo.js,
-     piezasDe() devolvía undefined, reventaba en .slice y el catálogo dejaba
-     de repintarse — se quedaba con las piezas anteriores bajo otro titular.
-     Y el selector era ".tab", clase que no existe: la buena es ".cat". */
-  if(cat && cats.includes(cat)){
-    catActiva = cat;
-    visiblesCatalogo = TANDA;
-    $$(".cat").forEach(b=>b.setAttribute("aria-selected", String(b.dataset.cat===cat)));
-    pintarRegistro();
+  /* Si el enlace apunta a un FAQ, abrirlo antes de hacer scroll */
+  const faqId = a.dataset.faq;
+  if(faqId){
+    const det = document.getElementById(faqId);
+    if(det && !det.open) det.open = true;
   }
   const el = document.getElementById(destino);
-  if(el) requestAnimationFrame(()=>
-    el.scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"}));
+  /* irA() descuenta el nav fijo; scrollIntoView no — la sección quedaba
+     medio tapada. Bug reportado por la dueña. */
+  if(el) requestAnimationFrame(()=> irA(el, true));
 });
 
 /* ============================================================
@@ -2575,64 +2901,23 @@ function medir(evento, datos){
 }
 
 /* 1. Clics a WhatsApp — la conversión real.
-   Además de medir, garantiza que el enlace ABRA. Dos problemas reales:
-
-   a) Sin target="_blank", ir a WhatsApp reemplaza la pestaña: el cliente
-      pierde el catálogo y el pedido que llevaba armado.
-   b) Si la página está incrustada en un iframe (vista previa, Instagram,
-      Facebook, algunos navegadores dentro de apps), la navegación de primer
-      nivel a un dominio externo se bloquea EN SILENCIO: el botón parece
-      muerto, o WhatsApp responde que la petición está bloqueada.
-
-   El target ya va en el markup, así que sin JS los enlaces funcionan igual.
-   Esto es la red de seguridad: abre en pestaña nueva y, si el navegador
-   bloquea la ventana emergente, sale del iframe por la vía de arriba. */
+   Antes había una cadena de intentos (window.open → top → mismo marco) que
+   daba problemas en algunos navegadores. Ahora se deja que el enlace nativo
+   funcione solo: target="_blank" ya va en el markup, así que sin JS abre
+   igual. Aquí solo se mide el clic para saber qué piezas consultan. */
 if(!window.__waEnganchado){
-  window.__waEnganchado = true;   // evita doble enganche si el script se recarga
+  window.__waEnganchado = true;
   document.addEventListener("click", e=>{
     const a = e.target.closest('a[href*="wa.me"]'); if(!a) return;
-
     const origen = a.dataset.wa
       || (a.id === "pedidoWa" ? "pedido" : a.id === "modalWa" ? "ficha-producto" : "otro");
     medir("whatsapp", {origen, seccion: a.closest("section")?.id || "nav"});
-
-    /* Los enlaces cuyo href se reescribe por JS (#modalWa, #pedidoWa) podrían
-       perder los atributos: se reponen antes de abrir. */
+    /* Seguridad: reponer atributos por si el JS los reescribió. */
     a.target = "_blank";
     a.rel = "noopener noreferrer";
-
-    const url = a.href;
-    if(!url || url.indexOf("wa.me/") === -1) return;
-    e.preventDefault();
-    /* Se recupera el mensaje del propio href para no duplicar la lógica. */
-    let texto = "";
-    try{ texto = new URL(url).searchParams.get("text") || ""; }catch(_){}
-    abrirWhatsApp(urlWhatsApp(texto), url);
+    /* No se llama preventDefault: el enlace nativo abre wa.me, que es la
+       forma más fiable y la que funciona dentro de Instagram/Facebook. */
   });
-}
-
-/* Se abre en tres intentos, de mejor a peor. Las dependencias se pasan como
-   parámetros para poder probar cada rama sin depender del navegador real. */
-function abrirWhatsApp(url, respaldo, abridor, arriba, aqui){
-  abridor = abridor || ((u,t,f)=>window.open(u,t,f));
-  arriba  = arriba  || (u=>{ window.top.location.href = u; });
-  aqui    = aqui    || (u=>{ window.location.href = u; });
-  respaldo = respaldo || url;
-
-  // 1) pestaña nueva con la URL directa: no pierde el pedido a medio armar
-  let ventana = null;
-  try{ ventana = abridor(url, "_blank", "noopener,noreferrer"); }catch(_){}
-  if(ventana && !ventana.closed) return "pestaña";
-
-  // 2) emergente bloqueada: se sale del iframe por la ventana de arriba
-  try{ arriba(url); return "top"; }catch(_){}
-
-  // 3) mismo marco, URL directa
-  try{ aqui(url); return "aqui"; }catch(_){}
-
-  // 4) último recurso: wa.me, que funciona donde sea aunque dé un salto de más
-  try{ aqui(respaldo); return "respaldo"; }catch(_){}
-  return "falló";
 }
 
 /* 2. Qué piezas abre la gente: dice qué fabricar aunque no compren. */
@@ -2686,7 +2971,9 @@ const MODOS = {
   }
 };
 
-const tallaSec = $("#talla");
+/* La calculadora de talla vive dentro de #faq-talla. El guard comprueba que
+   el DOM exista: si se elimina la pregunta, el bloque no falla. */
+const tallaSec = $("#faq-talla");
 if(tallaSec){
   let modoTalla = "anillo";
   const $ins = $("#tallaInstruccion"), $lbl = $("#tallaLabel");
@@ -2846,7 +3133,7 @@ const PX_MM = 7.5;
 })();
 
 /* ---------- Arranque ---------- */
-pintarGrado(); pintarRegistro(); pintarPedido();
+pintarGrado(); pintarCatalogo(); pintarPedido();
 
 /* ---------- Gráfico del oro ----------
    Promedio anual de la onza en dólares. Fuente: series históricas del precio
@@ -2902,30 +3189,54 @@ if(reduce){
   new IntersectionObserver((ent,o)=>{
     ent.forEach(x=>{ if(x.isIntersecting){ esp.classList.add("is-struck"); o.disconnect(); }});
   },{threshold:.35}).observe(esp);
-  const io = new IntersectionObserver(ent=>{
+  /* El observer se guarda en window para que pintarCatalogo() pueda
+     registrar las secciones que crea después del arranque. */
+  window.__revealIO = new IntersectionObserver(ent=>{
     ent.forEach(x=>{
       /* isIntersecting cubre "entró por abajo". boundingClientRect.top < 0
          cubre "ya lo pasaste": al llegar por un enlace del índice, las
          secciones de arriba se quedaban invisibles hasta volver a subir. */
       if(x.isIntersecting || x.boundingClientRect.top < 0){
-        x.target.classList.add("is-in"); io.unobserve(x.target);
+        x.target.classList.add("is-in"); window.__revealIO.unobserve(x.target);
       }
     });
   },{threshold:.15});
-  $$(".reveal").forEach(el=>io.observe(el));
+  $$(".reveal").forEach(el=>window.__revealIO.observe(el));
 
-  /* La escalera de quilates del hero anterior ya no existe. El intervalo se
-     quedó corriendo sobre una lista vacía y lanzaba un error cada 1,6 s.
-     Se conserva la animación sólo si los elementos están presentes. */
-  const ks = $$(".hero__k");
-  if(ks.length){
-    let ki = 0;
-    setInterval(()=>{
-      ks.forEach(k=>k.classList.remove("hero__k--on"));
-      ks[ki].classList.add("hero__k--on");
-      ki = (ki+1) % ks.length;
-    }, 1600);
-  }
+  /* Acordeón fluido: el cierre nativo de <details> elimina [open] de golpe,
+     así que la animación de 0fr→1fr no se ve al cerrar. Se intercepta el click
+     en el summary para animar primero y quitar [open] al terminar. */
+  $$(".faq__item").forEach(det=>{
+    const summary = det.querySelector(".faq__q");
+    if(!summary) return;
+    summary.addEventListener("click", e=>{
+      e.preventDefault();
+      if(det.open){
+        /* Cerrar: colapsar la fila y después quitar [open] */
+        const wrap = det.querySelector(".faq__a-wrap");
+        const inner = det.querySelector(".faq__a");
+        if(wrap){
+          wrap.style.gridTemplateRows = "0fr";
+          inner.style.paddingBottom = "0";
+          const limpiar = ()=>{
+            det.open = false;
+            wrap.style.gridTemplateRows = "";
+            inner.style.paddingBottom = "";
+          };
+          /* transitionend no es fiable en grid-template-rows en todos
+             los navegadores. Fallback: limpiar después de la duración. */
+          let hecho = false;
+          const fin = ()=>{ if(!hecho){ hecho=true; limpiar(); } };
+          wrap.addEventListener("transitionend", fin, {once:true});
+          setTimeout(fin, 400);
+        } else { det.open = false; }
+      } else {
+        /* Abrir: el CSS se encarga de la transición automáticamente */
+        det.open = true;
+      }
+    });
+  });
+
 }
 
 /* Cada enlace de WhatsApp lleva su propio mensaje prellenado según de dónde
@@ -2935,6 +3246,7 @@ const MENSAJES = {
   medida:   "Hola, quiero cotizar una pieza a la medida. Les mando la foto de referencia.",
   taller:   "Hola, tengo una joyería y quiero consultar por servicios de orfebrería al mayor.",
   bluecast: "Hola, quiero consultar por la resina Bluecast: disponibilidad y precio.",
+  personaliza: "Hola, quiero fabricar una pieza personalizada. Les envío la imagen de referencia.",
   /* Cada botón dice por qué se escribe: así los mensajes llegan ya clasificados
      y se responde sin tener que preguntar primero qué necesita la persona. */
   talla:    "Hola, no sé cuál es mi talla de anillo. ¿Me ayudan a medirla?",

@@ -25,10 +25,12 @@
 }
 
 /* --- Jost — cuerpo, navegación e interfaz --- */
+/* El woff2 es variable (wght 100-900); se declara 300-700 que es el rango
+   que el CSS realmente usa (300, 400, 500, 600 y un 700 en strong del FAQ). */
 @font-face{
   font-family:'Jost';
   font-style:normal;
-  font-weight:300 400;
+  font-weight:300 700;
   font-display:swap;
   src:url('fuentes/jost-300-400.woff2') format('woff2');
 }
