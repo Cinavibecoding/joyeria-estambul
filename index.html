@@ -366,10 +366,11 @@ button{font:inherit;color:inherit}
 .seg[aria-pressed="true"] .seg__chip{height:52px;box-shadow:inset 0 0 0 2px var(--ink)}
 .seg[aria-pressed="true"] .seg__label{color:var(--ink);font-weight:500}
 @media(max-width:640px){
-  .espectro__bar{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4) var(--s2)}
-  .seg__caja{height:56px}
-  .seg__chip{height:44px}
-  .seg__label{font-size:.625rem;letter-spacing:.04em}
+  .espectro__bar{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3) var(--s2)}
+  .seg__caja{height:40px}
+  .seg__chip{height:32px}
+  .seg__label{font-size:.5625rem;letter-spacing:.04em}
+  .espectro{padding-block:var(--s5)}
 }
 /* Panel de la piedra escogida. Resuelve dos cosas medidas en uso: que el
    cliente quiere saber qué significa su color, y que al pulsar un color no era
@@ -435,10 +436,11 @@ button{font:inherit;color:inherit}
    Va pegada a la barra porque es donde nace la duda. */
 .espectro__pie{display:flex;flex-direction:column;gap:var(--s3);align-items:flex-start}
 .espectro__libre{
-  margin:0;max-width:64ch;color:var(--ink-2);font-size:.9375rem;
-  border-left:2px solid var(--lacre);padding-left:var(--s4);
+  margin:0;max-width:64ch;color:var(--ink);font-size:1.0625rem;
+  background:var(--t-oro);border-left:3px solid var(--lacre);
+  padding:var(--s4);border-radius:0 4px 4px 0;line-height:1.55;
 }
-.espectro__libre strong{color:var(--ink);font-weight:600}
+.espectro__libre strong{color:var(--lacre);font-weight:700;font-size:1.125rem}
 
 /* ---------- 5 · Secciones ---------- */
 .section{padding-block:var(--s7)}
@@ -459,11 +461,18 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .aviso-precio{
   margin-top:var(--s4);max-width:64ch;
   display:flex;flex-direction:column;gap:var(--s2);
+  background:var(--t-oro);border-left:3px solid var(--lacre);
+  padding:var(--s4);border-radius:0 4px 4px 0;
 }
-.aviso-precio__p{margin:0;color:var(--ink-2);font-size:.875rem;line-height:1.6}
-.aviso-precio__p strong{color:var(--ink);font-weight:500}
+.aviso-precio__p{margin:0;color:var(--ink);font-size:.9375rem;line-height:1.6}
+.aviso-precio__p strong{color:var(--lacre);font-weight:600}
+.aviso-precio__p a{color:var(--lacre);font-weight:700;text-underline-offset:3px}
 .aviso-precio__p--regalo{
-  color:var(--lacre);font-weight:500;
+  color:var(--lacre);font-weight:600;
+}
+.aviso-precio__desde{
+  font-family:var(--display);font-size:1.25rem;font-weight:600;
+  color:var(--ink);margin:0;
 }
 
 .grid{display:grid;gap:var(--s4);grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -1344,8 +1353,9 @@ document.documentElement.classList.add("js");
       <h2 class="section__title section__title--destacado" id="grado-t">Anillos de Grado</h2>
       <p class="section__lede">Diez modelos. Ábrelos y escoge quilate, talla, piedra y grabado.</p>
       <div class="aviso-precio">
-        <p class="aviso-precio__p">Precio base de referencia en <strong>plata Ley 950</strong>. El precio final depende de la medida de la piedra, si lleva piedreria (tipo joya) y el material. El precio puede ser menor o mayor segun tu personalizacion. <a href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer"><strong>Escribe por WhatsApp</strong></a> para la cotizacion exacta de tu pieza.</p>
-        <p class="aviso-precio__p">Todos los laterales del anillo son personalizables: carrera, universidad, ano, nombre. Pregunta por WhatsApp.</p>
+        <p class="aviso-precio__desde">Anillos de grado desde $100 en plata Ley 950.</p>
+        <p class="aviso-precio__p"><strong>El precio puede ser menor o mayor segun tu personalizacion.</strong> Depende de la medida de la piedra, si lleva piedreria (tipo joya) y el material. <a href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer"><strong>Escribe por WhatsApp</strong></a> para la cotizacion exacta de tu pieza.</p>
+        <p class="aviso-precio__p">Todos los laterales del anillo son personalizables: carrera, universidad, año, nombre. Pregunta por WhatsApp.</p>
         <p class="aviso-precio__p aviso-precio__p--regalo">En oro, las copias en plata van incluidas.</p>
       </div>
     </div>
