@@ -2017,9 +2017,15 @@ function calcular(p, sel){
    —empezar en oro— la mitad se va antes de tocar nada. */
 const MATERIAL_BASE = "950";
 function precioDesde(p){
+  /* Para grado: "desde" = la medida más barata de su estilo (6x4 = $100). */
+  let medDesde = p.medida || "6x8";
+  if(p.tipo === "grado" && typeof PRECIOS_GRADO !== "undefined"){
+    const tabla = PRECIOS_GRADO[p.estilo || "clasico"] || PRECIOS_GRADO.clasico;
+    medDesde = Object.keys(tabla).reduce((a,b) => tabla[a] <= tabla[b] ? a : b);
+  }
   return calcular(p, {
     material: p.metalBase || MATERIAL_BASE,
-    medida: p.medida || "6x8",
+    medida: medDesde,
     tejido: p.tejido || (p.tipo==="cadena" ? "marino" : null),
     talla: ["grado","anillo","aro","matrimonio","compromiso"].includes(p.tipo) ? 7 : null,
     largo: p.tipo==="cadena" ? 45 : null,
@@ -2385,23 +2391,27 @@ let tipoJoyaActivo = false;
   }
   c.innerHTML = html;
   c.addEventListener("click", ev=>{
-    /* Toggle tipo joya */
-    const bj = ev.target.closest("[data-tipo-joya]");
-    if(bj){
-      tipoJoyaActivo = !tipoJoyaActivo;
-      bj.setAttribute("aria-pressed", String(tipoJoyaActivo));
-      visiblesGrado = TANDA;
-      pintarGrado();
-      if(tipoJoyaActivo) destellarGrid();
-      return;
-    }
-    /* Botones de estilo */
     const b = ev.target.closest(".estilo"); if(!b) return;
-    estiloActivo = estiloActivo === b.dataset.estilo ? null : b.dataset.estilo;
+    const esJoya = b.hasAttribute("data-tipo-joya");
+    if(esJoya){
+      /* Toggle tipo joya — apaga estilo */
+      tipoJoyaActivo = !tipoJoyaActivo;
+      estiloActivo = null;
+    } else {
+      /* Toggle estilo — apaga tipo joya */
+      estiloActivo = estiloActivo === b.dataset.estilo ? null : b.dataset.estilo;
+      tipoJoyaActivo = false;
+    }
+    /* Actualizar aria-pressed de todos los botones */
+    $$(".estilo", c).forEach(x=>{
+      const activo = x.hasAttribute("data-tipo-joya")
+        ? tipoJoyaActivo
+        : x.dataset.estilo === estiloActivo;
+      x.setAttribute("aria-pressed", String(activo));
+    });
     visiblesGrado = TANDA;
-    $$(".estilo:not([data-tipo-joya])", c).forEach(x=>x.setAttribute("aria-pressed", String(x.dataset.estilo===estiloActivo)));
     pintarGrado();
-    if(estiloActivo) destellarGrid();
+    if(estiloActivo || tipoJoyaActivo) destellarGrid();
   });
 })();
 
