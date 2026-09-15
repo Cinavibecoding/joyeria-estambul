@@ -1853,7 +1853,7 @@ document.documentElement.classList.add("js");
   </div>
 </div>
 
-<script src="catalogo.js?v=3"></script>
+<script src="catalogo.js?v=4"></script>
 <script>
 /* ============================================================
    MOTOR DE PRECIO — interno. La interfaz sólo muestra el resultado:
@@ -1987,13 +1987,15 @@ function calcular(p, sel){
     const est = p.estilo || "clasico";
     const tabla = PRECIOS_GRADO[est] || PRECIOS_GRADO.clasico;
     const base = tabla[med] || tabla["6x8"];
-    if(mat.metal === "plata") return Math.round(base);
-    /* En oro: sustituir el costo del metal plata por el del oro al quilate. */
-    const gEst = p.g || 6.5;
-    const metalPlata = gEst * 0.95 * SPOT.plata999_g;
-    const metalOro   = gEst * LEY[mat.id] * SPOT.oro24_g;
-    let total = base - metalPlata + metalOro;
+    let total = base;
+    if(mat.metal !== "plata"){
+      const gEst = p.g || 6.5;
+      const metalPlata = gEst * 0.95 * SPOT.plata999_g;
+      const metalOro   = gEst * LEY[mat.id] * SPOT.oro24_g;
+      total = base - metalPlata + metalOro;
+    }
     if(sel.color === "blanco") total += EXTRA.rodio;
+    if(p.piedreria) total += p.piedreria * EXTRA.piedra_chica;
     return Math.round(total);
   }
 
