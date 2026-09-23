@@ -25,7 +25,7 @@
 <link rel="preload" href="assets/fuentes/cormorant-garamond-300-500.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fuentes/jost-300-400.woff2" as="font" type="font/woff2" crossorigin>
 <!-- Precargar la imagen del hero para que aparezca instantáneamente -->
-<link rel="preload" href="assets/video/hero-anillo-inicio.jpg" as="image" fetchpriority="high">
+<link rel="preload" href="assets/video/hero-anillo-inicio.jpg?v=2" as="image" fetchpriority="high">
 <link rel="stylesheet" href="assets/fuentes.css">
 <script>
 /* Fotos que fallan por conexión inestable: se reintentan dos veces (a 1,5 s
@@ -1374,11 +1374,11 @@ document.documentElement.classList.add("js");
          Alternativa lista en assets/img/hero-cadena-oro-marino.jpg -->
     <!-- Video vertical del anillo de grado, sin sonido. Se reproduce UNA vez
          y se queda quieto en el último cuadro (se lee la carrera y el año).
-         Teléfonos: 720p (~1,4 MB). Tablet/computadora: 1080p (~2,9 MB).
+         Teléfonos: 720p (~1,4 MB). Tablet/computadora: 1080p (~2,2 MB). 24 fps parejos.
          Con "ahorro de datos" o "reducir movimiento" no se descarga: queda
          la foto del cuadro final. -->
     <video id="heroVideo" muted playsinline preload="none"
-           poster="assets/video/hero-anillo-inicio.jpg"
+           poster="assets/video/hero-anillo-inicio.jpg?v=2"
            aria-label="Anillo de grado de Médico Cirujano 2022 con piedra amarilla"></video>
   </div>
   <div class="hero__velo"></div>
@@ -3469,14 +3469,27 @@ $$("[data-wa]").forEach(a => a.href = waLink(MENSAJES[a.dataset.wa]));
   var c = navigator.connection || {};
   if(c.saveData || /(^|-)2g$/.test(c.effectiveType || "") ||
      matchMedia("(prefers-reduced-motion: reduce)").matches){
-    v.poster = "assets/video/hero-anillo-final.jpg";
+    v.poster = "assets/video/hero-anillo-final.jpg?v=2";
     return;
   }
-  v.src = innerWidth >= 768 ? "assets/video/hero-anillo-1080.mp4"
-                            : "assets/video/hero-anillo-720.mp4";
-  var p = v.play(); if(p && p.catch) p.catch(function(){
-    v.poster = "assets/video/hero-anillo-final.jpg";   // el navegador no dejó reproducir
-  });
+  /* Solo se reproduce cuando ya bajó lo suficiente para verse de corrido:
+     así una conexión lenta no lo muestra a tirones. Si en 6 s no alcanzó,
+     se cancela la descarga y queda la foto del cuadro final. */
+  var final = "assets/video/hero-anillo-final.jpg?v=2", listo = false;
+  function rendirse(){
+    if(listo) return;
+    v.removeAttribute("src"); v.load(); v.poster = final;
+  }
+  v.addEventListener("canplaythrough", function(){
+    if(listo) return; listo = true;
+    var p = v.play(); if(p && p.catch) p.catch(function(){ v.poster = final; });
+  }, {once:true});
+  v.addEventListener("error", rendirse);
+  setTimeout(rendirse, 6000);
+  v.preload = "auto";
+  v.src = innerWidth >= 768 ? "assets/video/hero-anillo-1080.mp4?v=2"
+                            : "assets/video/hero-anillo-720.mp4?v=2";
+  v.load();
 })();
 </script>
 </body>
