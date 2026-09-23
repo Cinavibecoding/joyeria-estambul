@@ -21,9 +21,9 @@
 /* ------------------------------------------------------------
    1. PRECIO DEL METAL   ← revisar cada semana en kitco.com
    ------------------------------------------------------------ */
-const ORO_ONZA   = 4351.90;   // dólares por onza troy de oro
-const PLATA_ONZA = 67.15;     // dólares por onza troy de plata
-const SPOT = { oro24_g: ORO_ONZA/31.1035, plata999_g: PLATA_ONZA/31.1035, fecha:"22 sep 2026" };
+const ORO_ONZA   = 4340.00;   // dólares por onza troy de oro
+const PLATA_ONZA = 66.65;     // dólares por onza troy de plata
+const SPOT = { oro24_g: ORO_ONZA/31.1035, plata999_g: PLATA_ONZA/31.1035, fecha:"23 sep 2026" };
 
 /* ------------------------------------------------------------
    2. MANO DE OBRA Y EXTRAS
