@@ -1,0 +1,62 @@
+# Actualiza el precio del oro y la plata en catalogo.js cada lunes.
+# Lee el precio spot (dólares por onza troy) de api.gold-api.com, lo
+# revisa contra límites razonables y, si todo cuadra, hace el commit.
+# Si algo se ve raro (API caída, salto de más del 20 %), NO toca nada
+# y el workflow sale en rojo en la pestaña Actions para revisarlo.
+# También se puede correr a mano: Actions → Precio del metal → Run workflow.
+name: Precio del metal
+
+on:
+  schedule:
+    - cron: "0 12 * * 1"   # lunes 12:00 UTC = 8:00 a. m. en Caracas
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Traer precio y actualizar catalogo.js
+        run: |
+          python3 - <<'PY'
+          import json, re, urllib.request, datetime, sys
+
+          def spot(simbolo):
+              req = urllib.request.Request(f"https://api.gold-api.com/price/{simbolo}",
+                                           headers={"User-Agent": "joyeria-estambul"})
+              with urllib.request.urlopen(req, timeout=20) as r:
+                  return float(json.load(r)["price"])
+
+          oro, plata = spot("XAU"), spot("XAG")
+          t = open("catalogo.js", encoding="utf-8").read()
+          oro_ant   = float(re.search(r"const ORO_ONZA\s*=\s*([\d.]+)", t).group(1))
+          plata_ant = float(re.search(r"const PLATA_ONZA\s*=\s*([\d.]+)", t).group(1))
+
+          # Límites de sensatez: si algo no cuadra, mejor no publicar.
+          if not (1500 < oro < 15000 and 15 < plata < 300):
+              sys.exit(f"Precio fuera de rango: oro {oro}, plata {plata}")
+          if abs(oro/oro_ant - 1) > 0.20 or abs(plata/plata_ant - 1) > 0.20:
+              sys.exit(f"Salto de más del 20 %: oro {oro_ant}->{oro}, plata {plata_ant}->{plata}")
+
+          meses = "ene feb mar abr may jun jul ago sep oct nov dic".split()
+          hoy = datetime.date.today()
+          fecha = f"{hoy.day} {meses[hoy.month-1]} {hoy.year}"
+
+          t = re.sub(r"(const ORO_ONZA\s*=\s*)[\d.]+", rf"\g<1>{oro:.2f}", t, count=1)
+          t = re.sub(r"(const PLATA_ONZA\s*=\s*)[\d.]+", rf"\g<1>{plata:.2f}", t, count=1)
+          t = re.sub(r'fecha:"[^"]*"', f'fecha:"{fecha}"', t, count=1)
+          open("catalogo.js", "w", encoding="utf-8").write(t)
+          print(f"Oro {oro_ant} -> {oro:.2f} · Plata {plata_ant} -> {plata:.2f} · {fecha}")
+          PY
+
+      - name: Guardar cambios
+        run: |
+          if git diff --quiet catalogo.js; then echo "Sin cambios"; exit 0; fi
+          git config user.name  "precio-automatico"
+          git config user.email "actions@users.noreply.github.com"
+          git commit -am "Precio del metal al $(date +%F)"
+          git push

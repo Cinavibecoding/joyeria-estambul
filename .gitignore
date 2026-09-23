@@ -1,0 +1,22 @@
+# ============================================================
+# LISTA BLANCA — este repo es PÚBLICO (GitHub Pages).
+# Por defecto NO se sube nada. Solo se publica lo que la página
+# necesita para funcionar, listado abajo con "!".
+# Documentos internos, PDFs, fotos crudas, herramientas y notas
+# se quedan en la computadora y nunca llegan a internet.
+# ============================================================
+/*
+!/.gitignore
+!/index.html
+!/catalogo.js
+!/CNAME
+!/robots.txt
+!/sitemap.xml
+!/google325bbd1cca425a5d.html
+!/assets/
+!/.github/
+
+# Dentro de assets tampoco va lo descartado ni notas
+/assets/img/descartadas/
+/assets/**/*.md
+.DS_Store

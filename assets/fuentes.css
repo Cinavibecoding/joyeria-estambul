@@ -1,0 +1,36 @@
+/* Fuentes alojadas en el propio dominio.
+   Evita depender de fonts.googleapis.com: una vuelta de red menos, sin
+   exponer la IP de quien visita, y la página no se queda sin tipografía
+   si Google no responde.
+   Subconjunto latino — no incluye alfabetos que no usamos.
+
+   Los tres archivos son fuentes VARIABLES: un solo woff2 cubre todo el
+   rango de pesos declarado. Por eso Cormorant 300, 400 y 500 salen del
+   mismo fichero y no hay que descargar uno por peso. */
+
+/* --- Cormorant Garamond — display, subtítulos y precios --- */
+@font-face{
+  font-family:'Cormorant Garamond';
+  font-style:normal;
+  font-weight:300 500;
+  font-display:swap;
+  src:url('fuentes/cormorant-garamond-300-500.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Cormorant Garamond';
+  font-style:italic;
+  font-weight:300 500;
+  font-display:swap;
+  src:url('fuentes/cormorant-garamond-300-italic.woff2') format('woff2');
+}
+
+/* --- Jost — cuerpo, navegación e interfaz --- */
+/* El woff2 es variable (wght 100-900); se declara 300-700 que es el rango
+   que el CSS realmente usa (300, 400, 500, 600 y un 700 en strong del FAQ). */
+@font-face{
+  font-family:'Jost';
+  font-style:normal;
+  font-weight:300 700;
+  font-display:swap;
+  src:url('fuentes/jost-300-400.woff2') format('woff2');
+}
