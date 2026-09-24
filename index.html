@@ -1631,7 +1631,7 @@ document.documentElement.classList.add("js");
       <details class="faq__item" id="faq-medidas">
         <summary class="faq__q">¿Qué significa 6x8?</summary>
         <div class="faq__a-wrap"><div class="faq__a">
-          <p class="medidas__intro">Son <strong>milímetros</strong>: ancho por largo. En un anillo de grado o un zarcillo, es el tamaño de la piedra. En una cadena o pulsera, es el tamaño del eslabón. <strong>Aquí las tienes dibujadas a escala</strong>, del tamaño que se ven unas al lado de otras.</p>
+          <p class="medidas__intro">Son <strong>milímetros</strong>: ancho por largo. En un anillo de grado, es el tamaño de la piedra. En una cadena o pulsera, es el tamaño del eslabón. En un zarcillo, es el de la piedra o, si no lleva, el de la pieza. <strong>Aquí las tienes dibujadas a escala</strong>, del tamaño que se ven unas al lado de otras.</p>
           <div class="medidas__tira" id="medidasTira"></div>
           <div style="margin:var(--s4) 0;line-height:1.7;opacity:.85;font-size:.9375rem">
             <p style="margin:0 0 var(--s3)"><strong>4x3 mm</strong> &mdash; La más pequeña. Para cadenas finas y zarcillos. No es para anillos de grado.</p>
@@ -1641,8 +1641,7 @@ document.documentElement.classList.add("js");
             <p style="margin:0"><strong>10x12 mm</strong> &mdash; La más grande. Lleva más metal, por eso cuesta más.</p>
           </div>
           <p class="medidas__nota">
-            La medida manda sobre el precio: <strong>a más piedra, más oro alrededor</strong>. Una 10x12 pesa y cuesta bastante más que una 4x3 del mismo modelo. Si dudas entre dos, escribe y te decimos cuál se lleva la gente de tu carrera.
-          </p>
+            La medida manda sobre el precio: <strong>mientras más grande la piedra o el eslabón, más metal lleva la pieza</strong>. Cada anillo se hace en las medidas que le caben: los delicados en 6x4 o 6x8, los macizos en 10x8 o 10x12. Si dudas entre dos, escríbenos y te decimos cuál se lleva la gente de tu carrera.</p>
           <div class="medidas__regla punzon">
             <span>1&nbsp;cm</span><i id="reglaMm"></i><span>a esta escala</span>
           </div>
@@ -1952,7 +1951,7 @@ document.documentElement.classList.add("js");
   </div>
 </div>
 
-<script src="catalogo.js?v=14"></script>
+<script src="catalogo.js?v=15"></script>
 <script>
 /* ============================================================
    MOTOR DE PRECIO — interno. La interfaz sólo muestra el resultado:
@@ -2301,6 +2300,16 @@ function destellarGrid(){
 
 /* ---------- Tarjetas ---------- */
 let INDICE = [];
+/* Qué mide el "6x8" de cada pieza. Una sola regla para tarjeta, ventana y
+   mensaje de WhatsApp, así no se contradicen:
+     cadenas y pulseras      → el eslabón
+     piezas sin piedra       → la pieza (zarcillos marinos, por ejemplo)
+     todo lo demás           → la piedra                                  */
+function queMide(p){
+  if(p.tipo === "cadena" || p.tipo === "pulsera") return "eslabón";
+  if(p.sinPiedra) return "medida";
+  return "piedra";
+}
 function tarjeta(p, i){
   const s = p.piedra ? CARRERA[p.piedra] : null;
   /* La tarjeta carga la MINIATURA (400px, ~29 KB); la de 800px se deja para
@@ -2337,7 +2346,7 @@ function tarjeta(p, i){
       <h3 class="card__name">${esc(p.n)}</h3>
       ${"" /* carreras quitadas de las tarjetas por decisión de Victor */}
       ${p.institucion ? `<span class="punzon card__inst">${esc(p.institucion)}</span>` : ""}
-      ${p.medida ? `<span class="punzon card__medida">${p.sinPiedra || p.tipo==="cadena" ? "Medida" : "Piedra"} ${esc(p.medida)} mm</span>` : ""}
+      ${p.medida && !(p.tipo==="grado" && p.sinPiedra) ? `<span class="punzon card__medida">${(q=>q[0].toUpperCase()+q.slice(1))(queMide(p))} ${esc(p.medida)} mm</span>` : ""}
       <div class="card__foot">
         <span class="card__precio-caja">
           <span class="dato card__price">${p.precio_fijo ? "" : "desde&nbsp;"}${fmt(precioDesde(p))}</span>
@@ -2764,11 +2773,13 @@ function pintarCampos(){
          Nunca se cruza: a un 6x4 no le cabe una 10x12, ni al revés. */
       const grupo = ["10x8","10x12"].includes(actual.medida) ? ["10x8","10x12"] : ["6x4","6x8"];
       const medFilt = actual.tipo==="grado" ? MEDIDAS.filter(m=>grupo.includes(m.id)) : MEDIDAS;
-      html += campoOpciones("Tamaño de piedra","medida",
+      const qm = queMide(actual);
+      html += campoOpciones(qm==="piedra" ? "Tamaño de piedra" : qm==="eslabón" ? "Tamaño del eslabón" : "Medida","medida",
                           medFilt.map(m=>({id:m.id, label:m.id+" mm"})),
                           (actual.tipo==="grado"
                             ? "Ya viene marcada la medida del anillo de la foto. Solo te mostramos las que le caben a este modelo. "
-                            : "La más pedida es la 6x8. Mientras más grande la piedra, más sube el precio. ")
+                            : qm==="eslabón" ? "Mientras más grueso el eslabón, más oro lleva y más sube el precio. "
+                            : "La más pedida es la 6x8. Mientras más grande, más sube el precio. ")
                           + "<a href=\"#faq-medidas\" class=\"campo__enlace\">Ver las medidas a escala</a>");
     }
     if(c==="tejido" && typeof TEJIDOS!=="undefined")
@@ -2858,8 +2869,13 @@ function resumen(sel){
   if(sel.medida && !esVariante){
     /* Grado sin piedra central: no se nombra medida. Zarcillos o cadenas sin
        piedra: la medida es la de la pieza, no de una piedra. */
-    if(!(actual && actual.sinPiedra)) bits.push("piedra "+sel.medida+" mm");
-    else if(actual.tipo !== "grado") bits.push("medida "+sel.medida+" mm");
+    /* Solo si la pieza trae su medida o el cliente la escogió en la ventana.
+       Antes se colaba un "6x8" por defecto en aros lisos y cadenas de stock. */
+    const escogible = (CAMPOS[actual.tipo]||[]).includes("medida")
+      && !actual.stock && !actual.unica && !actual.precio_fijo
+      && !(actual.tipo==="grado" && actual.sinPiedra);
+    if(actual && (escogible || (actual.medida && !(actual.tipo==="grado" && actual.sinPiedra))))
+      bits.push(queMide(actual)+" "+sel.medida+" mm");
   }
   if(sel.talla === "nose") bits.push("talla por definir (no sé mi talla, ¿me ayudan a medirla?)");
   else if(sel.talla) bits.push("talla "+sel.talla);
