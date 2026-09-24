@@ -1952,7 +1952,7 @@ document.documentElement.classList.add("js");
   </div>
 </div>
 
-<script src="catalogo.js?v=12"></script>
+<script src="catalogo.js?v=14"></script>
 <script>
 /* ============================================================
    MOTOR DE PRECIO — interno. La interfaz sólo muestra el resultado:
@@ -2324,6 +2324,7 @@ function tarjeta(p, i){
   const sello = p.unica ? '<span class="card__sello card__sello--unica">Pieza única</span>'
               : p.stock ? '<span class="card__sello card__sello--stock">Stock limitado</span>'
               : p.nuevo ? '<span class="card__nuevo">Recién llegado</span>'
+              : p.materiales ? esc("Solo " + p.materiales.map(id=>(MATERIALES.find(m=>m.id===id)||{}).label||id).join(" o ").toLowerCase())
               : estilo  ? esc(estilo.replace(/s$/,""))          // "Clásicos" -> "Clásico"
               : "Plata 950 · Oro 10k–18k";
   return `
@@ -2336,10 +2337,10 @@ function tarjeta(p, i){
       <h3 class="card__name">${esc(p.n)}</h3>
       ${"" /* carreras quitadas de las tarjetas por decisión de Victor */}
       ${p.institucion ? `<span class="punzon card__inst">${esc(p.institucion)}</span>` : ""}
-      ${p.medida ? `<span class="punzon card__medida">Piedra ${esc(p.medida)} mm</span>` : ""}
+      ${p.medida ? `<span class="punzon card__medida">${p.sinPiedra || p.tipo==="cadena" ? "Medida" : "Piedra"} ${esc(p.medida)} mm</span>` : ""}
       <div class="card__foot">
         <span class="card__precio-caja">
-          <span class="dato card__price">desde&nbsp;${fmt(precioDesde(p))}</span>
+          <span class="dato card__price">${p.precio_fijo ? "" : "desde&nbsp;"}${fmt(precioDesde(p))}</span>
           <span class="punzon card__moneda">en ${p.metalBase ? (MATERIALES.find(m=>m.id===p.metalBase)||{}).label||"Oro 10k" : "plata Ley 950"}</span>
         </span>
         <span class="punzon card__more">Personalizar</span>
@@ -2746,13 +2747,17 @@ function pintarCampos(){
   for(const c of campos){
     if(c==="material"){
       /* Cadenas solo se fabrican en Oro 18k o Plata Ley 950 */
-      const matFilt = actual.tipo==="cadena" ? MATERIALES.filter(m=>m.id==="950"||m.id==="18k") : MATERIALES;
+      /* `materiales` en catalogo.js limita los metales de una pieza
+         (ej. zarcillos que solo se hacen en oro 18k). */
+      const matFilt = actual.materiales ? MATERIALES.filter(m=>actual.materiales.includes(m.id))
+                    : actual.tipo==="cadena" ? MATERIALES.filter(m=>m.id==="950"||m.id==="18k") : MATERIALES;
       html += campoOpciones("Material y ley","material",matFilt,
-        actual.tipo==="cadena" ? "Las cadenas solo se fabrican en oro 18k o plata Ley 950." : "");
+        actual.materiales ? "Este modelo solo se hace en " + matFilt.map(m=>m.label.toLowerCase()).join(" o ") + "."
+        : actual.tipo==="cadena" ? "Las cadenas solo se fabrican en oro 18k o plata Ley 950." : "");
     }
-    if(c==="color" && sel.material!=="950")
+    if(c==="color" && sel.material!=="950" && !actual.precio_fijo)
       html += campoOpciones("Color del oro","color",COLORES, sel.color==="blanco" ? "El oro blanco lleva baño de rodio." : "");
-    if(c==="medida" && !actual.sinPiedra){
+    if(c==="medida" && !actual.sinPiedra && !actual.precio_fijo){
       /* 4x3 NO existe para anillos de grado — en todo lo demás sí aplica */
       /* Anillos de grado: sólo las medidas que le caben al anillo. Uno de
          cara chica lleva 6x4 o 6x8; uno macizo de cara grande, 10x8 o 10x12.
@@ -2850,7 +2855,12 @@ function resumen(sel){
     const t = TEJIDOS.find(x=>x.id===sel.tejido);
     if(t) bits.push(t.nombre.toLowerCase());
   }
-  if(sel.medida && !esVariante && !(actual && actual.sinPiedra)) bits.push("piedra "+sel.medida+" mm");
+  if(sel.medida && !esVariante){
+    /* Grado sin piedra central: no se nombra medida. Zarcillos o cadenas sin
+       piedra: la medida es la de la pieza, no de una piedra. */
+    if(!(actual && actual.sinPiedra)) bits.push("piedra "+sel.medida+" mm");
+    else if(actual.tipo !== "grado") bits.push("medida "+sel.medida+" mm");
+  }
   if(sel.talla === "nose") bits.push("talla por definir (no sé mi talla, ¿me ayudan a medirla?)");
   else if(sel.talla) bits.push("talla "+sel.talla);
   if(sel.largo)  bits.push(sel.largo+" cm");
@@ -2864,7 +2874,7 @@ function resumen(sel){
 function mensaje(p, sel, total){
   const regalo = p.tipo === "grado" && sel.material !== "950"
     ? "\n(Incluye las copias en plata)" : "";
-  return `Hola, quisiera cotizar el ${p.n}.\n${resumen(sel)}\nPrecio aproximado en la página: ${fmt(total)}${regalo}\nMe gustaría confirmar el precio exacto.`;
+  return `Hola, quisiera cotizar: ${p.n}.\n${resumen(sel)}\nPrecio aproximado en la página: ${fmt(total)}${regalo}\nMe gustaría confirmar el precio exacto.`;
 }
 function abrirModal(p){
   actual = p;

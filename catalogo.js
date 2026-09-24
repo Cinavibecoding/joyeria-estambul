@@ -496,12 +496,12 @@ const REGISTRO = {
      mas:["piezas/gal/pulsera-011-2.jpg", "piezas/gal/pulsera-011-3.jpg"], img:"piezas/pulsera-011.jpg", alt:"Pulsera artesanal de esferas volcánicas, foto del taller"},
   ],
   "Zarcillos":[
-    {n:"Zarcillo 10x8", tipo:"zarcillo", g:2.4, medida:"10x8", consultar:true,
-     img:"piezas/zarcillo-006.jpg", alt:"Zarcillo 10x8, foto del taller"},
-    {n:"Zarcillo 6x8", tipo:"zarcillo", g:2.4, medida:"6x8", consultar:true,
-     img:"piezas/zarcillo-007.jpg", alt:"Zarcillo 6x8, foto del taller"},
-    {n:"Zarcillo 6x4", tipo:"zarcillo", g:2.4, medida:"6x4", consultar:true,
-     mas:["piezas/gal/zarcillo-008-2.jpg"], img:"piezas/zarcillo-008.jpg", alt:"Zarcillo 6x4, foto del taller"},
+    {n:"Zarcillos marinos 6x4", tipo:"zarcillo", g:2.4, medida:"6x4", sinPiedra:true, materiales:["18k"], metalBase:"18k", precio_fijo:90, consultar:true,
+     img:"piezas/zarcillo-006.jpg", alt:"Zarcillos de eslabón marino 6x4 mm en oro 18k"},
+    {n:"Zarcillos marinos 6x4 · modelo 2", tipo:"zarcillo", g:2.4, medida:"6x4", sinPiedra:true, materiales:["18k"], metalBase:"18k", precio_fijo:90, consultar:true,
+     img:"piezas/zarcillo-007.jpg", alt:"Zarcillos de eslabón marino 6x4 mm en oro 18k, segundo modelo"},
+    {n:"Zarcillos marinos 4x3", tipo:"zarcillo", g:2.4, medida:"4x3", sinPiedra:true, materiales:["18k"], metalBase:"18k", precio_fijo:90, consultar:true,
+     mas:["piezas/gal/zarcillo-008-2.jpg"], img:"piezas/zarcillo-008.jpg", alt:"Zarcillos de eslabón marino 4x3 mm en oro 18k"},
   ],
   /* ----------------------------------------------------------------
      AROS DE MATRIMONIO
