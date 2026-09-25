@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_VE">
 <link rel="canonical" href="https://joyeriaestambul.com/">
-<meta property="og:url" content="https://joyeriaestambul.com">
+<meta property="og:url" content="https://joyeriaestambul.com/">
 <meta property="og:image" content="https://joyeriaestambul.com/assets/img/og-preview.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -396,7 +396,7 @@ button{font:inherit;color:inherit}
   .espectro__bar{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3) var(--s2)}
   .seg__caja{height:40px}
   .seg__chip{height:32px}
-  .seg__label{font-size:.5625rem;letter-spacing:.04em}
+  .seg__label{font-size:.6875rem;letter-spacing:.03em}
   .espectro{padding-block:var(--s5)}
 }
 /* Panel de la piedra escogida. Resuelve dos cosas medidas en uso: que el
@@ -480,7 +480,8 @@ button{font:inherit;color:inherit}
 /* Los enlaces del índice apuntan a estas secciones; sin este margen el nav
    fijo tapa el titular al llegar. */
 section[id],#talla,#comprar{scroll-margin-top:80px}
-.section{content-visibility:auto;contain-intrinsic-size:auto 600px}
+/* Sin content-visibility: con 'auto' las secciones fuera de pantalla medían
+   600px de mentira y la página saltaba al repintar o al subir. */
 /* Menos aire en el cabezal de sección: en móvil cada rem de aquí es scroll
    antes de ver la primera pieza, y ahí es donde se decide si alguien sigue. */
 .section__head{margin-bottom:var(--s5)}
@@ -629,6 +630,8 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
   margin-top:var(--s6);
 }
 .vermas[hidden]{display:none}
+/* El botón baja cuando entran tarjetas: que el navegador no lo use de ancla. */
+.vermas{overflow-anchor:none}
 .vermas__fila{display:flex;gap:var(--s3);flex-wrap:wrap;justify-content:center}
 .vermas__btn{
   background:transparent;border:1px solid var(--ink);border-radius:var(--radius);
@@ -1083,6 +1086,8 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
   cursor:pointer;background:var(--c);transition:border-color .15s,transform .15s;
   position:relative;
 }
+/* Zona táctil de 44 px alrededor del círculo de 32 px (mínimo para el dedo). */
+.color-chip::after{content:"";position:absolute;inset:-6px}
 .color-chip:hover{transform:scale(1.2)}
 .color-chip[aria-pressed="true"]{border-color:var(--ink);transform:scale(1.25)}
 .color-chip__label{
@@ -1288,7 +1293,7 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
   "name": "Joyería Estambul",
   "legalName": "Inversiones Lakshmy 3000, C.A.",
   "description": "Anillos de grado, aros de boda, cadenas y piezas a la medida en oro 10k, 14k, 18k y plata Ley 950. Taller propio con modelado 3D antes de fundir.",
-  "url": "https://joyeriaestambul.com",
+  "url": "https://joyeriaestambul.com/",
   "telephone": "+58-424-276-5908",
   "address": {
     "@type": "PostalAddress",
@@ -1304,7 +1309,7 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
   },
   "priceRange": "$$",
   "currenciesAccepted": "USD, VES",
-  "paymentAccepted": "Efectivo, transferencia, pago móvil",
+  "paymentAccepted": "Efectivo, transferencia, Pago Móvil, Zelle, Binance (USDT)",
   "areaServed": {
     "@type": "Country",
     "name": "Venezuela"
@@ -1553,7 +1558,7 @@ document.documentElement.classList.add("js");
               margin-bottom:var(--s5);
             ">
               <div style="border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;background:var(--t-plata);cursor:pointer" data-bc-img="piezas/pieza-209.jpg">
-                <img src="assets/img/piezas/pieza-209.jpg" alt="Resina Bluecast X ONE V2, 500g, importada de Europa"
+                <img src="assets/img/piezas/pieza-209.jpg" alt="Resina Bluecast X ONE V2, 500 g, importada de Europa"
                      loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div style="border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;background:var(--t-plata);cursor:pointer" data-bc-img="piezas/pieza-210.jpg">
@@ -1605,7 +1610,7 @@ document.documentElement.classList.add("js");
             <div class="talla__lado">
               <div class="talla__promesa">
                 <h3 class="talla__promesa-t">¿Y si le pego al lado?</h3>
-                <p class="talla__promesa-p"><strong>La agrandamos sin costo.</strong> Pídelo justo antes que grande: agrandar es fácil.</p>
+                <p class="talla__promesa-p"><strong>La agrandamos sin costo.</strong> Pídela justa antes que grande: agrandarla es fácil.</p>
                 <p class="talla__promesa-p">¿Dudas? Pásate por la tienda y te medimos gratis.</p>
                 <a class="btn btn--dark" data-wa="talla" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Preguntar por mi talla</a>
               </div>
@@ -1747,7 +1752,7 @@ document.documentElement.classList.add("js");
             <article class="comprar__caja comprar__caja--garantia">
               <h3 class="comprar__t">Si no te queda</h3>
               <p class="comprar__nota"><strong>La agrandamos sin costo.</strong> Es parte del trabajo, no un problema.</p>
-              <p class="comprar__nota">Pídela justa antes que grande: achicar cuesta más.</p>
+              <p class="comprar__nota">Pídela justa antes que grande: achicarla cuesta más.</p>
             </article>
           </div>
         </div>
@@ -1912,7 +1917,7 @@ document.documentElement.classList.add("js");
         <div>
           <span class="punzon modal__eyebrow" id="modalSeal"></span>
           <h2 class="modal__title" id="modalTitle"></h2>
-          <p id="modalDisclaimer" style="margin:var(--s1) 0 0;font-size:.75rem;color:var(--ink-2);opacity:.7">Precio base de referencia · cotización exacta por WhatsApp</p>
+          <p id="modalDisclaimer" style="margin:var(--s1) 0 0;font-size:.75rem;color:var(--ink-2)">Precio base de referencia · cotización exacta por WhatsApp</p>
           <p class="modal__regalo" id="modalRegalo" hidden></p>
         </div>
       </div>
@@ -1951,7 +1956,7 @@ document.documentElement.classList.add("js");
   </div>
 </div>
 
-<script src="catalogo.js?v=15"></script>
+<script src="catalogo.js?v=16"></script>
 <script>
 /* ============================================================
    MOTOR DE PRECIO — interno. La interfaz sólo muestra el resultado:
@@ -2197,9 +2202,14 @@ barra.innerHTML = ESPECTRO.map(s=>`
 function pintarInfoPiedra(){
   /* Al cerrar no se borra el contenido: se deja para que la altura pueda
      colapsar con la transición en vez de desaparecer de golpe. */
+  /* Los mini-chips de color siguen siempre a la barra grande. */
+  $$(".color-chip").forEach(c=>{
+    const cid = c.dataset.piedra;
+    c.setAttribute("aria-pressed", String(cid ? cid===piedraActiva : !piedraActiva));
+  });
   if(!piedraActiva){ info.classList.remove("is-on"); return; }
   const s = CARRERA[piedraActiva];
-  const n = GRADO.filter(g=>g.piedra===piedraActiva && g.disponible!==false && !g.stock).length;
+  const n = GRADO.filter(g=>g.piedra===piedraActiva && !g.sinPiedra && g.disponible!==false && !g.stock).length;
   const modelos = n === 1 ? "1 modelo" : `${n} modelos`;
   info.style.setProperty("--c", s.c);
   info.style.setProperty("--c-txt", s.id === "blanco" ? "var(--ink-2)" : s.c);
@@ -2214,9 +2224,9 @@ function pintarInfoPiedra(){
         </ul>
         <p class="piedra__sig">${esc(s.sig)}</p>
         <div class="piedra__acciones">
-          <button class="piedra__ir" type="button" id="irModelos">
+          ${n ? `<button class="piedra__ir" type="button" id="irModelos">
             Ver ${modelos} con esta piedra ↓
-          </button>
+          </button>` : `<p class="piedra__sig" style="margin:0">Todavía no hay fotos con esta piedra, pero se la ponemos a cualquier modelo.</p>`}
           <button class="espectro__reset" type="button" id="verTodas">Ver todas las carreras</button>
         </div>
       </div>
@@ -2251,7 +2261,7 @@ document.addEventListener("click", e=>{
     irA("#grado");
   }
   if(e.target.closest("#verTodasAbajo")){
-    piedraActiva = null; visiblesGrado = 8;
+    piedraActiva = null; visiblesGrado = TANDA;
     $$(".seg",barra).forEach(s=>s.setAttribute("aria-pressed","false"));
     pintarInfoPiedra(); pintarGrado();
     irA("#grado");
@@ -2335,7 +2345,8 @@ function tarjeta(p, i){
               : p.nuevo ? '<span class="card__nuevo">Recién llegado</span>'
               : p.materiales ? esc("Solo " + p.materiales.map(id=>(MATERIALES.find(m=>m.id===id)||{}).label||id).join(" o ").toLowerCase())
               : estilo  ? esc(estilo.replace(/s$/,""))          // "Clásicos" -> "Clásico"
-              : "Plata 950 · Oro 10k–18k";
+              : p.sinMetal ? "Artesanal"
+              : "Plata Ley 950 · Oro 10k a 18k";
   return `
   <button class="card" type="button" data-i="${i}" style="${s?`--c:${s.c}`:""}">
     <div class="card__media">
@@ -2349,8 +2360,8 @@ function tarjeta(p, i){
       ${p.medida && !(p.tipo==="grado" && p.sinPiedra) ? `<span class="punzon card__medida">${(q=>q[0].toUpperCase()+q.slice(1))(queMide(p))} ${esc(p.medida)} mm</span>` : ""}
       <div class="card__foot">
         <span class="card__precio-caja">
-          <span class="dato card__price">${p.precio_fijo ? "" : "desde&nbsp;"}${fmt(precioDesde(p))}</span>
-          <span class="punzon card__moneda">en ${p.metalBase ? (MATERIALES.find(m=>m.id===p.metalBase)||{}).label||"Oro 10k" : "plata Ley 950"}</span>
+          <span class="dato card__price">${p.precio_fijo && !p.variantes ? "" : "desde&nbsp;"}${fmt(precioDesde(p))}</span>
+          ${p.sinMetal ? "" : `<span class="punzon card__moneda">en ${p.metalBase ? ((MATERIALES.find(m=>m.id===p.metalBase)||{}).label||"Oro 10k").replace(/^Oro/,"oro") : "plata Ley 950"}</span>`}
         </span>
         <span class="punzon card__more">Personalizar</span>
       </div>
@@ -2373,6 +2384,50 @@ const CAT_INICIAL = 6;
 let visiblesGrado = TANDA, visiblesCatalogo = TANDA;
 let visiblesPorCat = {}; /* slug → cantidad visible */
 
+/* Mantiene quieto en pantalla el elemento `ancla` mientras `cambiar()` toca el
+   DOM: mide antes, mide después y compensa la diferencia. */
+function sinSalto(ancla, cambiar){
+  const antes = ancla && ancla.isConnected ? ancla.getBoundingClientRect().top : null;
+  cambiar();
+  if(antes === null || !ancla.isConnected) return;
+  const d = ancla.getBoundingClientRect().top - antes;
+  if(Math.abs(d) > 1) window.scrollBy(0, d);
+}
+/* "Ver más" / "Ver todos" de Anillos de Grado: agrega SOLO las tarjetas nuevas
+   al final; las que ya estaban no se tocan. */
+function masGrado(limite){
+  if(piedraActiva){ visiblesGrado = limite; pintarGrado(); return; }
+  const grid = $("#grado-grid");
+  const lista = filtrarGrado();
+  const ya = grid.children.length;
+  visiblesGrado = limite;
+  const nuevas = lista.slice(ya, visiblesGrado);
+  sinSalto(grid.lastElementChild, ()=>{
+    grid.insertAdjacentHTML("beforeend", nuevas.map(p=>tarjeta(p, INDICE.indexOf(p))).join(""));
+    pintarVerMas("grado", Math.min(visiblesGrado, lista.length), lista.length);
+  });
+}
+/* Igual para cada categoría de #catalogo: no se repinta el catálogo entero. */
+function masCategoria(slug, limite){
+  visiblesPorCat[slug] = limite;
+  const sec = document.getElementById("cat-" + slug);
+  const cat = Object.keys(REGISTRO).find(c =>
+    c.toLowerCase().replace(/\s+/g,"-").replace(/[^a-z0-9-]/g,"") === slug);
+  if(!sec || !cat){ pintarCatalogo(); return; }
+  const piezas = piezasDe(cat);
+  const grid = sec.querySelector(".grid");
+  const nuevas = piezas.slice(grid.children.length, limite);
+  const mostradas = Math.min(limite, piezas.length);
+  const faltan = piezas.length - mostradas;
+  sinSalto(grid.lastElementChild, ()=>{
+    grid.insertAdjacentHTML("beforeend", nuevas.map(p=>tarjeta(p, INDICE.indexOf(p))).join(""));
+    const caja = sec.querySelector(".vermas");
+    if(!caja) return;
+    if(faltan <= 0){ caja.remove(); return; }
+    caja.querySelector(".vermas__btn-cat").textContent = `Ver ${Math.min(faltan, TANDA)} más`;
+    caja.querySelector(".punzon").textContent = `${mostradas} de ${piezas.length}`;
+  });
+}
 function pintarVerMas(zona, mostradas, total){
   const caja = $("#"+zona+"-vermas");
   const faltan = total - mostradas;
@@ -2387,8 +2442,8 @@ document.addEventListener("click", e=>{
   /* "Ver todos" — carga todo de una */
   const todos = e.target.closest(".vermas__todos");
   if(todos){
-    if(todos.dataset.todos === "grado"){ visiblesGrado = 9999; pintarGrado(); }
-    else if(todos.dataset.cat){ visiblesPorCat[todos.dataset.cat] = 9999; pintarCatalogo(); }
+    if(todos.dataset.todos === "grado"){ masGrado(9999); }
+    else if(todos.dataset.cat){ masCategoria(todos.dataset.cat, 9999); }
     else { visiblesCatalogo = 9999; pintarCatalogo(); }
     medir("ver_todos", {zona: todos.dataset.todos || todos.dataset.cat});
     return;
@@ -2396,13 +2451,12 @@ document.addEventListener("click", e=>{
   const bcat = e.target.closest(".vermas__btn-cat");
   if(bcat){
     const slug = bcat.dataset.cat;
-    visiblesPorCat[slug] = (visiblesPorCat[slug] || CAT_INICIAL) + TANDA;
-    pintarCatalogo();
+    masCategoria(slug, (visiblesPorCat[slug] || CAT_INICIAL) + TANDA);
     medir("ver_mas", {zona: slug});
     return;
   }
   const b = e.target.closest(".vermas__btn"); if(!b) return;
-  if(b.dataset.mas === "grado"){ visiblesGrado += TANDA; pintarGrado(); }
+  if(b.dataset.mas === "grado"){ masGrado(visiblesGrado + TANDA); }
   else { visiblesCatalogo += TANDA; pintarCatalogo(); }
   medir("ver_mas", {zona: b.dataset.mas});
 });
@@ -2432,7 +2486,7 @@ document.addEventListener("click", e=>{
   function reset(){ zoom=1; x=0; y=0; pintar(); }
 
   function abrir(tomas, i){
-    const nombre = actual ? (actual.nombre||actual.id||"") : "";
+    const nombre = actual ? (actual.n || "") : "";
     tiras.innerHTML = tomas.length>1 ? tomas.map((t,j)=>
       `<button type="button" data-t="${esc(t)}" class="${j===i?"is-on":""}"
                aria-label="Toma ${j+1}"><img src="assets/img/${esc(t)}" alt="${esc(nombre)}, toma ${j+1}"></button>`).join("") : "";
@@ -2460,7 +2514,8 @@ document.addEventListener("click", e=>{
   });
   $("#visorCerrar").addEventListener("click", cerrar);
   v.addEventListener("click", e=>{ if(e.target===v) cerrar(); });
-  addEventListener("keydown", e=>{ if(e.key==="Escape" && v.classList.contains("is-open")) cerrar(); });
+  /* En captura y deteniendo la propagación: Esc cierra solo el visor, no la ficha de atrás. */
+  addEventListener("keydown", e=>{ if(e.key==="Escape" && v.classList.contains("is-open")){ e.stopImmediatePropagation(); cerrar(); } }, {capture:true});
 
   tiras.addEventListener("click", e=>{
     const b=e.target.closest("button"); if(!b) return;
@@ -2510,7 +2565,7 @@ let tipoJoyaActivo = false;
   const nJoya = GRADO.filter(g=>g.disponible!==false && !g.stock && g.tipo_joya).length;
   if(nJoya > 0){
     html += `<button class="estilo estilo--joya" type="button" data-tipo-joya aria-pressed="false">
-      <span class="estilo__n">Tipo Joya · ${nJoya}</span>
+      <span class="estilo__n">Tipo joya · ${nJoya}</span>
     </button>`;
   }
   c.innerHTML = html;
@@ -2539,13 +2594,12 @@ let tipoJoyaActivo = false;
   });
 })();
 
-function pintarGrado(){
-  reconstruirIndice();
+function filtrarGrado(){
   /* Los filtros se aplican en cadena: disponible → piedra → estilo.
      Una pieza con disponible:false se oculta de todo el catálogo. */
   /* Las piezas de stock limitado viven en su propia sección, no aquí. */
   const disponibles = GRADO.filter(g=>g.disponible !== false && !g.stock);
-  let filtrados = piedraActiva ? disponibles.filter(g=>g.piedra===piedraActiva) : disponibles;
+  let filtrados = piedraActiva ? disponibles.filter(g=>g.piedra===piedraActiva && !g.sinPiedra) : disponibles;
   /* Clásicos, modernos y tipo joya no se solapan: un tipo joya sale sólo en su botón. */
   if(estiloActivo) filtrados = filtrados.filter(g=>g.estilo===estiloActivo && !g.tipo_joya);
   if(tipoJoyaActivo) filtrados = filtrados.filter(g=>g.tipo_joya);
@@ -2556,6 +2610,12 @@ function pintarGrado(){
      sale antes). Sin número van después; a igual orden, el más barato. */
   const desde = new Map(filtrados.map(g=>[g, precioDesde(g)]));
   filtrados.sort((a,b)=> ((a.orden||500)-(b.orden||500)) || (desde.get(a)-desde.get(b)));
+  return filtrados;
+}
+function pintarGrado(){
+  reconstruirIndice();
+  const disponibles = GRADO.filter(g=>g.disponible !== false && !g.stock);
+  const filtrados = filtrarGrado();
   const resto     = piedraActiva ? disponibles.filter(g=>g.piedra!==piedraActiva) : [];
   /* Con filtro de color caben todos (son pocos); sin filtro va por tandas. */
   const aMostrar = piedraActiva ? filtrados : filtrados.slice(0, visiblesGrado);
@@ -2589,7 +2649,8 @@ function pintarGrado(){
    vacío, no un fallo que tumbe la página. */
 function piezasDe(cat){
   const arr = Array.isArray(REGISTRO[cat]) ? REGISTRO[cat] : [];
-  return arr.filter(p => p.disponible !== false);
+  /* Las de stock limitado o únicas salen solo en su sección, no repetidas aquí. */
+  return arr.filter(p => p.disponible !== false && !p.stock && !p.unica);
 }
 
 /* Cada categoría con piezas se pinta como su propia sección dentro de
@@ -2628,7 +2689,7 @@ function pintarCatalogo(){
         <div class="grid">${visibles.map(p=>tarjeta(p, INDICE.indexOf(p))).join("")}</div>
         ${faltan > 0 ? `<div class="vermas" style="text-align:center;padding:var(--s5) 0">
           <button class="btn btn--ghost vermas__btn-cat" data-cat="${esc(slug)}" type="button">Ver ${Math.min(faltan, TANDA)} más</button>
-          <span class="punzon" style="display:block;margin-top:var(--s2);opacity:.5">${visibles.length} de ${piezas.length}</span>
+          <span class="punzon" style="display:block;margin-top:var(--s2);color:var(--ink-2)">${visibles.length} de ${piezas.length}</span>
         </div>` : ""}
       </div></section>`;
   }
@@ -2711,9 +2772,9 @@ function campoOpciones(label, key, items, ayuda){
   return `<div class="campo">
     <span class="punzon campo__label">${label}</span>
     <div class="opciones" data-key="${key}">
-      ${items.map(o=>`<button class="opcion${o.c?" opcion--piedra":""}" type="button" data-v="${o.id}"
+      ${items.map(o=>`<button class="opcion${o.c?" opcion--piedra":""}" type="button" data-v="${esc(o.id)}"
          aria-pressed="${String(sel[key]===o.id)}" ${o.c?`style="--c:${o.c}"`:""}>
-         ${o.c?`<span class="opcion__punto"></span>`:""}${o.label}</button>`).join("")}
+         ${o.c?`<span class="opcion__punto"></span>`:""}${esc(o.label)}</button>`).join("")}
     </div>
     ${ayuda?`<p class="campo__ayuda">${ayuda}</p>`:""}
   </div>`;
@@ -2736,7 +2797,7 @@ function pintarCampos(){
   const campos = esStock
     ? camposFull.filter(c => ["talla","grabado"].includes(c))
     : actual.variantes
-    ? camposFull.filter(c => !["material","color","acabado"].includes(c))
+    ? camposFull.filter(c => !["material","color","acabado","grabado"].includes(c))
     : camposFull;
   let html = "";
   /* Variantes: selector de estilo con precio directo */
@@ -2808,7 +2869,7 @@ function pintarCampos(){
     if(c==="carrera") html += `<div class="campo">
         <label class="punzon campo__label" for="f-carrera">Tu carrera</label>
         <input type="text" id="f-carrera" data-key="carrera" maxlength="60"
-               placeholder="Ej: Ingeniería Informática, Abogado, Medicina..."
+               placeholder="Ej.: Ingeniería Informática, Derecho, Medicina…"
                value="${esc(sel.carrera||"")}">
         <p class="campo__ayuda">Para saber el color de piedra que te corresponde.</p>
       </div>`;
@@ -2828,7 +2889,7 @@ function actualizarPrecio(){
   const mat = MATERIALES.find(m=>m.id===sel.material);
   /* Se nombra el material junto al precio: sin esto, ver "$1.447" sin saber
      que es oro 18k asusta, y no se nota que la plata cuesta una fracción. */
-  $("#modalMaterial").textContent = mat ? "en " + mat.label : "";
+  $("#modalMaterial").textContent = mat && !actual.sinMetal ? "en " + mat.label : "";
   const el = $("#modalPrecio");
   if(precioAnterior !== null && precioAnterior !== t && !reduce){
     el.classList.remove("is-cambiado"); void el.offsetWidth;
@@ -2859,8 +2920,9 @@ function resumen(sel){
     if(v) bits.push(v.label);
   } else {
     bits.push(mat ? mat.label : "");
-    if(sel.color && sel.material!=="950") bits.push("oro "+sel.color);
-    if(sel.acabado) bits.push(ACABADOS.find(a=>a.id===sel.acabado).label.toLowerCase());
+    const camposPieza = (actual && CAMPOS[actual.tipo]) || [];
+    if(sel.color && sel.material!=="950" && camposPieza.includes("color") && !actual.precio_fijo) bits.push("oro "+sel.color);
+    if(sel.acabado && camposPieza.includes("acabado")) bits.push(ACABADOS.find(a=>a.id===sel.acabado).label.toLowerCase());
   }
   if(sel.tejido && typeof TEJIDOS!=="undefined"){
     const t = TEJIDOS.find(x=>x.id===sel.tejido);
@@ -2962,6 +3024,7 @@ addEventListener("keydown", e=>{
 let ultimoFoco = null;
 const FOCABLES = 'a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])';
 function dialogoAbierto(){
+  if($("#visor") && $("#visor").classList.contains("is-open")) return $("#visor");
   if(modal.classList.contains("is-open")) return modal;
   if($("#pedido").classList.contains("is-open")) return $("#pedido");
   if($("#indice").classList.contains("is-open")) return $("#indice");
@@ -2980,7 +3043,7 @@ function bloquearFondo(on){
 }
 function devolverFoco(){
   if(dialogoAbierto()) return;
-  if(ultimoFoco && document.contains(ultimoFoco)) ultimoFoco.focus();
+  if(ultimoFoco && document.contains(ultimoFoco)) ultimoFoco.focus({preventScroll:true});
   ultimoFoco = null;
 }
 function atraparFoco(e){
@@ -3202,7 +3265,7 @@ if(tallaSec){
     const talla = Math.round(CIRC_A_TALLA(circ) * 2) / 2;   // al medio punto
     const txt = String(talla).replace(".", ",");             // 7.5 -> 7,5
     const dentro = talla >= 4 && talla <= 15;
-    const entera = Math.round(talla);
+    const entera = Math.floor(talla);   // entre dos: la justa, agrandarla es gratis
 
     if(dentro){
       const media = talla !== entera;
@@ -3264,7 +3327,10 @@ function sanearCarrito(raw){
     }))
     .slice(0, 50);   // tope sensato: nadie encarga 50 piezas de una sentada
 }
-let carrito = sanearCarrito(sessionStorage.getItem(GUARDADO));
+/* En navegadores con almacenamiento bloqueado sessionStorage lanza error:
+   sin este try la página se quedaba sin catálogo. */
+let carrito = [];
+try{ carrito = sanearCarrito(sessionStorage.getItem(GUARDADO)); }catch{ /* bloqueado */ }
 function guardarPedido(){
   try{ sessionStorage.setItem(GUARDADO, JSON.stringify(carrito)); }catch{ /* modo privado */ }
 }
@@ -3280,6 +3346,7 @@ function pintarPedido(){
   const btn = $("#pedidoBtn");
   btn.hidden = carrito.length===0;
   $("#pedidoN").textContent = carrito.length;
+  btn.setAttribute("aria-label", `Ver mi pedido (${carrito.length})`);
   $("#pedidoLista").innerHTML = carrito.length
     ? carrito.map((it,i)=>`<li class="pedido__item">
         <div><p class="pedido__item-name">${esc(it.n)}</p>
