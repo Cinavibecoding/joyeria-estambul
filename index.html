@@ -336,7 +336,7 @@ button{font:inherit;color:inherit}
 /* Enlace diseño propio — entre hero y espectro */
 .cta-diseno{padding:var(--s3) 0;text-align:center}
 .cta-diseno__texto{margin:0;font-size:.9375rem;line-height:1.4;color:var(--ink-2)}
-.cta-diseno__texto a{color:var(--lacre);font-weight:600;font-style:italic;text-decoration:none;transition:opacity .2s var(--ease)}
+.cta-diseno__texto a{color:var(--toque);font-weight:500;text-decoration:underline;text-decoration-color:var(--oro);text-underline-offset:4px;transition:opacity .2s var(--ease)}
 .cta-diseno__texto a:hover{opacity:.75}
 .hero__pruebas{
   list-style:none;margin:0;padding:0;
@@ -354,7 +354,7 @@ button{font:inherit;color:inherit}
 
 /* ---------- 4 · EL ESPECTRO (firma) ---------- */
 .espectro{padding-block:var(--s6);border-block:1px solid var(--line)}
-.espectro__head{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s4);flex-wrap:wrap;margin-bottom:var(--s5)}
+.espectro__head{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s2);margin-bottom:var(--s5)}
 .espectro__title{font-family:var(--display);font-size:clamp(1.75rem,4vw,2.5rem);line-height:1.05;margin:0}
 .espectro__note{color:var(--ink-2);max-width:38ch;margin:0}
 /* Un color no equivale a una sola carrera: hay que decirlo antes de tocar,
@@ -368,6 +368,7 @@ button{font:inherit;color:inherit}
 /* minmax(0,1fr): sin esto una palabra larga fija el ancho mínimo de la pista
    y las siete columnas dejan de ser iguales. */
 .espectro__aviso{
+  display:none;   /* repetía la instrucción de la cabecera */
   margin:0 0 var(--s4);color:var(--ink-2);font-size:.9375rem;line-height:1.5;
 }
 .espectro__aviso strong{color:var(--ink);font-weight:600}
@@ -388,8 +389,8 @@ button{font:inherit;color:inherit}
   transition:height .26s var(--ease),box-shadow .2s var(--ease);
 }
 .seg__label{
-  font-family:var(--mono);font-size:.625rem;font-weight:400;
-  text-transform:uppercase;letter-spacing:.06em;line-height:1.3;color:var(--ink-2);
+  font-family:var(--mono);font-size:.75rem;font-weight:400;
+  text-transform:uppercase;letter-spacing:.08em;line-height:1.3;color:var(--ink-2);
   overflow-wrap:anywhere;transition:color .2s var(--ease);
 }
 /* El hover sólo en dispositivos con puntero fino: en móvil :hover se queda
@@ -479,6 +480,7 @@ button{font:inherit;color:inherit}
   display:flex;flex-direction:column;gap:var(--s2);
   padding-top:var(--s4);border-top:1px solid var(--oro);
 }
+@media(min-width:900px){.espectro__libre{max-width:none;flex-direction:row;align-items:baseline;gap:var(--s5)}}
 .espectro__libre-t{
   font-family:var(--display);font-weight:400;color:var(--ink);
   font-size:clamp(1.5rem,5.2vw,1.875rem);line-height:1.15;letter-spacing:-.005em;
@@ -497,7 +499,8 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .section__head{margin-bottom:var(--s5)}
 .section__eyebrow{color:var(--ink-2);display:block;margin-bottom:var(--s3)}
 .section__title{font-family:var(--display);font-size:clamp(2rem,5.5vw,3.4rem);line-height:1;letter-spacing:-.015em;margin:0 0 var(--s3)}
-.section__title--destacado{color:var(--lacre)}
+.section__title--destacado{color:var(--toque)}
+.section__title--sub{font-size:clamp(1.75rem,4vw,2.5rem)}
 .section__lede{color:var(--ink-2);max-width:52ch;margin:0}
 /* Aviso de en qué metal está calculado el precio. Va antes del grid: un precio
    de cuatro cifras sin contexto espanta a quien no sabe que está viendo oro. */
@@ -530,7 +533,7 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .ficha-grado__metal{font-size:.9375rem;color:var(--ink)}
 .ficha-grado__nota{
   font-family:var(--display);font-style:italic;font-size:1.0625rem;
-  color:var(--ink-2);margin-top:var(--s2);max-width:28ch;line-height:1.35;
+  color:var(--toque);opacity:.8;margin-top:var(--s2);max-width:28ch;line-height:1.35;
 }
 .ficha-grado__filas{margin:0;display:flex;flex-direction:column}
 .ficha-grado__fila{
@@ -596,9 +599,9 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .card__ficha-pend{color:var(--ink-2);opacity:.78}
 .card__thread{position:absolute;top:0;left:0;right:0;height:3px;background:var(--c,transparent);z-index:1}
 .card__body{padding:var(--s4);display:flex;flex-direction:column;gap:var(--s2);flex:1}
-.card__seal{color:var(--ink-2)}
+.card__seal{color:var(--ink-2);line-height:1.45}
 .card__nuevo{
-  display:inline-block;background:var(--lacre);color:var(--panel);
+  display:inline-block;background:transparent;color:var(--toque);box-shadow:inset 0 0 0 1px var(--oro);
   padding:.25rem .5rem;border-radius:2px;letter-spacing:.12em;
 }
 .card__name{font-size:1.0625rem;font-weight:600;line-height:1.25;margin:0}
@@ -618,7 +621,7 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .card__price{font-size:1rem}
 /* Sin esto, un precio de cuatro cifras asusta sin que se sepa que es oro. */
 .card__moneda{color:var(--ink-2);font-size:.6875rem;letter-spacing:.08em}
-.card__more{color:var(--ink-2);transition:color .2s var(--ease)}
+.card__more{color:var(--toque);margin-top:var(--s1);text-decoration:underline;text-decoration-color:var(--oro);text-underline-offset:3px;transition:color .2s var(--ease)}
 .card:hover .card__more{color:var(--lacre)}
 
 /* Separador entre los modelos filtrados y el resto del catálogo. */
@@ -855,8 +858,8 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .personaliza__icon{
   display:inline-flex;align-items:center;justify-content:center;
   width:2rem;height:2rem;border-radius:50%;
-  background:var(--oro);color:var(--ground);
-  font-weight:700;font-size:.875rem;flex-shrink:0;
+  background:transparent;border:1px solid var(--oro);color:var(--toque);
+  font-family:var(--display);font-weight:500;font-size:1rem;flex-shrink:0;
 }
 .personaliza__paso{font-family:var(--display);font-size:1.1rem;margin:0;line-height:1.2}
 .personaliza__desc{color:var(--ink-2);font-size:.9375rem;line-height:1.5;margin:0}
@@ -889,18 +892,9 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .faq__a{overflow:hidden;min-height:0;padding-bottom:0}
 .faq__item[open] .faq__a{padding-bottom:var(--s6)}
 /* Ítem destacado para talleres — fondo oscuro, letra clara */
-.faq__item--taller{
-  background:var(--toque);border-color:rgba(247,249,247,.18);
-  padding-inline:var(--s5);margin-inline:calc(-1 * var(--s5));
-  border-radius:var(--radius);
-}
-.faq__item--taller .faq__q{color:var(--panel)}
-.faq__item--taller .faq__q::after{color:var(--panel);opacity:.5}
-.faq__item--taller .faq__q:hover{color:#fff}
-.faq__item--taller .faq__a{color:var(--panel)}
-.faq__item--taller .faq__a strong{font-weight:600}
-.faq__item--taller .btn--primary{background:var(--panel);color:var(--toque)}
-.faq__item--taller .btn--primary:hover{background:#fff}
+/* Pregunta para talleres: se distingue con un filete de oro, no con un
+   bloque oscuro que gritaba más que el resto de la página. */
+.faq__item--taller{border-left:1px solid var(--oro);padding-inline:var(--s4)}
 
 /* Reutilizar estilos existentes dentro del acordeón */
 .faq .talla__grid{margin:0}
@@ -918,9 +912,11 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .footer__text{color:var(--ink-2);margin:0 0 var(--s4);max-width:36ch}
 .footer__aviso{
   margin:var(--s7) 0 0;padding-top:var(--s4);border-top:1px solid var(--line);
-  color:var(--ink-2);font-size:.8125rem;line-height:1.6;max-width:78ch;
+  color:var(--ink-2);font-size:.8125rem;line-height:1.6;
 }
+.footer__aviso > *{max-width:78ch}
 .footer__legal{margin-top:var(--s4);color:var(--ink-2);display:flex;justify-content:space-between;gap:var(--s4);flex-wrap:wrap}
+.footer__legal > *{white-space:nowrap}
 
 /* Botón flotante de WhatsApp. Antes era una barra a lo ancho que reaparecía
    en cada scroll hacia arriba: tapaba contenido y molestaba. Ahora es un botón
@@ -1153,7 +1149,7 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 /* ---------- Sellos de la tarjeta ---------- */
 .card__sello{display:inline-block;padding:.25rem .5rem;border-radius:2px;letter-spacing:.12em}
 .card__sello--unica{background:var(--toque);color:var(--panel)}
-.card__sello--stock{background:var(--lacre);color:var(--panel)}
+.card__sello--stock{background:transparent;color:var(--toque);box-shadow:inset 0 0 0 1px var(--oro)}
 .card__medida{color:var(--ink-2)}
 /* La institución grabada. Va en lacre porque es el dato que hace que una
    graduanda pare el scroll: no busca un anillo bonito, busca EL de su casa. */
@@ -1373,7 +1369,7 @@ document.documentElement.classList.add("js");
         </svg>
         <span class="pedido-btn__txt">Pedido</span><span class="pedido-btn__n" id="pedidoN">0</span>
       </button>
-      <a class="btn btn--primary btn--sm" data-wa="tienda" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer"><span class="nav__cta-corto">Escribir</span><span class="nav__cta-largo">Escribir a la tienda</span></a>
+      <a class="btn btn--ghost btn--sm" data-wa="tienda" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer"><span class="nav__cta-corto">Escribir</span><span class="nav__cta-largo">Escribir a la tienda</span></a>
     </div>
   </nav>
 </header>
@@ -1820,7 +1816,7 @@ document.documentElement.classList.add("js");
         <p class="footer__text">Joyería y taller de orfebrería en Caracas. Piezas en oro 10k, 14k, 18k y plata Ley 950, hechas a mano.</p>
         <p class="footer__text">Lo que compras es oro. Se usa, se hereda, y sigue valiendo lo que vale el metal.</p>
         <p class="footer__text">Aceptamos bolívares a la tasa BCV, Pago Móvil, Zelle, Binance (USDT) y efectivo.</p>
-        <p class="punzon" style="color:var(--ink-2)">Ley 950 · Oro 18k · Hecho a mano · Pieza única</p>
+        <p class="punzon" style="color:var(--ink-2);line-height:1.6">Ley 950 · Oro 18k · Hecho a mano · A la medida</p>
       </div>
       <div>
         <span class="punzon footer__label">Atención al público</span>
@@ -1966,7 +1962,7 @@ document.documentElement.classList.add("js");
   </div>
 </div>
 
-<script src="catalogo.js?v=17"></script>
+<script src="catalogo.js?v=18"></script>
 <script>
 /* ============================================================
    MOTOR DE PRECIO — interno. La interfaz sólo muestra el resultado:
@@ -2389,8 +2385,10 @@ function reconstruirIndice(){
   INDICE = GRADO.concat(Object.values(REGISTRO).flat());
 }
 /* Cuántas piezas se muestran de entrada y cuántas suma cada pulsación. */
-const TANDA = 6;
-const CAT_INICIAL = 6;
+/* Múltiplo de las columnas: 8 en pantallas de 4 columnas, 6 en las de 2-3.
+   Así ninguna sección termina con una fila coja. */
+const TANDA = matchMedia("(min-width:1000px)").matches ? 8 : 6;
+const CAT_INICIAL = TANDA;
 let visiblesGrado = TANDA, visiblesCatalogo = TANDA;
 let visiblesPorCat = {}; /* slug → cantidad visible */
 
@@ -2691,7 +2689,7 @@ function pintarCatalogo(){
     html += `<section class="section" id="cat-${esc(slug)}">
       <div class="wrap">
         <div class="section__head reveal">
-          <h2 class="section__title">${esc(cat)}</h2>
+          <h2 class="section__title section__title--sub">${esc(cat)}</h2>
           <div class="aviso-precio">
             <p class="aviso-precio__p">Precios en <strong>plata Ley 950</strong>. Abre la pieza para verla en oro.</p>
           </div>
