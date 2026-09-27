@@ -296,10 +296,20 @@ button{font:inherit;color:inherit}
 /* Tablet horizontal y computadora: el video vertical va entero a la
    derecha y el texto a la izquierda sobre fondo oscuro. */
 @media(min-width:900px){
-  .hero__foto video{position:absolute;top:0;right:0;left:auto;width:auto;height:100%;
-    aspect-ratio:9/16;transform:none;object-fit:cover;
-    -webkit-mask-image:linear-gradient(to right,transparent 0,#000 35%);
-            mask-image:linear-gradient(to right,transparent 0,#000 35%)}
+  /* Computadora: el anillo ocupa el 60 % derecho, grande y centrado, y se
+     funde hacia la izquierda; el texto va a la izquierda, centrado en alto. */
+  .hero{align-items:center;min-height:min(78vh,760px)}
+  .hero__foto video{position:absolute;top:0;right:0;left:auto;width:60%;height:100%;
+    transform:none;object-fit:cover;object-position:50% 54%;
+    -webkit-mask-image:linear-gradient(to right,transparent 0,#000 32%);
+            mask-image:linear-gradient(to right,transparent 0,#000 32%)}
+  .hero__velo{background:linear-gradient(to right,
+    rgba(15,20,19,.96) 0%, rgba(15,20,19,.9) 34%,
+    rgba(15,20,19,.35) 58%, rgba(15,20,19,0) 78%)}
+  /* El bloque de texto se alinea con el margen de la página (como el logo),
+     no centrado: así queda a la izquierda y no encima del anillo. */
+  .hero .hero__contenido{max-width:var(--wrap)}
+  .hero__contenido > *{max-width:34rem}
 }
 /* Velo: sin él el texto blanco no llega al contraste mínimo sobre la foto. */
 .hero__velo{
