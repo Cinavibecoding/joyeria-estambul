@@ -108,7 +108,7 @@ button{font:inherit;color:inherit}
   text-transform:uppercase;letter-spacing:.16em;line-height:1;
 }
 .dato{font-family:var(--mono);font-weight:500;letter-spacing:.02em;font-variant-numeric:tabular-nums}
-:focus-visible{outline:2px solid var(--lacre);outline-offset:3px;border-radius:2px}
+:focus-visible{outline:1px solid var(--ink-2);outline-offset:3px;border-radius:2px}
 .skip{position:absolute;left:-9999px;top:0;background:var(--toque);color:var(--panel);padding:var(--s3) var(--s4);z-index:100}
 .skip:focus{left:var(--s4);top:var(--s4)}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -299,13 +299,17 @@ button{font:inherit;color:inherit}
   /* Computadora: el anillo ocupa el 60 % derecho, grande y centrado, y se
      funde hacia la izquierda; el texto va a la izquierda, centrado en alto. */
   .hero{align-items:center;min-height:min(78vh,760px)}
-  .hero__foto video{position:absolute;top:0;right:0;left:auto;width:60%;height:100%;
+  .hero__foto video{position:absolute;top:0;right:0;left:auto;width:72%;height:100%;
     transform:none;object-fit:cover;object-position:50% 54%;
-    -webkit-mask-image:linear-gradient(to right,transparent 0,#000 32%);
-            mask-image:linear-gradient(to right,transparent 0,#000 32%)}
+    -webkit-mask-image:linear-gradient(to right,transparent 0,rgba(0,0,0,.25) 10%,rgba(0,0,0,.7) 22%,#000 34%);
+            mask-image:linear-gradient(to right,transparent 0,rgba(0,0,0,.25) 10%,rgba(0,0,0,.7) 22%,#000 34%)}
+  /* El oscuro solo detrás del texto: el anillo se ve en casi todo el hero. */
   .hero__velo{background:linear-gradient(to right,
-    rgba(15,20,19,.96) 0%, rgba(15,20,19,.9) 34%,
-    rgba(15,20,19,.35) 58%, rgba(15,20,19,0) 78%)}
+    rgba(15,20,19,.9) 0%, rgba(15,20,19,.72) 24%,
+    rgba(15,20,19,.3) 40%, rgba(15,20,19,0) 52%)}
+  /* Con margen a los lados se ven las cuatro esquinas redondeadas; pegado
+     al borde de la ventana las de arriba quedaban cortadas. */
+  .hero{margin-inline:clamp(12px,2vw,32px)}
   /* El bloque de texto se alinea con el margen de la página (como el logo),
      no centrado: así queda a la izquierda y no encima del anillo. */
   .hero .hero__contenido{max-width:var(--wrap)}
@@ -3051,7 +3055,7 @@ function bloquearFondo(on){
 }
 function devolverFoco(){
   if(dialogoAbierto()) return;
-  if(ultimoFoco && document.contains(ultimoFoco)) ultimoFoco.focus({preventScroll:true});
+  if(ultimoFoco && document.contains(ultimoFoco)) ultimoFoco.focus({preventScroll:true, focusVisible:false});
   ultimoFoco = null;
 }
 function atraparFoco(e){
