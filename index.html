@@ -2271,7 +2271,9 @@ barra.addEventListener("click", e=>{
 });
 document.addEventListener("click", e=>{
   if(e.target.closest("#irModelos")){
-    irA("#grado");
+    /* Directo a los anillos ya filtrados (fila de colores + grilla),
+       no al inicio de la sección con la ficha de precio. */
+    irA("#colorChips");
   }
   if(e.target.closest("#verTodasAbajo")){
     piedraActiva = null; visiblesGrado = TANDA;
