@@ -380,10 +380,13 @@ button{font:inherit;color:inherit}
 .seg{
   position:relative;border:0;padding:0;cursor:pointer;background:transparent;text-align:left;
   display:flex;flex-direction:column;gap:var(--s2);
-  opacity:0;transform:translateY(6px) scaleY(.92);transform-origin:bottom;
+  transform-origin:bottom;
   transition:opacity .34s var(--ease),transform .34s var(--ease);
 }
-.espectro.is-struck .seg{opacity:1;transform:none}
+/* Los colores se ven siempre. Solo se esconden para la entrada animada
+   cuando el script lo pide (.is-anim); si Safari no dispara el observador,
+   un temporizador los muestra igual. */
+.espectro.is-anim:not(.is-struck) .seg{opacity:0;transform:translateY(6px) scaleY(.92)}
 /* El chip crece hacia arriba dentro de una caja de alto fijo: si creciera hacia
    abajo, la etiqueta del color activo se desalinearía de las otras seis. */
 .seg__caja{height:52px;display:flex;align-items:flex-end}
@@ -3466,9 +3469,22 @@ if(reduce){
   $$(".reveal").forEach(el=>el.classList.add("is-in"));
 }else{
   $$(".seg",barra).forEach((s,i)=>s.style.transitionDelay = `${i*58}ms`);
-  new IntersectionObserver((ent,o)=>{
-    ent.forEach(x=>{ if(x.isIntersecting){ esp.classList.add("is-struck"); o.disconnect(); }});
-  },{threshold:.35}).observe(esp);
+  const r0 = esp.getBoundingClientRect();
+  /* Solo se anima si la sección aún está por debajo de la pantalla. */
+  if(r0.top > innerHeight){
+    esp.classList.add("is-anim");
+    const ioEsp = new IntersectionObserver((ent,o)=>{
+      ent.forEach(x=>{ if(x.isIntersecting){ esp.classList.add("is-struck"); o.disconnect(); }});
+    },{threshold:0, rootMargin:"0px 0px -15% 0px"});
+    ioEsp.observe(esp);
+    /* Red de seguridad: si el observador no responde, se muestran igual. */
+    addEventListener("scroll", function chequeo(){
+      if(esp.getBoundingClientRect().top < innerHeight*.9){
+        esp.classList.add("is-struck"); ioEsp.disconnect();
+        removeEventListener("scroll", chequeo);
+      }
+    }, {passive:true});
+  }
   /* El observer se guarda en window para que pintarCatalogo() pueda
      registrar las secciones que crea después del arranque. */
   window.__revealIO = new IntersectionObserver(ent=>{
