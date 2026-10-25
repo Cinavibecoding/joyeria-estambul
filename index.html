@@ -522,6 +522,17 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 }
 .aviso-precio__p{margin:0;color:var(--ink-2);font-size:.9375rem;line-height:1.6}
 .aviso-precio__p strong{color:var(--ink);font-weight:600}
+/* Selector de orden por precio */
+.orden{display:inline-flex;align-items:center;gap:var(--s2);margin-top:var(--s3)}
+.orden__label{color:var(--ink-2)}
+.orden__select{
+  font:inherit;font-size:.875rem;padding:.55rem .7rem;min-height:44px;
+  background:var(--field);border:1px solid var(--line);border-radius:var(--radius);color:var(--ink);
+}
+.orden__select:focus{border-color:var(--ink);outline:none}
+.orden-barra{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s2) var(--s4);margin-bottom:var(--s4)}
+.orden-barra .orden{margin-top:0}
+.orden-barra__nota{margin:0;color:var(--ink-2);font-size:.875rem;max-width:52ch}
 
 /* Ficha de precio de Anillos de Grado.
    Jerarquía: una cifra grande, tres filas con etiqueta, un enlace.
@@ -1011,19 +1022,24 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 
 /* El precio no puede quedar al final de una lista larga de opciones: al
    cambiar de quilate hay que verlo cambiar sin bajar la pantalla. Se queda
-   pegado al borde inferior mientras se recorren las opciones. */
+   pegado al borde inferior, pero en UNA sola fila (precio + WhatsApp): la
+   versión de dos pisos ocupaba un cuarto del teléfono y no dejaba moverse. */
 .modal__pie{
   position:sticky;bottom:0;z-index:3;margin-top:auto;
   background:var(--panel);border-top:1px solid var(--line);
-  padding:var(--s4) var(--s5) var(--s5);
+  padding:var(--s3) var(--s5);
   margin-inline:calc(var(--s5) * -1);margin-bottom:calc(var(--s5) * -1);
   border-radius:0 0 var(--radius) var(--radius);
   box-shadow:0 -10px 24px -16px rgba(22,29,28,.5);
-  display:flex;flex-direction:column;gap:var(--s3);
+  display:flex;align-items:center;justify-content:space-between;gap:var(--s3);
 }
-.precio{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);flex-wrap:wrap}
+.modal__pie .btn{flex:0 0 auto;padding:.75rem 1.1rem;font-size:.875rem}
+/* "Agregar al pedido" sale del pie: va al final de las opciones. */
+.modal__extra{display:flex;flex-direction:column;gap:var(--s2)}
+.modal__extra .btn{width:100%}
+.precio{display:flex;flex-direction:column;gap:.1rem;min-width:0}
 .precio__izq{display:flex;flex-direction:column;gap:.15rem}
-.precio__mat{color:var(--ink-2);text-align:right}
+.precio__mat{color:var(--ink-2)}
 /* Destello al recalcular: confirma que el cambio de material surtió efecto.
    Sin cambio de color de texto — el lacre es el color de "acción/alerta" y
    usarlo en algo que ocurre a cada toque lo desgasta y suena a error.
@@ -1039,7 +1055,7 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 }
 .precio__valor.is-cambiado{animation:precioCambia .5s var(--ease)}
 .precio__label{color:var(--ink-2)}
-.precio__valor{font-family:var(--mono);font-weight:500;font-size:1.75rem;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.precio__valor{font-family:var(--mono);font-weight:500;font-size:1.5rem;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
 .precio__nota{color:var(--ink-2);font-size:.8125rem;margin:0;width:100%}
 /* Va dentro del pie fijo: antes quedaba debajo de la barra, fuera de la
    pantalla, y el argumento de las copias gratis no lo veía nadie. */
@@ -1055,10 +1071,30 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 /* En pantallas cortas el pie llegaba a ocupar más de la mitad: se aprieta el
    espaciado y el aviso del regalo para que quepan las opciones. */
 @media(max-height:700px),(max-width:360px){
-  .modal__pie{padding:var(--s3) var(--s4) var(--s4);gap:var(--s2)}
+  .modal__pie{padding:var(--s2) var(--s4)}
   .modal__regalo{padding:var(--s2) var(--s3);font-size:.75rem;line-height:1.35}
-  .precio__valor{font-size:1.5rem}
-  .modal__acciones .btn{flex:1 1 120px;padding:.7rem 1rem;font-size:.875rem}
+  .precio__valor{font-size:1.3rem}
+}
+
+/* Comparador de metales: cada opción dice cuánto sale la pieza en ese
+   metal, con lo que ya se escogió. La pregunta "¿y en 18k?" se responde
+   sin tocar nada. */
+.opciones--metal{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s2)}
+@media(min-width:520px){.opciones--metal{grid-template-columns:repeat(4,1fr)}}
+.opciones--metal .opcion{
+  flex-direction:column;align-items:flex-start;justify-content:center;gap:.2rem;
+  padding:.65rem .8rem;text-align:left;
+}
+.opcion__precio{font-family:var(--mono);font-size:1.05rem;font-variant-numeric:tabular-nums}
+
+/* En el teléfono la foto llenaba toda la primera pantalla y las opciones
+   quedaban escondidas debajo. Se limita su alto para que se vea qué tocar. */
+@media(max-width:819px){
+  .modal__media{aspect-ratio:auto;height:min(44vh,380px)}
+  .modal__media img{object-fit:contain}
+  .modal__panel{padding:var(--s4) var(--s4) var(--s5)}
+  .modal__pie{margin-inline:calc(var(--s4) * -1);padding-inline:var(--s4)}
+  .modal__title{font-size:1.6rem}
 }
 
 /* ---------- Galería de la ficha ----------
@@ -1485,6 +1521,9 @@ document.documentElement.classList.add("js");
          cada pieza todavía está por confirmar. -->
     <div class="estilos" id="estilos" role="group" aria-label="Estilo del anillo"></div>
     <div class="color-chips" id="colorChips" role="group" aria-label="Filtrar por color de piedra"></div>
+    <div class="orden-barra" id="ordenGrado">
+      <p class="orden-barra__nota">Precios aproximados en plata Ley 950. El precio exacto te lo confirmamos por WhatsApp.</p>
+    </div>
     <div class="grid" id="grado-grid"></div>
     <div class="vermas" id="grado-vermas" hidden>
       <div class="vermas__fila">
@@ -1888,9 +1927,13 @@ document.documentElement.classList.add("js");
 
     <div>
       <span class="punzon indice__titulo">Preguntas frecuentes</span>
-      <a class="indice__destacado indice__destacado--taller" href="#faq-taller-b2b" data-faq="faq-taller-b2b">
-        <span class="indice__dt">¿Eres un taller o joyería?</span>
-        <span class="indice__dd">Fabricación para terceros y Resina Bluecast.</span>
+      <a class="indice__destacado" href="#faq-ubicacion" data-faq="faq-ubicacion">
+        <span class="indice__dt">¿Dónde queda la tienda?</span>
+        <span class="indice__dd">Minicentro París, centro de Caracas. Sin cita.</span>
+      </a>
+      <a class="indice__destacado" href="#faq-comprar" data-faq="faq-comprar">
+        <span class="indice__dt">¿Cómo pago, cuánto tarda y cómo llega?</span>
+        <span class="indice__dd">Pago Móvil, Zelle, Binance (USDT) y más. Envíos a todo el país.</span>
       </a>
       <a class="indice__destacado" href="#faq-talla" data-faq="faq-talla">
         <span class="indice__dt">¿Cuál es mi talla?</span>
@@ -1900,17 +1943,13 @@ document.documentElement.classList.add("js");
         <span class="indice__dt">¿Hacen piezas a la medida?</span>
         <span class="indice__dd">Mándanos la foto y te cotizamos. Diseño 3D incluido.</span>
       </a>
-      <a class="indice__destacado" href="#faq-ubicacion" data-faq="faq-ubicacion">
-        <span class="indice__dt">¿Dónde queda la tienda?</span>
-        <span class="indice__dd">Minicentro París, centro de Caracas. Sin cita.</span>
-      </a>
-      <a class="indice__destacado" href="#faq-comprar" data-faq="faq-comprar">
-        <span class="indice__dt">¿Cómo pago, cuánto tarda y cómo llega?</span>
-        <span class="indice__dd">Pago Móvil, Zelle, Binance (USDT) y más. Envíos a todo el país.</span>
-      </a>
       <a class="indice__destacado" href="#faq-ahorro" data-faq="faq-ahorro">
         <span class="indice__dt">¿El oro es buen ahorro?</span>
         <span class="indice__dd">Se usa, se hereda, y mientras tanto sigue siendo oro.</span>
+      </a>
+      <a class="indice__destacado indice__destacado--taller" href="#faq-taller-b2b" data-faq="faq-taller-b2b">
+        <span class="indice__dt">¿Eres un taller o joyería?</span>
+        <span class="indice__dd">Fabricación para terceros y Resina Bluecast.</span>
       </a>
     </div>
 
@@ -1937,18 +1976,16 @@ document.documentElement.classList.add("js");
         </div>
       </div>
       <div id="modalCampos" style="display:flex;flex-direction:column;gap:var(--s4)"></div>
+      <div class="modal__extra">
+        <button class="btn btn--ghost" id="modalAdd" type="button">Agregar al pedido y seguir viendo</button>
+        <p class="campo__ayuda">Para encargar varias piezas en un solo mensaje.</p>
+      </div>
       <div class="modal__pie">
         <div class="precio">
-          <div class="precio__izq">
-            <span class="punzon precio__label" id="precioLabel">Precio aproximado</span>
-            <span class="dato precio__valor" id="modalPrecio" aria-live="polite">—</span>
-          </div>
+          <span class="dato precio__valor" id="modalPrecio" aria-live="polite">—</span>
           <span class="punzon precio__mat" id="modalMaterial"></span>
         </div>
-        <div class="modal__acciones">
-          <button class="btn btn--ghost" id="modalAdd" type="button">Agregar al pedido</button>
-          <a class="btn btn--primary" id="modalWa" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
-        </div>
+        <a class="btn btn--primary" id="modalWa" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Pedir por WhatsApp</a>
       </div>
     </div>
   </div>
@@ -2095,7 +2132,12 @@ function pesoAjustado(p, sel){
   if(sel.largoP) g *= sel.largoP / 18;
   return g;   // en aros y zarcillos el peso base ya corresponde al par
 }
-function calcular(p, sel){
+/* Regla general: todo precio se redondea a la decena más cercana.
+   $113 → $110, $116 → $120, $127 → $130, $266 → $270. Es un precio
+   aproximado y una cifra redonda se lee y se repite más fácil. */
+function redondear(n){ return n >= 10 ? Math.round(n / 10) * 10 : n; }
+function calcular(p, sel){ return redondear(calcularExacto(p, sel)); }
+function calcularExacto(p, sel){
   /* ── Piezas con precio fijo o variantes ── */
   if(p.variantes && sel.variante){
     const v = p.variantes.find(x=>x.id===sel.variante);
@@ -2151,11 +2193,16 @@ function calcular(p, sel){
    entra ve una cifra que no asusta y sube desde ahí si quiere oro. Al revés
    —empezar en oro— la mitad se va antes de tocar nada. */
 const MATERIAL_BASE = "950";
+function medidaInicial(p){
+  if(p.tipo === "grado" && !p.sinPiedra)
+    return ["10x8","10x12"].includes(p.medida) ? "10x8" : "6x4";
+  return p.medida || (p.sinPiedra ? "6x4" : "6x8");
+}
 function precioDesde(p){
-  /* Para grado: "desde" = la medida más barata QUE LE CABE a ese anillo.
-     Uno de cara chica arranca en 6x4; uno macizo, en 10x8. */
-  let medDesde = p.medida || "6x8";
-  if(p.tipo === "grado") medDesde = ["10x8","10x12"].includes(p.medida) ? "10x8" : "6x4";
+  /* La tarjeta ya no dice "desde": enseña el precio con el que abre la
+     ventana. En grado es la medida más barata que le cabe al anillo (6x4 en
+     los de cara chica, 10x8 en los macizos); el cliente la sube ahí. */
+  const medDesde = medidaInicial(p);
   return calcular(p, {
     material: p.metalBase || MATERIAL_BASE,
     medida: medDesde,
@@ -2167,6 +2214,33 @@ function precioDesde(p){
   });
 }
 const fmt = n => "$" + n.toLocaleString("es-VE");
+
+/* Orden por precio: la gente pregunta "¿cuáles son los de $100?". Un solo
+   orden para toda la página: si lo cambia en grado, las cadenas y los aros
+   salen igual. "" = el orden de siempre (los más vistosos primero). */
+let ordenPrecio = "";
+function ordenarPorPrecio(lista){
+  if(!ordenPrecio) return lista;
+  const pr = new Map(lista.map(p=>[p, precioDesde(p)]));
+  const signo = ordenPrecio === "desc" ? -1 : 1;
+  return lista.slice().sort((a,b)=> signo * (pr.get(a) - pr.get(b)));
+}
+function selectorOrden(){
+  const op = (v,t)=>`<option value="${v}"${ordenPrecio===v?" selected":""}>${t}</option>`;
+  return `<label class="orden"><span class="punzon orden__label">Ordenar</span>
+    <select class="orden__select" data-orden>
+      ${op("","Destacados")}${op("asc","Precio: de menor a mayor")}${op("desc","Precio: de mayor a menor")}
+    </select></label>`;
+}
+document.querySelector("#ordenGrado").insertAdjacentHTML("beforeend", selectorOrden());
+document.addEventListener("change", e=>{
+  if(!e.target.matches("[data-orden]")) return;
+  ordenPrecio = e.target.value;
+  visiblesGrado = TANDA;
+  pintarGrado();
+  pintarCatalogo();
+  $$("[data-orden]").forEach(x=>{ x.value = ordenPrecio; });
+});
 
 const $  = (s,r=document)=>r.querySelector(s);
 const $$ = (s,r=document)=>Array.from(r.querySelectorAll(s));
@@ -2374,11 +2448,11 @@ function tarjeta(p, i){
       <h3 class="card__name">${esc(p.n)}</h3>
       ${"" /* carreras quitadas de las tarjetas por decisión de Victor */}
       ${p.institucion ? `<span class="punzon card__inst">${esc(p.institucion)}</span>` : ""}
-      ${p.medida && !(p.tipo==="grado" && p.sinPiedra) ? `<span class="punzon card__medida">${(q=>q[0].toUpperCase()+q.slice(1))(queMide(p))} ${esc(p.medida)} mm</span>` : ""}
+      ${p.medida && !(p.tipo==="grado" && p.sinPiedra) ? `<span class="punzon card__medida">${(q=>q[0].toUpperCase()+q.slice(1))(queMide(p))} ${p.tipo==="grado" ? (["10x8","10x12"].includes(p.medida) ? "10x8 o 10x12" : "6x4 o 6x8") : esc(p.medida)} mm</span>` : ""}
       <div class="card__foot">
         <span class="card__precio-caja">
-          <span class="dato card__price">${p.precio_fijo && !p.variantes ? "" : "desde&nbsp;"}${fmt(precioDesde(p))}</span>
-          ${p.sinMetal ? "" : `<span class="punzon card__moneda">en ${p.metalBase ? ((MATERIALES.find(m=>m.id===p.metalBase)||{}).label||"Oro 10k").replace(/^Oro/,"oro") : "plata Ley 950"}</span>`}
+          <span class="dato card__price">${fmt(precioDesde(p))}</span>
+          ${p.sinMetal ? "" : `<span class="punzon card__moneda">aprox. en ${p.metalBase ? ((MATERIALES.find(m=>m.id===p.metalBase)||{}).label||"Oro 10k").replace(/^Oro/,"oro") : "plata Ley 950"}</span>`}
         </span>
         <span class="punzon card__more">Personalizar</span>
       </div>
@@ -2629,7 +2703,7 @@ function filtrarGrado(){
      sale antes). Sin número van después; a igual orden, el más barato. */
   const desde = new Map(filtrados.map(g=>[g, precioDesde(g)]));
   filtrados.sort((a,b)=> ((a.orden||500)-(b.orden||500)) || (desde.get(a)-desde.get(b)));
-  return filtrados;
+  return ordenarPorPrecio(filtrados);
 }
 function pintarGrado(){
   reconstruirIndice();
@@ -2692,7 +2766,7 @@ function pintarCatalogo(){
       </div></section>`;
   }
   for(const cat of categorias){
-    const piezas = piezasDe(cat);
+    const piezas = ordenarPorPrecio(piezasDe(cat));
     const slug = cat.toLowerCase().replace(/\s+/g,"-").replace(/[^a-z0-9-]/g,"");
     const limite = visiblesPorCat[slug] || CAT_INICIAL;
     const visibles = piezas.slice(0, limite);
@@ -2702,8 +2776,9 @@ function pintarCatalogo(){
         <div class="section__head reveal">
           <h2 class="section__title section__title--sub">${esc(cat)}</h2>
           <div class="aviso-precio">
-            <p class="aviso-precio__p">Precios en <strong>plata Ley 950</strong>. Abre la pieza para verla en oro.</p>
+            <p class="aviso-precio__p">Precios aproximados en <strong>plata Ley 950</strong>. Abre la pieza para verla en oro. El precio exacto te lo confirmamos por WhatsApp.</p>
           </div>
+          ${selectorOrden()}
         </div>
         <div class="grid">${visibles.map(p=>tarjeta(p, INDICE.indexOf(p))).join("")}</div>
         ${faltan > 0 ? `<div class="vermas" style="text-align:center;padding:var(--s5) 0">
@@ -2798,6 +2873,19 @@ function campoOpciones(label, key, items, ayuda){
     ${ayuda?`<p class="campo__ayuda">${ayuda}</p>`:""}
   </div>`;
 }
+/* Metal con su precio al lado: se calcula la pieza tal como está armada,
+   cambiando solo el metal. */
+function campoMetal(mats, ayuda){
+  return `<div class="campo">
+    <span class="punzon campo__label">Material · compara el precio</span>
+    <div class="opciones opciones--metal" data-key="material">
+      ${mats.map(m=>`<button class="opcion" type="button" data-v="${esc(m.id)}" aria-pressed="${String(sel.material===m.id)}">
+         <span>${esc(m.label)}</span>
+         <span class="opcion__precio">${fmt(calcular(actual, {...sel, material:m.id}))}</span></button>`).join("")}
+    </div>
+    ${ayuda?`<p class="campo__ayuda">${ayuda}</p>`:""}
+  </div>`;
+}
 function campoSelect(label, key, valores, sufijo, ayuda){
   return `<div class="campo">
     <label class="punzon campo__label" for="f-${key}">${label}</label>
@@ -2840,9 +2928,10 @@ function pintarCampos(){
          (ej. zarcillos que solo se hacen en oro 18k). */
       const matFilt = actual.materiales ? MATERIALES.filter(m=>actual.materiales.includes(m.id))
                     : actual.tipo==="cadena" ? MATERIALES.filter(m=>m.id==="950"||m.id==="18k") : MATERIALES;
-      html += campoOpciones("Material y ley","material",matFilt,
+      html += campoMetal(matFilt,
         actual.materiales ? "Este modelo solo se hace en " + matFilt.map(m=>m.label.toLowerCase()).join(" o ") + "."
-        : actual.tipo==="cadena" ? "Las cadenas solo se fabrican en oro 18k o plata Ley 950." : "");
+        : actual.tipo==="cadena" ? "Las cadenas solo se fabrican en oro 18k o plata Ley 950."
+        : "Precio aproximado de esta pieza en cada metal, con lo que ya escogiste.");
     }
     if(c==="color" && sel.material!=="950" && !actual.precio_fijo)
       html += campoOpciones("Color del oro","color",COLORES, sel.color==="blanco" ? "El oro blanco lleva baño de rodio." : "");
@@ -2857,7 +2946,9 @@ function pintarCampos(){
       html += campoOpciones(qm==="piedra" ? "Tamaño de piedra" : qm==="eslabón" ? "Tamaño del eslabón" : "Medida","medida",
                           medFilt.map(m=>({id:m.id, label:m.id+" mm"})),
                           (actual.tipo==="grado"
-                            ? "Ya viene marcada la medida del anillo de la foto. Solo te mostramos las que le caben a este modelo. "
+                            ? (actual.medida && actual.medida !== medidaInicial(actual)
+                              ? `El de la foto lleva piedra ${esc(actual.medida)} mm. Arranca en la más pequeña que le cabe; escoge la otra si lo quieres igual. `
+                              : "Solo te mostramos las medidas que le caben a este modelo. ")
                             : qm==="eslabón" ? "Mientras más grueso el eslabón, más oro lleva y más sube el precio. "
                             : "La más pedida es la 6x8. Mientras más grande, más sube el precio. ")
                           + "<a href=\"#faq-medidas\" class=\"campo__enlace\">Ver las medidas a escala</a>");
@@ -2928,6 +3019,10 @@ function actualizarPrecio(){
   /* Mientras la pieza no tenga peso confirmado se dice "Consultar" en vez de
      inventar una cifra. Un precio equivocado en joyería no es un detalle. */
   $("#modalPrecio").textContent = fmt(t);
+  /* La talla o el largo cambian el peso: el comparador se pone al día. */
+  $$(".opciones--metal .opcion").forEach(b=>{
+    b.querySelector(".opcion__precio").textContent = fmt(calcular(actual, {...sel, material:b.dataset.v}));
+  });
   $("#modalWa").href = waLink(mensaje(actual, sel, t));
 }
 function resumen(sel){
@@ -2983,7 +3078,7 @@ function abrirModal(p){
     carrera: "",
     piedra: p.piedra || null,
     piedraOpc: "",
-    medida: p.medida || (p.sinPiedra ? "6x4" : "6x8"),
+    medida: medidaInicial(p),
     tejido: p.tejido || (p.tipo==="cadena" ? "marino" : null),
     /* Sin talla de entrada: si viniera marcada la 7, llegarían pedidos con
        una talla que el cliente nunca escogió. Se exige antes de escribir. */
