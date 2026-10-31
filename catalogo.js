@@ -31,18 +31,30 @@ const SPOT = { oro24_g: ORO_ONZA/31.1035, plata999_g: PLATA_ONZA/31.1035, fecha:
 const OBRA  = { oro:45, plata:10 };            // dólares por gramo trabajado
 const EXTRA = { rodio:20, engaste:25, piedra_chica:3 };
 
-/* PIEDRERÍA: además de los $3 por piedra, el anillo pesa más porque cada
-   piedrita lleva su asiento de metal. Gramos EXTRA que se suman al peso:
+/* PIEDRERÍA (aros y demás piezas, NO anillos de grado): además de los $3
+   por piedra, la pieza pesa más porque cada piedrita lleva su asiento de
+   metal. Gramos EXTRA que se suman al peso:
      hasta 10 piedritas  → +0,5 g
-     más de 10           → +1 g
-   En plata casi no se nota (~$1-2); en oro sí (1 g de 18k ≈ $100). */
+     más de 10           → +1 g */
 const PIEDRERIA_PESO = [ {hasta:10, g:0.5}, {hasta:Infinity, g:1} ];
 
-/* PESO SEGÚN MEDIDA (sólo anillos de grado en oro).
-   A más piedra, más metal alrededor. Gramos que se suman o restan al peso
-   base de la pieza (que corresponde a una 6x8).
-   ⚠ ESTIMADO — Victor: confirmar con el taller y ajustar aquí. */
-const PESO_MEDIDA = { "6x4":-1, "6x8":0, "10x8":1, "10x12":2 };
+/* ANILLOS DE GRADO EN ORO — calibrado 30 oct 2026 con precios reales del
+   taller (tabla en Marca y Documentos/precios-reales.csv, fuera del repo):
+     oro = gramos × ley × precio del oro + HECHURA_GRADO_ORO + piedrería
+   Gramos de la pieza según la medida de la piedra (anillo de 6,5 g en plata).
+   6x4 y 10x8 salen de precios reales (6x4 10k $700, 10x8 clásico 10k $1.100);
+   6x8 y 10x12 están interpolados — confirmar con el taller. */
+const PESO_GRADO_ORO    = { "6x4":5.5, "6x8":7, "10x8":13, "10x12":15 };
+const HECHURA_GRADO_ORO = 400;
+
+/* PIEDRERÍA EN ANILLOS DE GRADO: el taller la cobra por tramos, no por
+   piedra. Dólares que se suman según cuántas piedritas lleva el anillo. */
+const PIEDRERIA_GRADO = [
+  {hasta:10,       plata:10, oro:50 },
+  {hasta:30,       plata:30, oro:50 },
+  {hasta:40,       plata:30, oro:100},
+  {hasta:Infinity, plata:60, oro:300}
+];
 
 /* ------------------------------------------------------------
    3. MEDIDAS

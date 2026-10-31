@@ -2150,27 +2150,22 @@ function calcularExacto(p, sel){
   /* ── Anillos de grado: precio fijo por medida ──
      Se venden por pieza, no por gramo: el molde ya existe y la hechura
      se cobra fija. El precio base está en plata (PRECIOS_GRADO).
-     Para oro se calcula: precio_plata − metal_plata + metal_oro.       */
+     En oro: gramos × ley × oro + hechura fija + piedrería (catalogo.js,
+     calibrado con precios reales del taller).                          */
   if(p.tipo === "grado" && typeof PRECIOS_GRADO !== "undefined"){
     const med = sel.medida || p.medida || "6x8";
     const est = p.estilo || "clasico";
     const tabla = PRECIOS_GRADO[est] || PRECIOS_GRADO.clasico;
-    const base = tabla[med] || tabla["6x8"];
-    /* El precio base en plata ya incluye el peso normal de la pieza. Lo que
-       se suma aparte es el metal extra: el de la piedrería (en plata y oro)
-       y, en oro, el de una piedra más grande o más chica que la 6x8. */
-    const gBase  = p.g || 6.5;
-    const gExtra = gramosPiedreria(p);
-    let total = base + gExtra * 0.95 * SPOT.plata999_g;
-    if(mat.metal !== "plata"){
-      const gMed  = (typeof PESO_MEDIDA !== "undefined" && PESO_MEDIDA[med]) || 0;
-      const gOro  = Math.max(gBase + gMed + gExtra, 1);
-      const metalPlata = gBase * 0.95 * SPOT.plata999_g;
-      const metalOro   = gOro * LEY[mat.id] * SPOT.oro24_g;
-      total = base - metalPlata + metalOro;
+    const tramo = p.piedreria ? PIEDRERIA_GRADO.find(t => p.piedreria <= t.hasta) : null;
+    let total;
+    if(mat.metal === "plata"){
+      total = (tabla[med] || tabla["6x8"]) + (tramo ? tramo.plata : 0);
+    } else {
+      /* Las piezas más livianas que el anillo normal (6,5 g) pesan menos en oro. */
+      const gOro = (PESO_GRADO_ORO[med] || PESO_GRADO_ORO["6x8"]) * (p.g || 6.5) / 6.5;
+      total = gOro * LEY[mat.id] * SPOT.oro24_g + HECHURA_GRADO_ORO + (tramo ? tramo.oro : 0);
     }
     if(sel.color === "blanco") total += EXTRA.rodio;
-    if(p.piedreria) total += p.piedreria * EXTRA.piedra_chica;
     return Math.round(total);
   }
 
