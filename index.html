@@ -2036,7 +2036,7 @@ document.documentElement.classList.add("js");
   </div>
 </div>
 
-<script src="catalogo.js?v=20"></script>
+<script src="catalogo.js?v=21"></script>
 <script>
 /* ============================================================
    MOTOR DE PRECIO — interno. La interfaz sólo muestra el resultado:
@@ -2163,7 +2163,6 @@ function pesoAjustado(p, sel){
 /* Regla general: todo precio se redondea a la decena más cercana.
    $113 → $110, $116 → $120, $127 → $130, $266 → $270. Es un precio
    aproximado y una cifra redonda se lee y se repite más fácil. */
-const TIPOS_ANILLO = ["grado","anillo","aro","matrimonio","compromiso"];
 function redondear(n){ return n >= 10 ? Math.round(n / 10) * 10 : n; }
 function calcular(p, sel){ return redondear(calcularExacto(p, sel)); }
 function calcularExacto(p, sel){
@@ -2193,7 +2192,8 @@ function calcularExacto(p, sel){
       /* Las piezas más livianas que el anillo normal (6,5 g) pesan menos en oro. */
       const gOro = (PESO_GRADO_ORO[med] || PESO_GRADO_ORO["6x8"]) * (p.g || 6.5) / 6.5;
       total = gOro * LEY[mat.id] * SPOT.oro24_g + HECHURA_GRADO_ORO + (tramo ? tramo.oro : 0);
-      total = Math.max(total, MINIMO_ORO_ANILLO);
+      const piso = PESO_GRADO_ORO[MEDIDA_PISO_GRADO] * LEY[mat.id] * SPOT.oro24_g + HECHURA_GRADO_ORO;
+      total = Math.max(total, piso);
     }
     if(sel.color === "blanco") total += EXTRA.rodio;
     return Math.round(total);
@@ -2207,7 +2207,6 @@ function calcularExacto(p, sel){
   if(sel.piedraOpc) total += EXTRA.engaste;
   /* Piedrería: piedras chicas alrededor del engaste (~$3 c/u). */
   if(p.piedreria) total += p.piedreria * EXTRA.piedra_chica;
-  if(mat.metal === "oro" && TIPOS_ANILLO.includes(p.tipo)) total = Math.max(total, MINIMO_ORO_ANILLO);
   if(sel.color === "blanco") total += EXTRA.rodio;
   return Math.round(total);
 }

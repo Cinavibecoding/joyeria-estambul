@@ -47,10 +47,12 @@ const PIEDRERIA_PESO = [ {hasta:10, g:0.5}, {hasta:Infinity, g:1} ];
 const PESO_GRADO_ORO    = { "6x4":5.5, "6x8":7, "10x8":13, "10x12":15 };
 const HECHURA_GRADO_ORO = 400;
 
-/* PISO EN ORO: ningún anillo (grado, aros, compromiso…) sale en oro por
-   debajo de esto. Decisión de Victor 31 oct 2026, tras una clienta que vio
-   un 10k a $400 en la web cuando el taller lo cobra $750. */
-const MINIMO_ORO_ANILLO = 700;
+/* PISO EN ORO (solo anillos de grado): una pieza más liviana que lo normal
+   nunca sale más barata que el anillo de grado 6x4 sin piedrería en ese
+   mismo quilate (~$700 en 10k, sube en 14k y 18k con el oro). Decisión de
+   Victor 31 oct 2026, tras una clienta que vio un 10k a $400 en la web.
+   Aros de boda y compromiso NO llevan piso: pesan menos y llevan menos hechura. */
+const MEDIDA_PISO_GRADO = "6x4";
 
 /* PIEDRERÍA EN ANILLOS DE GRADO: el taller la cobra por tramos, no por
    piedra. Dólares que se suman según cuántas piedritas lleva el anillo. */
