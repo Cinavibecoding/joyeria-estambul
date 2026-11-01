@@ -534,6 +534,29 @@ section[id],#talla,#comprar{scroll-margin-top:80px}
 .orden-barra .orden{margin-top:0}
 .orden-barra__nota{margin:0;color:var(--ink-2);font-size:.875rem;max-width:52ch}
 
+/* AVISO DE PRECIO EXACTO — el mismo sello en todo lugar donde hay un precio.
+   31 oct 2026: una clienta llegó a la tienda con un precio viejo de la web.
+   Tiene que leerse sin buscarlo: etiqueta en punzón + frase corta, con filete
+   de oro de 1px (el oro nunca rellena) sobre el fondo del panel. */
+.aviso-exacto{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:.35rem .75rem;
+  margin:0;padding:.7rem .95rem;max-width:62ch;
+  background:var(--panel);border:1px solid var(--oro);border-radius:var(--radius);
+  color:var(--ink-2);font-size:.875rem;line-height:1.5;
+}
+.aviso-exacto__sello{color:var(--toque);white-space:nowrap}
+.aviso-exacto__sello::before{content:"≈";font-family:var(--display);font-size:1.05rem;letter-spacing:0;margin-right:.4rem;color:var(--oro)}
+.aviso-exacto strong{color:var(--ink);font-weight:600}
+.aviso-exacto--compacto{padding:.5rem .75rem;font-size:.8125rem}
+/* Franja fija arriba de todo: el aviso de la página entera. */
+.franja-precio{
+  background:var(--toque);color:var(--panel);text-align:center;
+  padding:.55rem var(--s4);line-height:1.4;
+}
+.franja-precio .punzon{font-size:.625rem;letter-spacing:.14em;line-height:1.5}
+.franja-precio__largo{display:none}
+@media(min-width:720px){.franja-precio__largo{display:inline}.franja-precio__corto{display:none}}
+
 /* Ficha de precio de Anillos de Grado.
    Jerarquía: una cifra grande, tres filas con etiqueta, un enlace.
    Móvil: todo apilado. Desde 700px: cifra a la izquierda, filas a la derecha. */
@@ -1391,6 +1414,10 @@ document.documentElement.classList.add("js");
 <a class="skip" href="#contenido">Ir al contenido</a>
 
 
+<div class="franja-precio" role="note">
+  <span class="punzon franja-precio__largo">Todos los precios son aproximados · El precio exacto te lo confirmamos por WhatsApp o en la tienda</span>
+  <span class="punzon franja-precio__corto">Precios aproximados · El exacto, por WhatsApp o en la tienda</span>
+</div>
 <header class="nav">
   <nav class="wrap nav__row" aria-label="Principal">
     <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="indice">
@@ -1522,7 +1549,7 @@ document.documentElement.classList.add("js");
     <div class="estilos" id="estilos" role="group" aria-label="Estilo del anillo"></div>
     <div class="color-chips" id="colorChips" role="group" aria-label="Filtrar por color de piedra"></div>
     <div class="orden-barra" id="ordenGrado">
-      <p class="orden-barra__nota">Precios aproximados en plata Ley 950. El precio exacto te lo confirmamos por WhatsApp.</p>
+      <p class="aviso-exacto"><span class="punzon aviso-exacto__sello">Precio aproximado</span><span>En plata Ley 950; ábrelo para verlo en oro. El precio exacto te lo confirmamos <strong>por WhatsApp o en la tienda</strong>.</span></p>
     </div>
     <div class="grid" id="grado-grid"></div>
     <div class="vermas" id="grado-vermas" hidden>
@@ -1971,7 +1998,7 @@ document.documentElement.classList.add("js");
         <div>
           <span class="punzon modal__eyebrow" id="modalSeal"></span>
           <h2 class="modal__title" id="modalTitle"></h2>
-          <p id="modalDisclaimer" style="margin:var(--s1) 0 0;font-size:.75rem;color:var(--ink-2)">Precio base de referencia · cotización exacta por WhatsApp</p>
+          <p id="modalDisclaimer" style="margin-top:var(--s3)" class="aviso-exacto aviso-exacto--compacto"><span class="punzon aviso-exacto__sello">Precio aproximado</span><span>El precio exacto te lo confirmamos <strong>por WhatsApp o en la tienda</strong>.</span></p>
           <p class="modal__regalo" id="modalRegalo" hidden></p>
         </div>
       </div>
@@ -2004,11 +2031,12 @@ document.documentElement.classList.add("js");
       <span class="dato precio__valor" id="pedidoTotal">—</span>
       <p class="precio__nota">Referencia en dólares. Se acepta pago en bolívares a la tasa BCV del día.</p>
     </div>
+    <p class="aviso-exacto aviso-exacto--compacto"><span class="punzon aviso-exacto__sello">Precio aproximado</span><span>El precio exacto te lo confirmamos <strong>por WhatsApp o en la tienda</strong>.</span></p>
     <a class="btn btn--primary btn--block" id="pedidoWa" href="https://wa.me/584242765908" target="_blank" rel="noopener noreferrer">Enviar pedido por WhatsApp</a>
   </div>
 </div>
 
-<script src="catalogo.js?v=18"></script>
+<script src="catalogo.js?v=20"></script>
 <script>
 /* ============================================================
    MOTOR DE PRECIO — interno. La interfaz sólo muestra el resultado:
@@ -2135,6 +2163,7 @@ function pesoAjustado(p, sel){
 /* Regla general: todo precio se redondea a la decena más cercana.
    $113 → $110, $116 → $120, $127 → $130, $266 → $270. Es un precio
    aproximado y una cifra redonda se lee y se repite más fácil. */
+const TIPOS_ANILLO = ["grado","anillo","aro","matrimonio","compromiso"];
 function redondear(n){ return n >= 10 ? Math.round(n / 10) * 10 : n; }
 function calcular(p, sel){ return redondear(calcularExacto(p, sel)); }
 function calcularExacto(p, sel){
@@ -2164,6 +2193,7 @@ function calcularExacto(p, sel){
       /* Las piezas más livianas que el anillo normal (6,5 g) pesan menos en oro. */
       const gOro = (PESO_GRADO_ORO[med] || PESO_GRADO_ORO["6x8"]) * (p.g || 6.5) / 6.5;
       total = gOro * LEY[mat.id] * SPOT.oro24_g + HECHURA_GRADO_ORO + (tramo ? tramo.oro : 0);
+      total = Math.max(total, MINIMO_ORO_ANILLO);
     }
     if(sel.color === "blanco") total += EXTRA.rodio;
     return Math.round(total);
@@ -2173,11 +2203,12 @@ function calcularExacto(p, sel){
   const g   = pesoAjustado(p, sel);
   const spot = mat.metal==="oro" ? SPOT.oro24_g : SPOT.plata999_g;
   let total = g * LEY[mat.id] * spot + g * OBRA[mat.metal];
-  if(sel.color === "blanco") total += EXTRA.rodio;
   /* El grabado va incluido: no suma al precio. */
   if(sel.piedraOpc) total += EXTRA.engaste;
   /* Piedrería: piedras chicas alrededor del engaste (~$3 c/u). */
   if(p.piedreria) total += p.piedreria * EXTRA.piedra_chica;
+  if(mat.metal === "oro" && TIPOS_ANILLO.includes(p.tipo)) total = Math.max(total, MINIMO_ORO_ANILLO);
+  if(sel.color === "blanco") total += EXTRA.rodio;
   return Math.round(total);
 }
 /* Precio de tarjeta: oro 10k, que es la entrada real en oro. Antes se calculaba
@@ -2771,7 +2802,7 @@ function pintarCatalogo(){
         <div class="section__head reveal">
           <h2 class="section__title section__title--sub">${esc(cat)}</h2>
           <div class="aviso-precio">
-            <p class="aviso-precio__p">Precios aproximados en <strong>plata Ley 950</strong>. Abre la pieza para verla en oro. El precio exacto te lo confirmamos por WhatsApp.</p>
+            <p class="aviso-exacto"><span class="punzon aviso-exacto__sello">Precio aproximado</span><span>En plata Ley 950; abre la pieza para verla en oro. El precio exacto te lo confirmamos <strong>por WhatsApp o en la tienda</strong>.</span></p>
           </div>
           ${selectorOrden()}
         </div>
@@ -2792,6 +2823,7 @@ function pintarCatalogo(){
           <h2 class="section__title section__title--destacado">Stock Limitado</h2>
           <div class="aviso-precio">
             <p class="aviso-precio__p">Piezas listas para entregar. Disponibilidad sujeta a existencia.</p>
+            <p class="aviso-exacto"><span class="punzon aviso-exacto__sello">Precio aproximado</span><span>El precio exacto te lo confirmamos <strong>por WhatsApp o en la tienda</strong>.</span></p>
           </div>
         </div>
         <div class="grid">${stockPiezas.map(p=>tarjeta(p, INDICE.indexOf(p))).join("")}</div>
@@ -2994,7 +3026,7 @@ function actualizarPrecio(){
   const mat = MATERIALES.find(m=>m.id===sel.material);
   /* Se nombra el material junto al precio: sin esto, ver "$1.447" sin saber
      que es oro 18k asusta, y no se nota que la plata cuesta una fracción. */
-  $("#modalMaterial").textContent = mat && !actual.sinMetal ? "en " + mat.label : "";
+  $("#modalMaterial").textContent = mat && !actual.sinMetal ? "aprox. en " + mat.label : "aprox.";
   const el = $("#modalPrecio");
   if(precioAnterior !== null && precioAnterior !== t && !reduce){
     el.classList.remove("is-cambiado"); void el.offsetWidth;
