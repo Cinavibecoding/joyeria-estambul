@@ -54,6 +54,12 @@ const HECHURA_GRADO_ORO = 400;
    Aros de boda y compromiso NO llevan piso: pesan menos y llevan menos hechura. */
 const MEDIDA_PISO_GRADO = "6x4";
 
+/* EL ANILLO DE GRADO MÁS BARATO (el de $100 en plata: clásico 6x4 sin
+   piedrería) sale ~$500 en oro 10k según el taller (31 oct 2026). En 14k y
+   18k se le suma solo la diferencia de oro. No lleva el piso de arriba. */
+const PLATA_GRADO_BASICO  = 100;
+const ORO10K_GRADO_BASICO = 500;
+
 /* PIEDRERÍA EN ANILLOS DE GRADO: el taller la cobra por tramos, no por
    piedra. Dólares que se suman según cuántas piedritas lleva el anillo. */
 const PIEDRERIA_GRADO = [

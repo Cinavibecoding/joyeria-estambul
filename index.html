@@ -2036,7 +2036,7 @@ document.documentElement.classList.add("js");
   </div>
 </div>
 
-<script src="catalogo.js?v=21"></script>
+<script src="catalogo.js?v=22"></script>
 <script>
 /* ============================================================
    MOTOR DE PRECIO — interno. La interfaz sólo muestra el resultado:
@@ -2185,9 +2185,13 @@ function calcularExacto(p, sel){
     const est = p.estilo || "clasico";
     const tabla = PRECIOS_GRADO[est] || PRECIOS_GRADO.clasico;
     const tramo = p.piedreria ? PIEDRERIA_GRADO.find(t => p.piedreria <= t.hasta) : null;
+    const enPlata = (tabla[med] || tabla["6x8"]) + (tramo ? tramo.plata : 0);
     let total;
     if(mat.metal === "plata"){
-      total = (tabla[med] || tabla["6x8"]) + (tramo ? tramo.plata : 0);
+      total = enPlata;
+    } else if(enPlata <= PLATA_GRADO_BASICO){
+      const gOro = PESO_GRADO_ORO[med] || PESO_GRADO_ORO["6x4"];
+      total = ORO10K_GRADO_BASICO + gOro * (LEY[mat.id] - LEY["10k"]) * SPOT.oro24_g;
     } else {
       /* Las piezas más livianas que el anillo normal (6,5 g) pesan menos en oro. */
       const gOro = (PESO_GRADO_ORO[med] || PESO_GRADO_ORO["6x8"]) * (p.g || 6.5) / 6.5;
